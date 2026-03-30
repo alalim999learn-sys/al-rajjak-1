@@ -2,15 +2,19 @@
 
 
 // app/layout.tsx
+// app/layout.tsx
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "./Navbar"; 
 import Footer from "./Footer";
 
-
 export const metadata: Metadata = {
   title: "Shanon Khan | Cybersecurity & AI Expert",
-  description: "Professional portfolio of Shanon Khan, specializing in Next.js, Flutter, and Custom AI Training for global businesses.",
+  description:
+    "Professional portfolio of Shanon Khan, specializing in Next.js, Flutter, and Custom AI Training for global businesses.",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({
@@ -28,9 +32,6 @@ export default function RootLayout({
         <main className="min-h-screen">
           {children}
         </main>
-
-        {/* এআই চ্যাট উইজেট - সব পেজের জন্য */}
-   
 
         {/* ফুটার */}
         <Footer />

@@ -1,6 +1,7 @@
 
 
 
+//kontakt/page.tsx
 import Navbar from "../Navbar";
 import Link from 'next/link';
 

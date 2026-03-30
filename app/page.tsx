@@ -43,7 +43,7 @@ export default function Home() {
         <div className="flex-1 relative flex justify-center">
           <div className="w-64 h-64 md:w-[400px] md:h-[400px] bg-blue-700 rounded-[2.5rem] overflow-hidden shadow-2xl rotate-3 hover:rotate-0 transition duration-500 border-8 border-white">
             <Image 
-              src="/shanon-99.jfif" 
+              src="/shanon-99.png" 
               alt="Shanon Khan - KI Experte" 
               fill
               className="grayscale hover:grayscale-0 transition duration-500 object-cover"
