@@ -1,3 +1,6 @@
+
+
+//Navbar
 "use client";
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Shield, ArrowRight } from 'lucide-react';
@@ -14,37 +17,38 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // জার্মান ভাষায় আপডেট করা ন্যাভিগেশন লিঙ্কস
   const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'Services', href: '/#services' },
-    { name: 'About', href: '/about' },
-    { name: 'Terms', href: '/terms' },
-    { name: 'Impressum', href: '/impressum' },
-    { name: 'Privacy', href: '/privacy-policy' },
+    { name: 'Startseite', href: '/' },             // Home -> Startseite
+    { name: 'Leistungen', href: '/#services' },     // Services -> Leistungen
+    { name: 'Über mich', href: '/ueber-mich' },      // About -> Über mich
+    { name: 'Kontakt', href: '/kontakt' },          // Kontakt যোগ করা হয়েছে
+    { name: 'Impressum', href: '/impressum' },      
+    { name: 'Datenschutz', href: '/datenschutz' }, // Privacy -> Datenschutz
+    { name: 'AGB', href: '/agb' },           // এজিবি লিঙ্ক যোগ করা হলো
   ];
 
   return (
     <>
-      {/* Navbar: Inline Style দিয়ে একদম সলিড কালো নিশ্চিত করা হয়েছে */}
       <nav 
-        style={{ backgroundColor: '#000000' }} // Pure Black
+        style={{ backgroundColor: '#000000' }} 
         className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 border-b border-white/10 ${
           isScrolled ? 'py-3 shadow-2xl' : 'py-5'
         }`}
       >
         <div className="max-w-[1400px] mx-auto px-6 flex justify-between items-center">
           
-          {/* Logo - White Text */}
+          {/* Logo */}
           <a href="/" className="flex items-center gap-2 shrink-0 group">
             <div className="bg-white p-1.5 rounded-lg group-hover:bg-blue-600 transition-colors">
               <Shield className="text-black group-hover:text-white" size={18} />
             </div>
-            <span className="text-xl font-black tracking-tighter text-white">
+            <span className="text-xl font-black tracking-tighter text-white uppercase">
               SHANON<span className="text-blue-500">-ALAM</span>
             </span>
           </a>
 
-          {/* Desktop Navigation - All White Text */}
+          {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-7">
             <div className="flex items-center space-x-6 text-[11px] font-black uppercase tracking-widest text-white">
               {navLinks.map((link) => (
@@ -58,12 +62,13 @@ export default function Navbar() {
               ))}
             </div>
             
-            <a href="/#contact" className="bg-white text-black px-6 py-2.5 rounded-xl text-xs font-black hover:bg-blue-600 hover:text-white transition-all flex items-center gap-2 group shrink-0">
-              Get Started <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+            {/* CTA Button in German */}
+            <a href="/kontakt" className="bg-white text-black px-6 py-2.5 rounded-xl text-xs font-black hover:bg-blue-600 hover:text-white transition-all flex items-center gap-2 group shrink-0">
+              JETZT STARTEN <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
             </a>
           </div>
 
-          {/* Mobile Toggle Button - White */}
+          {/* Mobile Toggle Button */}
           <button 
             className="lg:hidden p-2 text-white hover:bg-white/10 rounded-xl transition"
             onClick={() => setIsOpen(!isOpen)}
@@ -72,7 +77,7 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Menu Overlay - Full Black */}
+        {/* Mobile Menu Overlay */}
         <div 
           style={{ backgroundColor: '#000000' }}
           className={`lg:hidden absolute top-full left-0 w-full border-t border-white/10 shadow-2xl transition-all duration-300 ease-in-out ${
@@ -91,8 +96,8 @@ export default function Navbar() {
               </a>
             ))}
             
-            <a href="/#contact" onClick={() => setIsOpen(false)} className="bg-white text-black py-4 rounded-2xl text-center text-md font-black mt-4 active:scale-95 transition-transform">
-              Start Project
+            <a href="/kontakt" onClick={() => setIsOpen(false)} className="bg-white text-black py-4 rounded-2xl text-center text-md font-black mt-4 active:scale-95 transition-transform uppercase">
+              PROJEKT STARTEN
             </a>
           </div>
         </div>
