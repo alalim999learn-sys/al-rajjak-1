@@ -6,7 +6,14 @@
 import React from 'react';
 import { ArrowLeft, AlertTriangle, CreditCard, Cpu } from 'lucide-react';
 import Navbar from "../Navbar";
+import { Metadata } from 'next';
 
+
+export const metadata: Metadata = {
+  title: 'AGB | Shanon Alam - KI-Automatisierung & IT-Sicherheit',
+  description: 'Allgemeine Geschäftsbedingungen für die Dienstleistungen von Shanon Khan.',
+  robots: 'noindex', 
+};
 
 export default function TermsAndConditions() {
   return (

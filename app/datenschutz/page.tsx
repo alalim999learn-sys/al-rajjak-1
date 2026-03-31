@@ -2,6 +2,15 @@
 
 
 // app/page.tsx
+import { Metadata } from 'next';
+
+
+
+export const metadata: Metadata = {
+  title: 'Datenschutzerklärung | Shanon Alam', // অথবা Shanon Alam, যেটি আপনার ব্র্যান্ড নাম
+  description: 'Informationen zum Umgang mit Ihren persönlichen Daten bei Shanon Khan.',
+  robots: 'noindex', 
+};
 import Link from 'next/link';
 import { ArrowLeft, ShieldCheck, Lock, EyeOff, Info } from 'lucide-react';
 import Navbar from "../Navbar"; // নিশ্চিত করো তোমার প্রজেক্টে এই পাথ ঠিক আছে

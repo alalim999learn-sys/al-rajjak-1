@@ -1,5 +1,6 @@
 
 
+
 //impressum/page.tsx
 import Link from 'next/link';
 import Navbar from "../Navbar";
@@ -13,7 +14,14 @@ import {
   MessageSquare, 
   ExternalLink 
 } from 'lucide-react';
+import { Metadata } from 'next';
 
+
+export const metadata: Metadata = {
+  title: 'Impressum | Shanon Alam',
+  description: 'Rechtliche Informationen und Kontakt details von Shanon Khan.',
+  robots: 'noindex', // লিগ্যাল পেজ সাধারণত গুগল সার্চে না রাখাই ভালো
+};
 export default function Impressum() {
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-blue-100 relative overflow-hidden">

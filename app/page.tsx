@@ -12,7 +12,12 @@ import {
   Mail,
   Globe
 } from 'lucide-react';
+import { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: 'Shanon Alam | KI-Automatisierungsexperte',
+  description: 'Skalieren Sie Ihr Unternehmen mit KI-Agenten. Automatisierung für Solo-Experten.',
+};
 export default function Home() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans relative">

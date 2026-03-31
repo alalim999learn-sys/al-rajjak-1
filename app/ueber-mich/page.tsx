@@ -1,7 +1,13 @@
 
 
 
+
 //ueber-mich/page.tsx
+import { Metadata } from 'next';
+export const metadata: Metadata = {
+  title: 'Über mich | Shanon Alam - KI-Experte',
+  description: 'Erfahren Sie mehr über Shanon Khan, Ihren Experten für KI-Automatisierung und IT-Sicherheit.',
+};
 export default function UeberMichPage() {
   return (
     /* margin-top: 100px করা হয়েছে যাতে পেজটা ওপর থেকে একটু নিচে নামে */

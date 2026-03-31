@@ -2,13 +2,20 @@
 
 
 //kontakt/page.tsx
-import Navbar from "../Navbar";
+import { Metadata } from 'next';
+
+
+export const metadata: Metadata = {
+  title: 'Kontakt | Shanon Alam - Ihr KI-Automatisierungspartner',
+  description: 'Haben Sie Fragen zur KI-Automatisierung? Kontaktieren Sie Shanon Khan für eine kostenlose Erstberatung.',
+};
+
 import Link from 'next/link';
 
 export default function KontaktPage() {
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-blue-100 relative overflow-hidden">
-      <Navbar />
+     
       
       {/* Background Decor */}
       <div className="absolute top-0 right-0 w-1/3 h-[600px] bg-gradient-to-l from-blue-50 to-transparent -z-10 opacity-70" />
