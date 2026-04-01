@@ -69,7 +69,7 @@ export const companies: Company[] = [
     id: "glanz-1",
     name: "Glanz Gebäudereinigung",
     slug: "glanz-gebaeudereinigung",
-    logo: "/logos/glan.png",
+    logo: "/logos/glan99.png",
     agentName: "Zeljka",
     welcomeMsg: "Willkommen! Ich bin Zeljka. Wir bringen Glanz in Ihre Büros und Privaträume. Was kann ich für Sie tun? ✨\n\nHinweis: Ich beherrsche alle Sprachen. Schreiben Sie mir einfach in Ihrer bevorzugten Sprache!",
     placeholder: "Fragen Sie nach Büro-, Praxis- oder Privatreinigung...",
