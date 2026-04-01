@@ -197,7 +197,29 @@ export const companies: Company[] = [
     specialty: "Garten- & Landschaftspflege",
     coverage: "Filderstadt, Stuttgart & Umgebung",
     ownerTitle: "Inhaber: Max Brandt"
-  }
+  },
+    {
+    "id": "boss-transporte-1",
+    "name": "Firma Boss Transporte",
+    "slug": "boss-transporte",
+    "logo": "/logos/boss1.png",
+    "agentName": "Akram",
+    "welcomeMsg": "Assalamu Alaikum! Ich bin Akram. Wir sind Ihr zuverlässiger Partner für Umzüge, Transporte und Entrümpelungen in Berlin. Wie kann ich Ihnen heute helfen? 🚛\n\nHinweis: Ich beherrsche alle Sprachen. Schreiben Sie mir einfach in Ihrer bevorzugten Sprache!",
+    "placeholder": "Frage zu Umzug, Möbeltaxi oder Entsorgung...",
+    "buttonText": "Kostenloses Angebot anfordern",
+    "price": "Individuelles Angebot für Ihren Transport",
+    "category": "Transport & Logistik",
+    "email": "kontakt@bosstransporte.de",
+    "phone": "01791239064",
+    "mobile": "01795687878",
+    "address": "Silbersteinstraße 115, 12051 Berlin",
+    "mapsLink": "https://www.google.com/maps/place/Boss+Transporte/@52.46562,12.8163587,10z/data=!3m1!5s0x47a84f9aa0d6f4e3:0x5e5bc0d5fbd80fe8!4m10!1m2!2m1!1sSpedition+Berlin+T%C3%BCrkisch!3m6!1s0x47a84fa93d79a06d:0xe0cf3e945aaa3dc8!8m2!3d52.46562!4d13.4260999!15sChpTcGVkaXRpb24gQmVybGluIFTDvHJraXNjaFocIhpzcGVkaXRpb24gYmVybGluIHTDvHJraXNjaJIBEHNoaXBwaW5nX2NvbXBhbnmaASNDaFpEU1VoTk1HOW5TMFZKUTBGblNVUlNiMHRsVFZObkVBReABAPoBBQi_AhBG!16s%2Fg%2F11h2qp17_x?entry=ttu&g_ep=EgoyMDI2MDMzMC4wIKXMDSoASAFQAw%3D%3D",
+    "specialty": "Umzüge, Möbel-Taxi & Entsorgung",
+    "coverage": "Berlin, Brandenburg, Potsdam & bundesweit",
+    "ownerTitle": "Geschäftsführer: Akram El-Khatib"
+}
+
+
 ];
 
 export const getCompanyBySlug = (slug: string) => {

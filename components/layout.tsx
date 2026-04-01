@@ -31,3 +31,9 @@ export default function Layout({ children }: LayoutProps) {
     </>
   );
 }
+/*
+git  add . 
+git commit -m "HU"
+git push origin main 
+
+*/
