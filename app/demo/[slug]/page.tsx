@@ -22,26 +22,44 @@ export default async function DemoPage({ params }: { params: Promise<{ slug: str
   }
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-4">
-      <div className="max-w-md w-full bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-100">
-        
-        {/* ৪. ডাইনামিক স্টাইল - এখানে company.avatar বা নির্দিষ্ট কালার ব্যবহার করতে পারো */}
-        <div className="p-6 border-b text-center" style={{ backgroundColor: `#f3f4f6` }}>
-         <img 
-              src={company.logo} 
-              alt={company.name} 
-              style={{ height: '64px', margin: '0 auto 16px', objectFit: 'contain' }} 
-            />
-          <h1 className="text-xl font-bold text-gray-800">{company.name} AI Assistant</h1>
-          <p className="text-sm text-gray-500">{company.category}</p>
-        </div>
-        
-        {/* ৫. পুরো company অবজেক্টটি পাঠানোই ভালো যাতে AI সব ইনফো পায় */}
-        <ChatInterface 
-          companyData={company} 
-          slug={slug}
-        />
+   <main className="min-h-screen flex flex-col items-center justify-start bg-slate-50 p-4 pt-16 md:pt-24">
+  <div className="max-w-[360px] w-full bg-white shadow-xl rounded-[2rem] overflow-hidden border border-gray-100 flex flex-col">
+    
+    {/* Header Section - Padding কমিয়ে p-6 করা হয়েছে */}
+    <div className="p-6 border-b text-center bg-white"> 
+      <div className="flex justify-center mb-3">
+      <img 
+  src={company.logo} 
+  alt={company.name} 
+  style={{ 
+    height: '40px', 
+    maxWidth: '120px', // অথবা '40%' 
+    width: 'auto',     // এটি লোগোকে চ্যাপ্টা হতে দেবে না
+    objectFit: 'contain',
+    opacity: 0.9 
+  }} 
+/>
       </div>
-    </main>
+      
+      {/* ক্যাটাগরি টেক্সট আরও ছোট করা হয়েছে (text-[10px]) */}
+      <p className="text-[10px] font-bold text-blue-500/80 uppercase tracking-[0.15em]">
+        {company.category}
+      </p>
+    </div>
+    
+    {/* Chat Interface Section */}
+    <div className="flex-1 bg-white">
+      <ChatInterface 
+        companyData={company} 
+        slug={slug}
+      />
+    </div>
+  </div>
+
+  {/* Footer Credit */}
+  <p className="mt-6 text-gray-300 text-[10px] font-semibold uppercase tracking-widest">
+    Powered by Shanon Alam
+  </p>
+</main>
   );
 }

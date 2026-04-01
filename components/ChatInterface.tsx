@@ -123,7 +123,7 @@ export default function ChatInterface({ companyData, slug }: { companyData: Comp
           </span>
           <span style={{ color: '#22c55e', fontSize: '11px', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '2px' }}>
             <span style={{ width: '6px', height: '6px', backgroundColor: '#22c55e', borderRadius: '50%', display: 'inline-block' }}></span>
-            {companyData?.agentName} (Online)
+            {companyData?.agentName} KI-Assistent
           </span>
         </div>
       </div>
@@ -265,3 +265,5 @@ const inputStyle: React.CSSProperties = {
   outline: 'none',
   boxSizing: 'border-box'
 };
+
+
