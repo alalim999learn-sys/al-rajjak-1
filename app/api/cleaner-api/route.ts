@@ -4,9 +4,24 @@
 //C:\Users\Shanon\al-rajjak-1\app\api\cleaner-api\route.ts
 import { NextResponse } from 'next/server';
 
+// ১. টাইপস্ক্রিপ্ট এরর এড়াতে ইন্টারফেস ডিফাইন করা
+interface CompanyData {
+  agentName: string;
+  name: string;
+  address: string;
+  category: string;
+  price: string;
+  coverage?: string;
+  buttonText: string;
+  phone: string;
+  email: string;
+  mobile?: string;
+  welcomeMsg: string;
+}
+
 export async function POST(req: Request) {
   try {
-    const { messages, companyData } = await req.json();
+    const { messages, companyData }: { messages: any[], companyData: CompanyData } = await req.json();
 
     const systemPrompt = {
       role: "system",
@@ -16,33 +31,33 @@ export async function POST(req: Request) {
         STRICT RULES:
         1. TOPIC FOCUS: Only discuss cleaning services (Office, House, Window, Construction, etc.). 
         2. NO ADVICE: Do not give medical, legal, or general life advice. 
-        3. RESPONSE STYLE: Keep replies very short and professional. No long paragraphs.
-        
+        3. RESPONSE STYLE: Keep replies very short and professional.
+
+        GREETING PROTOCOL:
+        - When the user speaks Bengali, use professional greetings like "হ্যালো" or "সুপ্রভাত". 
+        - DO NOT use "নমস্কার" or "আদাব" to keep the brand tone neutral and international.
+        - In German, use "Guten Tag" or "Hallo".
+
         LOCATIONS & MAPS:
         - Our address is: ${companyData.address}.
-        - CRITICAL RULE: When providing our location or address, DO NOT include any raw URL links (http://...) in your text response.
-        - Instead, write the physical address and then add the exact tag "[SHOW_MAP_BUTTON]" at the very end of your message.
-        - Example: "You can find us at ${companyData.address}. [SHOW_MAP_BUTTON]"
+        - DO NOT include raw URL links.
+        - Add the exact tag "[SHOW_MAP_BUTTON]" at the very end of your message when mentioning the location.
 
         STRICT MULTILINGUAL CAPABILITY:
-        - RULE: You MUST always respond in the language used by the user in their last message.
-        - If the user speaks English, answer in English. If Bangla, answer in Bangla. If German, answer in German.
-        - DO NOT switch back to German unless the user speaks German.
-        - All business details (services, prices, address) must be translated into the user's current language.
-        - Briefly mention in your first response that you can assist in many languages (English, German, Bangla, etc.).
+        - You MUST respond in the language used by the user (English/Bangla/German).
+        - Briefly mention in your FIRST response that you can assist in English, German, and Bangla.
 
-        BUSINESS CONTEXT (Translate these to the user's language):
+        BUSINESS CONTEXT:
         - Category: ${companyData.category}
         - Pricing: Always refer to "${companyData.price}".
         - Service Area: ${companyData.coverage ? companyData.coverage : "Region"}
-        - Goal: Drive the user to click the "${companyData.buttonText}" button.
+        - Goal: Encourage the user to click "${companyData.buttonText}".
         
         CONTACT DATA:
-        - Phone: ${companyData.phone}
-        - Email: ${companyData.email}
-        ${companyData.mobile ? `- WhatsApp/Mobile: ${companyData.mobile}` : ""}
+        - Phone: ${companyData.phone} | Email: ${companyData.email}
+        ${companyData.mobile ? `- WhatsApp: ${companyData.mobile}` : ""}
 
-        INITIAL GREETING: ${companyData.welcomeMsg}
+        INITIAL GREETING (Context only): ${companyData.welcomeMsg}
       `
     };
 
@@ -58,7 +73,7 @@ export async function POST(req: Request) {
           systemPrompt,
           ...messages 
         ],
-        temperature: 0.3, // কম টেম্পারেচার মানে এআই বেশি ইনস্ট্রাকশন মেনে চলবে
+        temperature: 0.3, // স্ট্যাবল উত্তরের জন্য লো টেম্পারেচার
         max_tokens: 400,  
       }),
     });
