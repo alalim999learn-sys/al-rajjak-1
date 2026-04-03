@@ -1,19 +1,18 @@
 
 
 
-// app/page.tsx
+//C:\Users\Shanon\al-rajjak-1\app\datenschutz
+// app/datenschutz/page.tsx
 import { Metadata } from 'next';
-
-
+import Link from 'next/link';
+import { ArrowLeft, ShieldCheck, Lock, EyeOff, Info, Activity } from 'lucide-react';
+import Navbar from "../Navbar"; // নিশ্চিত করুন আপনার প্রজেক্টে এই পাথ ঠিক আছে
 
 export const metadata: Metadata = {
-  title: 'Datenschutzerklärung | Shanon Alam', // অথবা Shanon Alam, যেটি আপনার ব্র্যান্ড নাম
-  description: 'Informationen zum Umgang mit Ihren persönlichen Daten bei Shanon Khan.',
+  title: 'Datenschutzerklärung | Shanon Alam',
+  description: 'Informationen zum Umgang mit Ihren persönlichen Daten bei Shanon Alam.',
   robots: 'noindex', 
 };
-import Link from 'next/link';
-import { ArrowLeft, ShieldCheck, Lock, EyeOff, Info } from 'lucide-react';
-import Navbar from "../Navbar"; // নিশ্চিত করো তোমার প্রজেক্টে এই পাথ ঠিক আছে
 
 export default function Datenschutz() {
   return (
@@ -43,22 +42,23 @@ export default function Datenschutz() {
             Datenschutz<span className="text-blue-700">.</span>
           </h1>
           <p className="text-xl text-slate-500 max-w-xl border-l-4 border-blue-700 pl-6 italic leading-relaxed">
-            Wir sammeln keine Daten. Absolute Privatsphäre ist unser Standard.
+            Wir schützen Ihre Privatsphäre. Keine Cookies, kein Tracking persönlicher Daten.
           </p>
         </header>
 
         {/* Policy Content */}
         <div className="space-y-16">
           
-          {/* Section 1: No Collection (The Main Point) */}
+          {/* Section 1: Privacy-Friendly Analysis (Updated for Vercel) */}
           <section className="bg-slate-50 p-8 md:p-12 rounded-[2.5rem] border border-slate-100">
             <div className="w-12 h-12 bg-blue-700 text-white rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-blue-100">
-              <EyeOff size={24} />
+              <Activity size={24} />
             </div>
-            <h2 className="text-3xl font-black mb-4 text-slate-900 italic">Keine Datenerhebung</h2>
+            <h2 className="text-3xl font-black mb-4 text-slate-900 italic">Datenschutzfreundliche Analyse</h2>
             <p className="text-lg text-slate-600 leading-relaxed font-medium">
-              Auf dieser Website werden **keinerlei personenbezogene Daten** erhoben. 
-              Wir verzichten bewusst auf Kontaktformulare, Benutzerregistrierungen und Analyse-Tools. 
+              Auf dieser Website werden **keinerlei personenbezogene Daten** erhoben, die Sie identifizierbar machen könnten. 
+              Zur technischen Optimierung nutzen wir **Vercel Web Analytics**. 
+              Dieses Tool verwendet **keine Cookies** und speichert keine persönlichen Informationen. 
               Ihr Besuch bleibt vollkommen anonym.
             </p>
           </section>
@@ -69,16 +69,16 @@ export default function Datenschutz() {
               <Lock className="text-blue-700 mb-4" size={32} />
               <h3 className="text-xl font-bold mb-2">Keine Cookies</h3>
               <p className="text-slate-500 text-sm leading-relaxed">
-                Wir verwenden keine Cookies (weder technisch notwendige noch Marketing-Cookies) 
-                und keine Tracking-Technologien wie Google Analytics oder Facebook-Pixel.
+                Wir verwenden keine Tracking-Cookies (weder First-Party noch Third-Party) 
+                und keine invasiven Technologien wie Google Analytics oder Facebook-Pixel.
               </p>
             </div>
             <div className="p-8 border border-slate-100 rounded-[2rem] hover:bg-slate-50 transition">
-              <ShieldCheck className="text-blue-700 mb-4" size={32} />
-              <h3 className="text-xl font-bold mb-2">Kein Kontaktformular</h3>
+              <EyeOff className="text-blue-700 mb-4" size={32} />
+              <h3 className="text-xl font-bold mb-2">Anonymer Zugriff</h3>
               <p className="text-slate-500 text-sm leading-relaxed">
-                Da wir kein Kontaktformular anbieten, gibt es keine Möglichkeit, versehentlich 
-                Daten über diese Website an uns zu übermitteln.
+                Da wir keine Kontaktformulare oder Registrierungen anbieten, gibt es keine 
+                Möglichkeit, versehentlich private Daten über diese Website an uns zu übermitteln.
               </p>
             </div>
           </section>
@@ -90,7 +90,7 @@ export default function Datenschutz() {
               Verantwortliche Stelle
             </h3>
             <div className="bg-white border-2 border-slate-900 p-8 rounded-3xl inline-block shadow-[8px_8px_0px_0px_#1d4ed8]">
-              <p className="font-bold text-xl text-slate-900">Shanon Khan</p>
+              <p className="font-bold text-xl text-slate-900">Shanon Alam</p>
               <p className="text-slate-600">Cornel Goli, Agargaon</p>
               <p className="text-slate-600">Dhaka - 1207, Bangladesch</p>
               <p className="text-blue-700 font-bold mt-4">shanon@shanon-alam.de</p>
@@ -98,12 +98,13 @@ export default function Datenschutz() {
           </section>
 
           {/* Section 4: Hosting Disclaimer */}
-          <section className="text-sm text-slate-400 font-medium space-y-4">
-            <p className="uppercase tracking-widest text-[10px] font-black text-slate-600">Technischer Hinweis</p>
+          <section className="text-sm text-slate-400 font-medium space-y-4 pb-12">
+            <p className="uppercase tracking-widest text-[10px] font-black text-slate-600">Technischer Hinweis & Analytics</p>
             <p>
-              Aus technischen Gründen speichert unser Hosting-Provider (z.B. Vercel oder Netlify) 
-              automatisch Log-Files, wie Ihre IP-Adresse, um die Sicherheit und Stabilität der Website zu gewährleisten. 
-              Diese Daten werden von uns nicht ausgewertet oder mit anderen Datenquellen zusammengeführt.
+              Diese Website wird auf **Vercel** gehostet. Vercel erhebt anonyme statistische Daten, 
+              um die Sicherheit und Stabilität der Website zu gewährleisten. 
+              Hierbei werden keine IP-Adressen dauerhaft gespeichert, die eine Identifizierung 
+              einzelner Nutzer ermöglichen würden (gemäß DSGVO-Standard).
             </p>
           </section>
 
