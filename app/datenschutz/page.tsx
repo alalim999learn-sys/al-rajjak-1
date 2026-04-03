@@ -104,7 +104,7 @@ export default function Datenschutz() {
               Diese Website wird auf **Vercel** gehostet. Vercel erhebt anonyme statistische Daten, 
               um die Sicherheit und Stabilität der Website zu gewährleisten. 
               Hierbei werden keine IP-Adressen dauerhaft gespeichert, die eine Identifizierung 
-              einzelner Nutzer ermöglichen würden (gemäß DSGVO-Standard).
+              einzelner Nutzer ermöglichen würden (gemäß DSGVO-Standard)
             </p>
           </section>
 
