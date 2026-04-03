@@ -1,7 +1,8 @@
 
 
 
-//layout.tsx
+//components/layout.tsx
+import { Analytics } from "@vercel/analytics/next";
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react"; // এটি যোগ করুন
@@ -15,6 +16,7 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <>
       <header style={{ padding: "10px", borderBottom: "1px solid #ddd", display: "flex", alignItems: "center" }}>
+        
         <Link href="/">
           {/* আপনার লোগোর সঠিক নাম দিন (যেমন shanon-99.png) */}
           <Image
@@ -28,6 +30,7 @@ export default function Layout({ children }: LayoutProps) {
       </header>
 
       <main>{children}</main>
+      <Analytics />
     </>
   );
 }
