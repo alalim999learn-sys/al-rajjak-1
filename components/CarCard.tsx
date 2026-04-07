@@ -148,7 +148,7 @@ const descStyle: React.CSSProperties = {
   fontSize: '11px',
   color: '#64748b',
   lineHeight: '1.4',
-  margin: '0 0 12px 0',
+  margin: '0 0 12px 1',
 };
 
 const buttonStyle: React.CSSProperties = {
