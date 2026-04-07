@@ -8,7 +8,7 @@ import { NextResponse } from "next/server";
 const carInventory = [
   {
     id: "p1",
-    name: "BMW M4 Competition",
+    name: "BMW  M4 Competition",
     price: "€85.000",
     image: "https://images.pexels.com/photos/707046/pexels-photo-707046.jpeg",
     specs: { engine: "3.0L Bi-Turbo", hp: "510", year: "2023" }
