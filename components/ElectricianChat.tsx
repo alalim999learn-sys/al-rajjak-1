@@ -108,7 +108,7 @@ export default function ElectricianChat({ clientData }: { clientData: ClientData
       {/* Appointment Form */}
       {showForm && (
         <div style={formOverlayStyle}>
-          <h4 style={{ fontWeight: 'bold', marginBottom: '10px' }}>Termin vereinbaren</h4>
+          <h4 style={{ fontWeight: 'bold', marginBottom: '9px' }}>Termin vereinbaren</h4>
           <input style={inputFieldStyle} placeholder="Ihr Name" />
           <input style={inputFieldStyle} placeholder="Telefonnummer" />
           <textarea style={{ ...inputFieldStyle, height: '80px' }} placeholder="Was ist das Problem?"></textarea>
