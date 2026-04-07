@@ -102,12 +102,13 @@ export async function POST(req: Request) {
         "Authorization": `Bearer ${apiKey}`,
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        model: "llama-3.3-70b-versatile",
-        messages: [{ role: "system", content: systemPrompt }, ...messages],
-        temperature: 0.7,
-        max_tokens: 400
-      })
+     // --- আপনার কোডের এই অংশটি পরিবর্তন করুন ---
+body: JSON.stringify({
+model: "llama-3.1-8b-instant",// এখানে 'llama-3.3-70b-versatile' এর বদলে এটি দিন
+  messages: [{ role: "system", content: systemPrompt }, ...messages],
+  temperature: 0.7,
+  max_tokens: 400
+})
     });
 
     const data = await response.json();
