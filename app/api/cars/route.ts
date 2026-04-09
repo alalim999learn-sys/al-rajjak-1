@@ -1,132 +1,65 @@
+//C:\Users\Shanon\al-rajjak-1\app\api\cars\route.ts
 
 
-
-//cars/route.ts
 import { NextResponse } from "next/server";
-
-// --- সরাসরি এই ফাইলেই আপনার ৯টি গাড়ির ডেটা (Inventory) ---
-const carInventory = [
-  {
-    id: "p1",
-    name: "BMW  M4 Competition",
-    price: "€85.000",
-    image: "https://images.pexels.com/photos/707046/pexels-photo-707046.jpeg",
-    specs: { engine: "3.0L Bi-Turbo", hp: "510", year: "2023" }
-  },
-  {
-    id: "p2",
-    name: "Audi RS6 Avant",
-    price: "€115.000",
-    image: "https://images.pexels.com/photos/1035108/pexels-photo-1035108.jpeg",
-    specs: { engine: "4.0L V8 TFSI", hp: "600", year: "2024" }
-  },
-  {
-    id: "p3",
-    name: "Mercedes-Benz G63 AMG",
-    price: "€180.000",
-    image: "https://images.pexels.com/photos/7144186/pexels-photo-7144186.jpeg",
-    specs: { engine: "4.0L V8 Biturbo", hp: "585", year: "2024" }
-  },
-  {
-    id: "p4",
-    name: "Porsche 911 GT3",
-    price: "€195.000",
-    image: "https://images.pexels.com/photos/3752169/pexels-photo-3752169.jpeg",
-    specs: { engine: "4.0L Flat-6", hp: "502", year: "2023" }
-  },
-  {
-    id: "p5",
-    name: "Lamborghini Huracán",
-    price: "€250.000",
-    image: "/blu1.jpeg",
-    specs: { engine: "5.2L V10", hp: "640", year: "2023" }
-  },
-  {
-    id: "p6",
-    name: "Ferrari F8 Tributo",
-    price: "€280.000",
-    image: "https://images.pexels.com/photos/337909/pexels-photo-337909.jpeg",
-    specs: { engine: "3.9L V8 Turbo", hp: "710", year: "2022" }
-  },
-  {
-    id: "p7",
-    name: "Range Rover Sport",
-    price: "€95.000",
-    image: "https://images.pexels.com/photos/116675/pexels-photo-116675.jpeg",
-    specs: { engine: "3.0L Diesel/PHEV", hp: "400", year: "2024" }
-  },
-  {
-    id: "p8",
-    name: "Tesla Model S Plaid",
-    price: "€110.000",
-    image: "https://images.pexels.com/photos/11139552/pexels-photo-11139552.jpeg",
-    specs: { engine: "Electric (Tri-Motor)", hp: "1020", year: "2023" }
-  },
-  {
-    id: "p9",
-    name: "Bentley Continental GT",
-    price: "€220.000",
-    image: "https://images.pexels.com/photos/1805053/pexels-photo-1805053.jpeg",
-    specs: { engine: "6.0L W12", hp: "650", year: "2023" }
-  }
-];
 
 export async function POST(req: Request) {
   try {
-    const { messages, clientData } = await req.json();
-    const apiKey = process.env.GROQ_API_KEY;
+    const body = await req.json();
+    const { messages, clientData } = body;
+    const apiKey = process.env.GEMINI_API_KEY;
 
-    if (!apiKey) {
-      return NextResponse.json({ success: false, text: "Systemfehler: API Key fehlt." });
-    }
+    if (!apiKey) return NextResponse.json({ success: false, text: "API Key missing." });
 
-    const systemPrompt = `
-      Du bist ein exklusiver Verkaufsberater für "${clientData.shopName || "SD-AUTOHANDEL"}".
-      Inhaber: ${clientData.ownerName || "Al Rajjak"}.
-      
-      DEIN INVENTAR (9 LUXUSAUTOS):
-      ${JSON.stringify(carInventory)}
+    const allCars = clientData?.properties || [];
+    const shopName = clientData?.shopName || "Autohaus";
 
-      STRIKTE REGELN:
-      1. Antworte IMMER auf DEUTSCH.
-      2. Wenn der Kunde nach Autos sucht, schlage passende Modelle aus dem Inventar vor.
-      3. Füge am Ende der Nachricht ZWINGEND den Code [SHOW_FRONT:ID] hinzu (z.B. [SHOW_FRONT:p1]).
-      4. Bei mehreren Autos schreibe die Codes direkt hintereinander (z.B. [SHOW_FRONT:p1][SHOW_FRONT:p2]).
-      5. Erwähne kurz PS oder Motorleistung. Sei professionell und charmant.
-      6. Halte die Antwort kurz (max. 2-3 Sätze).
-    `;
+    // ১. সিস্টেম প্রম্পট (একদম ক্লিন জার্মান)
+    const systemPrompt = `Du bist ein erfahrener Autoverkäufer bei ${shopName}. 
+    Nutze diesen Bestand: ${JSON.stringify(allCars.slice(0, 10))}.
+    REGELN: Antworte ohne Sternchen (*). Sei höflich und nutze Sie. Füge am Ende jeder Empfehlung [SHOW_FRONT:ID] hinzu.`;
 
-    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${apiKey}`,
-        "Content-Type": "application/json"
+    // ২. জেমিনি মেসেজ স্ট্রাকচার
+    const contents = [
+      {
+        role: "user",
+        parts: [{ text: systemPrompt }]
       },
-     // --- আপনার কোডের এই অংশটি পরিবর্তন করুন ---
-body: JSON.stringify({
-model: "llama-3.1-8b-instant",// এখানে 'llama-3.3-70b-versatile' এর বদলে এটি দিন
-  messages: [{ role: "system", content: systemPrompt }, ...messages],
-  temperature: 0.7,
-  max_tokens: 400
-})
-    });
+      {
+        role: "model",
+        parts: [{ text: "Verstanden. Ich bin bereit, Ihre Kunden professionell zu beraten." }]
+      },
+      ...messages.slice(-3).map((m: any) => ({
+        role: m.role === "user" ? "user" : "model",
+        parts: [{ text: m.content }],
+      }))
+    ];
 
+    // ৩. সরাসরি v1beta এন্ডপয়েন্টে হিট
+   // v1beta এর বদলে শুধু v1 এবং মডেলের নাম সরাসরি gemini-1.5-flash-001 দিয়ে ট্রাই করুন
+const response = await fetch(
+  `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash-001:generateContent?key=${apiKey}`,
+  {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ contents }),
+  }
+);
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.error?.message || "Groq Error");
+      console.error("DEBUG - API ERROR:", data);
+      return NextResponse.json({ success: false, text: "API Error: " + data.error?.message });
     }
 
-    return NextResponse.json({ 
-      success: true, 
-      text: data.choices[0].message.content 
-    });
+    // ৪. রেসপন্স ক্লিনআপ
+    let aiText = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+    aiText = aiText.replace(/\*/g, ""); // সব স্টার রিমুভ
 
-  } catch (error: any) {
-    console.error("🔴 API Error:", error.message);
-    return NextResponse.json({ 
-      success: false, 
-      text: "Entschuldigung, ein Fehler ist aufgetreten." 
-    });
+    return NextResponse.json({ success: true, text: aiText.trim() });
+
+  } catch (error) {
+    console.error("Route Crash:", error);
+    return NextResponse.json({ success: false, text: "Technischer Fehler." });
   }
 }
