@@ -1,0 +1,362 @@
+
+
+
+[
+  {
+    "id": "n1",
+    "brand": "BMW",
+    "model": "i5",
+    "name": "BMW i5 M60 (Electric)",
+    "price": "€95,900",
+    "year": "2024",
+    "engine": "Electric 442kW",
+    "hp": "601",
+    "torque": "820 Nm",
+    "mileage": "0 km",
+    "condition": "New",
+    "colors": [
+      "Black",
+      "Frozen Deep Grey"
+    ],
+    "tyre": "Pirelli P Zero",
+    "tyreSize": "20-inch",
+    "resaleValue": "High",
+    "image": "/cars/1.webp"
+  },
+  {
+    "id": "n2",
+    "brand": "Mercedes-Benz",
+    "model": "C-Class",
+    "name": "Mercedes-Benz C 200 (2025)",
+    "price": "€54,200",
+    "year": "2025",
+    "engine": "2.0 Mild-Hybrid",
+    "hp": "204",
+    "torque": "320 Nm",
+    "mileage": "0 km",
+    "condition": "New",
+    "colors": [
+      "Obsidian Black",
+      "Polar White"
+    ],
+    "tyre": "Michelin Pilot Sport",
+    "tyreSize": "18-inch",
+    "resaleValue": "Excellent",
+    "image": "/cars/2.avif"
+  },
+  {
+    "id": "n3",
+    "brand": "Volkswagen",
+    "model": "Tiguan",
+    "name": "VW Tiguan (New Gen)",
+    "price": "€42,800",
+    "year": "2024",
+    "engine": "1.5 eTSI",
+    "hp": "150",
+    "torque": "250 Nm",
+    "mileage": "500 km",
+    "condition": "New",
+    "colors": [
+      "Nightshade Blue",
+      "Reflex Silver"
+    ],
+    "tyre": "Continental",
+    "tyreSize": "17-inch",
+    "resaleValue": "High",
+    "image": "/cars/3.avif"
+  },
+  {
+    "id": "m1",
+    "brand": "Audi",
+    "model": "A4 Avant",
+    "name": "Audi A4 Avant S-line",
+    "price": "€28,500",
+    "year": "2019",
+    "engine": "2.0 TDI",
+    "hp": "190",
+    "torque": "400 Nm",
+    "mileage": "85,000 km",
+    "condition": "Used",
+    "colors": [
+      "Daytona Grey",
+      "Mythos Black"
+    ],
+    "tyre": "Bridgestone",
+    "tyreSize": "19-inch",
+    "resaleValue": "Good",
+    "image": "/cars/4.avif"
+  },
+  {
+    "id": "m2",
+    "brand": "Tesla",
+    "model": "Model 3",
+    "name": "Tesla Model 3 Long Range",
+    "price": "€34,900",
+    "year": "2021",
+    "engine": "Dual Motor AWD",
+    "hp": "498",
+    "torque": "660 Nm",
+    "mileage": "42,000 km",
+    "condition": "Used",
+    "colors": [
+      "Pearl White",
+      "Solid Black"
+    ],
+    "tyre": "Hankook Ion",
+    "tyreSize": "18-inch",
+    "resaleValue": "Moderate",
+    "image": "/cars/5.jpeg"
+  },
+  {
+    "id": "m3",
+    "brand": "Skoda",
+    "model": "Octavia",
+    "name": "Skoda Octavia Combi",
+    "price": "€21,500",
+    "year": "2020",
+    "engine": "2.0 TDI",
+    "hp": "150",
+    "torque": "360 Nm",
+    "mileage": "60,000 km",
+    "condition": "Used",
+    "colors": [
+      "Moon White",
+      "Race Blue"
+    ],
+    "tyre": "Goodyear",
+    "tyreSize": "17-inch",
+    "resaleValue": "Good",
+    "image": "/cars/6.webp"
+  },
+  {
+    "id": "m4",
+    "brand": "Hyundai",
+    "model": "Tucson",
+    "name": "Hyundai Tucson Hybrid",
+    "price": "€31,200",
+    "year": "2022",
+    "engine": "1.6 T-GDI",
+    "hp": "230",
+    "torque": "350 Nm",
+    "mileage": "25,000 km",
+    "condition": "Used",
+    "colors": [
+      "Amazon Grey",
+      "Phantom Black"
+    ],
+    "tyre": "Nexen",
+    "tyreSize": "19-inch",
+    "resaleValue": "High",
+    "image": "/cars/7.avif"
+  },
+  {
+    "id": "m5",
+    "brand": "BMW",
+    "model": "1 Series",
+    "name": "BMW 118i M-Sport",
+    "price": "€24,800",
+    "year": "2018",
+    "engine": "1.5 Benzin",
+    "hp": "136",
+    "torque": "220 Nm",
+    "mileage": "55,000 km",
+    "condition": "Used",
+    "colors": [
+      "Estoril Blue",
+      "Alpine White"
+    ],
+    "tyre": "Dunlop",
+    "tyreSize": "18-inch",
+    "resaleValue": "Good",
+    "image": "/cars/8.jpg"
+  },
+  {
+    "id": "b1",
+    "brand": "Volkswagen",
+    "model": "Golf VII",
+    "name": "Volkswagen Golf VII (7)",
+    "price": "€11,500",
+    "year": "2014",
+    "engine": "1.6 TDI",
+    "hp": "110",
+    "torque": "250 Nm",
+    "mileage": "145,000 km",
+    "condition": "Used",
+    "colors": [
+      "Pure White",
+      "Tungsten Silver"
+    ],
+    "tyre": "Yokohama",
+    "tyreSize": "16-inch",
+    "resaleValue": "High",
+    "image": "/cars/9.webp"
+  },
+  {
+    "id": "b2",
+    "brand": "Ford",
+    "model": "Fiesta",
+    "name": "Ford Fiesta Titanium",
+    "price": "€8,900",
+    "year": "2016",
+    "engine": "1.0 EcoBoost",
+    "hp": "100",
+    "torque": "170 Nm",
+    "mileage": "92,000 km",
+    "condition": "Used",
+    "colors": [
+      "Candy Red",
+      "Deep Reef Blue"
+    ],
+    "tyre": "Kumho",
+    "tyreSize": "15-inch",
+    "resaleValue": "Moderate",
+    "image": "/cars/10.jpg"
+  },
+  {
+    "id": "b3",
+    "brand": "Opel",
+    "model": "Astra K",
+    "name": "Opel Astra K 1.4 Turbo",
+    "price": "€12,400",
+    "year": "2015",
+    "engine": "1.4 Benzin",
+    "hp": "150",
+    "torque": "245 Nm",
+    "mileage": "88,000 km",
+    "condition": "Used",
+    "colors": [
+      "Summit White",
+      "Sovereign Silver"
+    ],
+    "tyre": "Firestone",
+    "tyreSize": "16-inch",
+    "resaleValue": "Fair",
+    "image": "/cars/11.jpg"
+  },
+  {
+    "id": "b4",
+    "brand": "Toyota",
+    "model": "Yaris",
+    "name": "Toyota Yaris Hybrid",
+    "price": "€13,800",
+    "year": "2017",
+    "engine": "1.5 Hybrid",
+    "hp": "101",
+    "torque": "111 Nm",
+    "mileage": "75,000 km",
+    "condition": "Used",
+    "colors": [
+      "Tokyo Red",
+      "Nebula Blue"
+    ],
+    "tyre": "Toyo",
+    "tyreSize": "15-inch",
+    "resaleValue": "Very High",
+    "image": "/cars/12.jpg"
+  },
+  {
+    "id": "c1",
+    "brand": "Mercedes-Benz",
+    "model": "E-Class (W210)",
+    "name": "Mercedes-Benz E 240 (W210)",
+    "price": "€5,500",
+    "year": "1999",
+    "engine": "2.4 V6 Benzin",
+    "hp": "170",
+    "torque": "225 Nm",
+    "mileage": "210,000 km",
+    "condition": "Reconditioned",
+    "colors": [
+      "Silver Metallic",
+      "Midnight Blue"
+    ],
+    "tyre": "Classic Mesh",
+    "tyreSize": "16-inch",
+    "resaleValue": "Collectible",
+    "image": "/cars/13.jpg"
+  },
+  {
+    "id": "c2",
+    "brand": "BMW",
+    "model": "3 Series (E46)",
+    "name": "BMW 320i (E46)",
+    "price": "€4,900",
+    "year": "2001",
+    "engine": "2.2 Benzin",
+    "hp": "170",
+    "torque": "210 Nm",
+    "mileage": "195,000 km",
+    "condition": "Reconditioned",
+    "colors": [
+      "Titanium Silver",
+      "Topaz Blue"
+    ],
+    "tyre": "M-Sport Alloy",
+    "tyreSize": "17-inch",
+    "resaleValue": "Rising",
+    "image": "/cars/14.jpg"
+  },
+  {
+    "id": "c3",
+    "brand": "Audi",
+    "model": "A3 (8P)",
+    "name": "Audi A3 (8P) Attraction",
+    "price": "€3,200",
+    "year": "2005",
+    "engine": "1.6 Benzin",
+    "hp": "102",
+    "torque": "148 Nm",
+    "mileage": "230,000 km",
+    "condition": "Used",
+    "colors": [
+      "Brilliant Red",
+      "Dolphin Grey"
+    ],
+    "tyre": "Standard",
+    "tyreSize": "16-inch",
+    "resaleValue": "Fair",
+    "image": "/cars/15.jpg"
+  },
+  {
+    "id": "c4",
+    "brand": "Volkswagen",
+    "model": "Golf IV",
+    "name": "VW Golf IV (4) Generation",
+    "price": "€2,800",
+    "year": "1998",
+    "engine": "1.4 Benzin",
+    "hp": "75",
+    "torque": "126 Nm",
+    "mileage": "250,000 km",
+    "condition": "Used",
+    "colors": [
+      "Jazz Blue",
+      "Flash Red"
+    ],
+    "tyre": "Economy",
+    "tyreSize": "14-inch",
+    "resaleValue": "Low",
+    "image": "/cars/16.jpg"
+  },
+  {
+    "id": "c5",
+    "brand": "Mercedes-Benz",
+    "model": "S-Class (W140)",
+    "name": "Mercedes S-Klasse (W140)",
+    "price": "€14,500",
+    "year": "1993",
+    "engine": "3.2 Benzin",
+    "hp": "231",
+    "torque": "315 Nm",
+    "mileage": "180,000 km",
+    "condition": "Reconditioned",
+    "colors": [
+      "Blue Black Metallic",
+      "Smoke Silver"
+    ],
+    "tyre": "Classic Monoblock",
+    "tyreSize": "18-inch",
+    "resaleValue": "Very High",
+    "image": "/cars/17.jpg"
+  }
+]
