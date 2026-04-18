@@ -81,7 +81,7 @@ export async function POST(req: Request) {
     INVENTAR:
     ${inventoryContext || "Keine passenden Produkte gefunden."}`;
 
-    // INITIAL_LOAD_REQ এর ক্ষেত্রে আমরা এআই কল করব না, শুধু ডাটা পাঠাবো
+    
     if (lastUserMessage === "INITIAL_LOAD_REQ") {
       return NextResponse.json({ 
         success: true, 
