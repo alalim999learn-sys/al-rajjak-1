@@ -105,6 +105,7 @@
       "payment_methods": ["PayPal", "Credit Card", "Bank Transfer", "Invoice"]
     }
   },
+  
   {
     "id": "HA-4957573759",
     "brand": "HOME AFFAIRE",
@@ -1746,6 +1747,277 @@
 
 
 
-
   }
 }
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+db.furniture.insertMany([
+  {
+    "id": "PX-S0NDA0-01",
+    "brand": "PXLOUE",
+    "title": "Polsterbett Doppelbett Jugendbett",
+    "category": "beds",
+    "type": "Upholstered / Futon",
+    "status": "Fast ausverkauft",
+    "pricing": { "original_price": 619.99, "current_price": 279.99, "currency": "EUR", "discount_label": "-55%" },
+    "details": { "color": "Beige", "dimensions": "140 x 200 cm", "frame_material": "Holz, Metall", "fabric": "Leinen-Stoff", "max_load": "300 kg" },
+    "images": ["/furn/b11.webp", "/furn/b12.webp", "/furn/b13.webp", "/furn/b14.webp"],
+    "features": ["Gepolstertes Kopfteil", "Inklusive Lattenrost", "Stabil & Langlebig"],
+    "description": "Stilvolles Design mit hochwertigem Leinenstoff. Perfekt für Hauptschlafzimmer বা গেস্টরুমের জন্য।",
+    "material_info": { "type": "Fabric", "fabric_name": "Leinen-Stoff", "is_vegan": true },
+    "createdAt": new Date()
+  },
+  {
+    "id": "HA-4957573759",
+    "brand": "HOME AFFAIRE",
+    "title": "Stauraumbett REHAT",
+    "category": "beds",
+    "type": "Stauraumbett / Kastenbett",
+    "status": "TOPSELLER!",
+    "pricing": { "original_price": 1269, "current_price": 499.99, "currency": "EUR", "discount_label": "-61%" },
+    "details": { "color": "Basalt grau", "dimensions": "140 x 200 cm", "frame_material": "Holzwerkstoff", "fabric": "Melaminharzbeschichtet" },
+    "images": ["/furn/b21.webp", "/furn/b22.webp", "/furn/b23.webp", "/furn/b24.webp"],
+    "features": ["3 Schubkästen auf Rollen", "2 offene Fächer", "FSC®-zertifiziert"],
+    "description": "Das Stauraumbett REHAT bietet viel Platz für Ordnung. Ideal für Schlafzimmer mit wenig Platz.",
+    "createdAt": new Date()
+  },
+  {
+    "id": "OH-6891030229",
+    "brand": "OTTO HOME",
+    "title": "Massivholzbett Hugo",
+    "category": "beds",
+    "type": "Massivholzbett / Landhausstil",
+    "status": "Fast ausverkauft",
+    "pricing": { "original_price": 334.99, "current_price": 229.99, "currency": "EUR", "discount_label": "-31%" },
+    "details": { "color": "Natur", "dimensions": "140 x 200 cm", "frame_material": "Massives Kiefernholz" },
+    "images": ["/furn/b31.webp", "/furn/b32.webp", "/furn/b33.webp", "/furn/b34.webp"],
+    "features": ["100% Massives Holz", "Atmungsaktive Oberfläche", "Robust & Langlebig"],
+    "description": "Das Massivholzbett Hugo bringt natürliche Wärme. Gefertigt aus massivem Kiefernholz.",
+    "createdAt": new Date()
+  },
+  {
+    "id": "SL-S01G50M754F",
+    "brand": "SELSEY",
+    "title": "Polsterbett TILVES LOW",
+    "category": "beds",
+    "type": "Samtbett / Design-Polsterbett",
+    "status": "Luxuriöser Charakter",
+    "pricing": { "original_price": 929.99, "current_price": 889.99, "currency": "EUR", "discount_label": "-4%" },
+    "details": { "color": "Greige", "dimensions": "140 x 200 cm", "fabric": "Bluvel-Samt" },
+    "images": ["/furn/b41.webp", "/furn/b42.webp", "/furn/b43.webp", "/furn/b44.webp"],
+    "features": ["Edler Bluvel-Samt", "Gasdruckfedern (Stauraum)", "Metallrahmen"],
+    "description": "Luxuriöser Samtbezug mit integriertem Stauraum. Modernes Design trifft Komfort.",
+    "createdAt": new Date()
+  },
+  {
+    "id": "EC-S0W010SFX3B",
+    "brand": "en.casa",
+    "title": "Metallbett Florenz",
+    "category": "beds",
+    "type": "Metallbett / Doppelbett",
+    "status": "Budget Friendly",
+    "pricing": { "original_price": 168.99, "current_price": 99.99, "currency": "EUR", "discount_label": "-41%" },
+    "details": { "color": "Weiß, matt", "dimensions": "160 x 200 cm", "frame_material": "Stahl" },
+    "images": ["/furn/b51.webp", "/furn/b52.webp", "/furn/b53.webp", "/furn/b54.webp"],
+    "features": ["Kratzfeste Oberfläche", "Inklusive Metall-Lattenrost", "Dekoratives Kopfteil"],
+    "description": "Robuste Stahlkonstruktion zum unschlagbaren Preis.",
+    "createdAt": new Date()
+  },
+  {
+    "id": "OK-S0HD80S7JPA",
+    "brand": "OKWISH",
+    "title": "Holzbett mit USB-C, Leselampe und Sitzbank",
+    "category": "beds",
+    "type": "Funktionsbett / Stauraumbett",
+    "status": "Tech-Features",
+    "pricing": { "original_price": 799.99, "current_price": 539.99, "currency": "EUR", "discount_label": "-33%" },
+    "details": { "color": "Eiche / Schwarz", "dimensions": "160 x 200 cm" },
+    "images": ["/furn/b61.webp", "/furn/b62.webp", "/furn/b63.webp", "/furn/b64.webp"],
+    "features": ["USB/Type-C Port", "LED Leselampe", "Sitzbank mit Stauraum"],
+    "description": "Multifunktionales Bett mit modernster Technik.",
+    "createdAt": new Date()
+  },
+  {
+    "id": "MX-S0GFB076S45",
+    "brand": "MERAX",
+    "title": "Multifunktionales Daybett mit Ausziehbett",
+    "category": "beds",
+    "type": "Daybett / Schlafsofa",
+    "status": "Platzsparend",
+    "pricing": { "original_price": 699.99, "current_price": 459.99, "currency": "EUR", "discount_label": "-34%" },
+    "details": { "color": "Grau", "dimensions": "90 x 190 cm" },
+    "images": ["/furn/b71.webp", "/furn/b72.webp", "/furn/b73.webp", "/furn/b74.webp"],
+    "features": ["Ausziehbarer Mechanismus", "2 Schubladen", "LED-Lichtleiste"],
+    "description": "Perfekte Kombination aus Sofa এবং বেড।",
+    "createdAt": new Date()
+  },
+  {
+    "id": "TH-S0SCU08I1OD",
+    "brand": "THEMATYS",
+    "title": "Polsterbett COLORADO – TRINITY",
+    "category": "beds",
+    "type": "Premium Stauraumbett",
+    "status": "Extra Robust",
+    "pricing": { "original_price": 759, "current_price": 499, "currency": "EUR", "discount_label": "-34%" },
+    "details": { "color": "Hellgrau", "dimensions": "120 x 200 cm", "max_load": "400 kg" },
+    "images": ["/furn/b81.webp", "/furn/b82.webp", "/furn/b83.webp", "/furn/b84.webp"],
+    "features": ["Hydraulischer Bettkasten", "Extrem belastbar", "Birkenholz Latten"],
+    "description": "Ultra-robuster TRINITY-Veloursbezug.",
+    "createdAt": new Date()
+  },
+  {
+    "id": "HA-6342682969",
+    "brand": "HOME AFFAIRE",
+    "title": "Gamingbett GALAXY inkl. Bettkasten",
+    "category": "beds",
+    "type": "Boxbett / Gamingbett",
+    "status": "LED Design",
+    "pricing": { "original_price": 1137, "current_price": 699.99, "currency": "EUR", "discount_label": "-38%" },
+    "details": { "color": "Schwarz", "dimensions": "120 x 200 cm" },
+    "images": ["/furn/b91.webp", "/furn/b92.webp", "/furn/b93.webp", "/furn/b94.webp"],
+    "features": ["Grüne LED-Beleuchtung", "USB Ports", "Inklusive Topper"],
+    "description": "Das ultimative Bett für Gamer.",
+    "createdAt": new Date()
+  }
+])
+db.furniture.insertMany([
+  {
+    "id": "SF-OLEA-L2-01",
+    "brand": "ALTDECOR",
+    "title": "Ecksofa OLEA-L2 in L-Form",
+    "category": "sofas",
+    "type": "Eckcouch",
+    "status": "Trend-Design",
+    "pricing": { "original_price": 1859, "current_price": 1429.9, "currency": "EUR", "discount_label": "-23%" },
+    "service_info": { "delivery": "Kostenlose Lieferung in das Wohnzimmer", "assembly": "Inklusive Montage (ফ্রি ফিটিং)", "warranty": "2 Jahre Rundum-Garantie" },
+    "details": { "color": "Beige - Poso 105", "fabric": "Cord / Velours", "dimensions": "289 x 176 cm", "seats": "6 Personen" },
+    "images": ["/furn/sofa11.webp", "/furn/sofa12.webp", "/furn/sofa13.webp", "/furn/sofa14.webp"],
+    "features": ["Moderner Cord-Bezug", "L-Form", "Stabil & Bequem"],
+    "description": "Hochwertiger Cord-Bezug POSO. Gemütliche atmosphere আপনার বসার ঘরের জন্য।",
+    "material_info": { "type": "Fabric", "fabric_name": "Cord / Velours", "is_vegan": true },
+    "createdAt": new Date()
+  },
+  {
+    "id": "SF-ARELIS-02",
+    "brand": "HOMESY",
+    "title": "Schlafsofa Arelis – Moderne 2-Sitzer",
+    "category": "sofas",
+    "type": "2-Sitzer / Schlafsofa",
+    "status": "Bestseller",
+    "pricing": { "original_price": 512.56, "current_price": 292.59, "currency": "EUR", "discount_label": "-43%" },
+    "service_info": { "delivery": "Express Versand (48h)", "assembly": "Keine Montage nötig (রেডি টু ইউজ)", "warranty": "12 Monate Garantie" },
+    "details": { "color": "Hellgrau", "fabric": "Borg-Polsterstoff", "dimensions": "160 x 78 cm", "function": "Schlaffunktion" },
+    "images": ["/furn/sofa21.webp", "/furn/sofa22.webp", "/furn/sofa23.webp", "/furn/sofa24.webp"],
+    "features": ["Kompakt", "Ausklappbar", "Inklusive Kissen"],
+    "description": "Ideale Lösung für ছোট রুম বা গেস্টরুমের জন্য।",
+    "createdAt": new Date()
+  },
+  {
+    "id": "SF-ORION-U-03",
+    "brand": "COTTA",
+    "title": "Wohnlandschaft Orion U-Form",
+    "category": "sofas",
+    "type": "U-Form / XXL",
+    "status": "Premium Luxus",
+    "pricing": { "original_price": 4199, "current_price": 2249.99, "currency": "EUR", "discount_label": "-46%" },
+    "service_info": { "delivery": "Zwei-Mann-Handling (Wunschort)", "assembly": "Professioneller Aufbauservice (+120 EUR)", "warranty": "5 Jahre Herstellergarantie" },
+    "details": { "color": "Mud (Dark Beige)", "fabric": "Struktur fein (100k Martindale)", "dimensions": "409 x 225 cm" },
+    "images": ["/furn/sofa31.webp", "/furn/sofa32.webp", "/furn/sofa33.webp", "/furn/sofa34.webp"],
+    "features": ["4 Kopfstützen", "Inkl. 6 Nierenkissen", "Rücken echt bezogen"],
+    "description": "Beeindruckende Breite von über 4 Metern. Platz für die ganze Familie.",
+    "createdAt": new Date()
+  },
+  {
+    "id": "SF-CHANTAL-04",
+    "brand": "FUN-MÖBEL",
+    "title": "Designersofa Chantal in Opera Velvet",
+    "category": "sofas",
+    "type": "Design-Ecksofa",
+    "status": "Exklusiv",
+    "pricing": { "original_price": 2499, "current_price": 1499.99, "currency": "EUR", "discount_label": "-40%" },
+    "service_info": { "delivery": "Lieferzeit: 10-15 Werktage", "assembly": "Einfaches Stecksystem (সহজ হুক সেটআপ)", "warranty": "2 Jahre Garantie auf Stoff" },
+    "details": { "color": "Blau / Grau", "fabric": "Opera Velvet (Samt)", "dimensions": "302 x 194 cm" },
+    "images": ["/furn/sofa41.webp", "/furn/sofa42.webp", "/furn/sofa43.webp", "/furn/sofa44.webp"],
+    "features": ["Edles Samt-Finish", "Organische Form", "Inkl. Kissen"],
+    "description": "Luxuriöser Samtbezug 'Opera Velvet'. Unvergleichliches Ambiente.",
+    "createdAt": new Date()
+  },
+  {
+    "id": "SF-FUNTASTIC-04",
+    "brand": "COLLECTION AB",
+    "title": "3-Sitzer Schlafsofa Funtastic",
+    "category": "sofas",
+    "type": "Schlafsofa",
+    "status": "Budget Choice",
+    "pricing": { "original_price": 950, "current_price": 479.99, "currency": "EUR", "discount_label": "-49%" },
+    "service_info": { "delivery": "Frei Bordsteinkante", "assembly": "Selbstmontage (2 Personen empfohlen)", "warranty": "2 Jahre Gewährleistung" },
+    "details": { "color": "Hellbraun", "fabric": "Microfaser PRIMABELLE", "dimensions": "212 x 96 cm", "storage": "Bettkasten inkl." },
+    "images": ["/furn/sofa51.webp", "/furn/sofa52.webp", "/furn/sofa53.webp", "/furn/sofa54.webp"],
+    "features": ["Bettfunktion", "Bettkasten", "Bonell-Federkern"],
+    "description": "Perfekte Lösung für Gästezimmer. Tagsüber Sofa, nachts Bett।",
+    "createdAt": new Date()
+  },
+  {
+    "id": "SF-KALLIE-XL-13",
+    "brand": "OTTO HOME",
+    "title": "Big-Sofa XL KALLIE (Bubble-Optik)",
+    "category": "sofas",
+    "type": "Design-Sofa",
+    "status": "Premium Trend",
+    "pricing": { "original_price": 1739, "current_price": 1299.99, "currency": "EUR", "discount_label": "-25%" },
+    "service_info": { "delivery": "Inklusive Entsorgung von Altmöbeln", "assembly": "Fachgerechte Montage inkl.", "warranty": "3 Jahre Premium Garantie" },
+    "details": { "color": "Hellblau", "fabric": "Chenille", "dimensions": "340 x 95 cm", "max_load": "560 kg" },
+    "images": ["/furn/sofa61.webp", "/furn/sofa62.webp", "/furn/sofa63.webp", "/furn/sofa64.webp"],
+    "features": ["Bubble-Optik", "FSC-Zertifiziert", "Extra Tief"],
+    "description": "Statement-Piece für moderne Wohnzimmer. 3,40m Breite!",
+    "createdAt": new Date()
+  },
+  {
+    "id": "SF-LEWII-RELAX-07",
+    "brand": "OTTO HOME",
+    "title": "Ecksofa LEWII mit elektr. Relaxfunktion",
+    "category": "sofas",
+    "type": "L-Form / Funktionssofa",
+    "status": "High-Tech",
+    "pricing": { "original_price": 1799.99, "current_price": 799.99, "currency": "EUR", "discount_label": "-56%" },
+    "service_info": { "delivery": "Spezialversand für Elektronik", "assembly": "Anschluss & Setup Service (+49 EUR)", "warranty": "2 Jahre gesetzlich + 1 Jahr Motor" },
+    "details": { "color": "Anthrazit", "fabric": "Webstoff", "dimensions": "213 x 163 cm", "tech": "USB A/C Port" },
+    "images": ["/furn/sofa71.webp", "/furn/sofa72.webp", "/furn/sofa73.webp", "/furn/sofa74.webp"],
+    "features": ["Elektrische Relaxfunktion", "USB Charging", "Verstellbare Kopfstützen"],
+    "description": "Kombination aus Design এবং টেকনোলজি। সোফায় বসেই চার্জিং সুবিধা।",
+    "createdAt": new Date()
+  },
+  {
+    "id": "SF-CURSAL-MOD-08",
+    "brand": "KAISER MÖBEL",
+    "title": "Modulares Ecksofa Cursal - L-Form",
+    "category": "sofas",
+    "type": "Modulsofa",
+    "status": "Flexibel",
+    "pricing": { "original_price": 1499, "current_price": 1159, "currency": "EUR", "discount_label": "-23%" },
+    "service_info": { "delivery": "Modulare Lieferung (সহজ বহনযোগ্য)", "assembly": "Klick-System (খুবই সহজ জয়েনিং)", "warranty": "5 Jahre auf Holzrahmen" },
+    "details": { "color": "Nata (Cream)", "fabric": "Artico (Pet-Friendly)", "dimensions": "284 x 166 cm" },
+    "images": ["/furn/sofa81.webp", "/furn/sofa82.webp", "/furn/sofa83.webp", "/furn/sofa84.webp"],
+    "features": ["Modulares System", "Tierfreundlicher Stoff", "Massivholz-Rahmen"],
+    "description": "Gestalten Sie আপনার বসার ঘর সবসময় নতুন করে। পোষা প্রাণীদের জন্য নিরাপদ।",
+    "createdAt": new Date()
+  },
+  {
+    "id": "SF-OUT-IBIZA-09",
+    "brand": "RIESS-AMBIENTE",
+    "title": "Sitzgruppe IBIZA MODULAR LOUNGE",
+    "category": "sofas",
+    "type": "Outdoor Lounge",
+    "status": "Wetterfest",
+    "pricing": { "original_price": 999, "current_price": 499.95, "currency": "EUR", "discount_label": "-50%" },
+    "service_info": { "delivery": "Lieferung bis Bordsteinkante", "assembly": "Vormontiert (বক্স খুললেই রেডি)", "warranty": "2 Jahre UV-Beständigkeit Garantie" },
+    "details": { "color": "Greige / Natur", "frame": "Aluminium (Rostfrei)", "dimensions": "250 x 180 cm", "extras": "Inkl. Tisch" },
+    "images": ["/furn/sofa91.webp", "/furn/sofa92.webp", "/furn/sofa93.webp", "/furn/sofa94.webp"],
+    "features": ["Wetterfest", "UV-Beständig", "Waschbare Bezüge"],
+    "description": "Idealer Begleiter für Garten, Terrasse oder Balkon. বৃষ্টি ও রোদে নষ্ট হয় না।",
+    "createdAt": new Date()
+  }
+])

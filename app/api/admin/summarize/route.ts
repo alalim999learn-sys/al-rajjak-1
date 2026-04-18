@@ -4,7 +4,7 @@
 
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
-////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
+ 
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -41,14 +41,14 @@ export async function GET(req: Request) {
       ${combinedPrompts}
     `;
 
-    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
+        "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "llama-3.1-8b-instant",
+        model: "google/gemini-2.0-flash-001",
         messages: [
           { role: "system", content: "তুমি একজন দক্ষ বিজনেস এনালিস্ট।" },
           { role: "user", content: analysisPrompt }

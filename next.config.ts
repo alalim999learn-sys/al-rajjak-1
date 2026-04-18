@@ -1,6 +1,7 @@
 //C:\Users\Shanon\al-rajjak-1\next.config.ts
 
 
+
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -16,9 +17,11 @@ const nextConfig: NextConfig = {
     ],
   },
 
-  // ২. লোকাল নেটওয়ার্ক বা আইপি (192.168.0.103) থেকে এক্সেস করার পারমিশন
+  // ২. লোকাল আইপি থেকে এক্সেস করার জন্য লেটেস্ট ফরম্যাট
   experimental: {
-    allowedDevOrigins: ['192.168.0.103', 'localhost:3000'],
+    serverActions: {
+      allowedOrigins: ['192.168.0.103:3000', 'localhost:3000'],
+    },
   },
 
   // ৩. ফেচিং ডিটেইলস দেখার জন্য
