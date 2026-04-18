@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 import clientPromise from "../../../lib/mongodb";
 import { ObjectId } from "mongodb";
 
-// GET: সব প্রোডাক্ট বা নির্দিষ্ট ক্যাটাগরি দেখাবে (সাপোর্ট: limit, search)
+// GET: সব প্রোডাক্ট বা নির্দিষ্ট ক্যাটাগরি দেখাবে
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
@@ -19,12 +19,10 @@ export async function GET(req: Request) {
     
     let query: any = {};
     
-    // ক্যাটাগরি ফিল্টার
     if (category && category !== "all") {
       query.category = category;
     }
     
-    // সার্চ ফিল্টার (title বা brand এ)
     if (search) {
       query.$or = [
         { title: { $regex: search, $options: "i" } },
@@ -44,7 +42,7 @@ export async function GET(req: Request) {
       data: data.map(item => ({ 
         ...item, 
         mongoId: item._id.toString(),
-        _id: undefined // _id ক্লায়েন্টে না পাঠানোই ভালো
+        _id: undefined 
       })) 
     });
   } catch (error: any) { 
@@ -52,12 +50,11 @@ export async function GET(req: Request) {
   }
 }
 
-// POST: নতুন প্রোডাক্ট যোগ করবে (ভ্যালিডেশন সহ)
+// POST: নতুন প্রোডাক্ট যোগ করবে
 export async function POST(req: Request) {
   try {
     const body = await req.json();
     
-    // ভ্যালিডেশন: Required fields check
     if (!body.title || !body.pricing?.current_price) {
       return NextResponse.json({ 
         success: false, 
@@ -68,7 +65,6 @@ export async function POST(req: Request) {
     const client = await clientPromise;
     const db = client.db("furniture_db");
     
-    // প্রোডাক্ট আইডি জেনারেট (যদি না আসে)
     const productId = body.id || `PX-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
     
     const newProduct = {
@@ -79,7 +75,6 @@ export async function POST(req: Request) {
       updatedAt: new Date(),
     };
     
-    // নিরাপত্তা: _id মুছে দিচ্ছি
     if ((newProduct as any)._id) delete (newProduct as any)._id;
     
     const result = await db.collection("furniture").insertOne(newProduct);
@@ -104,25 +99,13 @@ export async function PUT(req: Request) {
     
     const targetId = mongoId || _id;
     
-    if (!targetId) {
-      return NextResponse.json({ success: false, error: "Product ID is required" }, { status: 400 });
-    }
-    
-    // Valid ObjectId check
-    if (!ObjectId.isValid(targetId)) {
-      return NextResponse.json({ success: false, error: "Invalid product ID format" }, { status: 400 });
+    if (!targetId || !ObjectId.isValid(targetId)) {
+      return NextResponse.json({ success: false, error: "Valid Product ID is required" }, { status: 400 });
     }
     
     const client = await clientPromise;
     const db = client.db("furniture_db");
     
-    // Check if product exists
-    const existingProduct = await db.collection("furniture").findOne({ _id: new ObjectId(targetId) });
-    if (!existingProduct) {
-      return NextResponse.json({ success: false, error: "Product not found" }, { status: 404 });
-    }
-    
-    // Update basePrice if price changed
     if (updateData.pricing?.current_price) {
       updateData.basePrice = Number(updateData.pricing.current_price);
     }
@@ -143,7 +126,7 @@ export async function PUT(req: Request) {
   }
 }
 
-// PATCH: নির্দিষ্ট ফিল্ড আপডেট করবে (partial update)
+// PATCH: নির্দিষ্ট ফিল্ড আপডেট করবে
 export async function PATCH(req: Request) {
   try {
     const body = await req.json();
@@ -151,12 +134,8 @@ export async function PATCH(req: Request) {
     
     const targetId = mongoId || _id;
     
-    if (!targetId) {
-      return NextResponse.json({ success: false, error: "Product ID is required" }, { status: 400 });
-    }
-    
-    if (!ObjectId.isValid(targetId)) {
-      return NextResponse.json({ success: false, error: "Invalid product ID format" }, { status: 400 });
+    if (!targetId || !ObjectId.isValid(targetId)) {
+      return NextResponse.json({ success: false, error: "Valid Product ID is required" }, { status: 400 });
     }
     
     const client = await clientPromise;
@@ -166,10 +145,6 @@ export async function PATCH(req: Request) {
       { _id: new ObjectId(targetId) },
       { $set: { ...updateFields, updatedAt: new Date() } }
     );
-    
-    if (result.matchedCount === 0) {
-      return NextResponse.json({ success: false, error: "Product not found" }, { status: 404 });
-    }
     
     return NextResponse.json({ 
       success: true, 
@@ -188,23 +163,14 @@ export async function DELETE(req: Request) {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
     
-    if (!id) {
-      return NextResponse.json({ success: false, error: "Product ID required" }, { status: 400 });
-    }
-    
-    // Valid ObjectId check
-    if (!ObjectId.isValid(id)) {
-      return NextResponse.json({ success: false, error: "Invalid product ID format" }, { status: 400 });
+    if (!id || !ObjectId.isValid(id)) {
+      return NextResponse.json({ success: false, error: "Valid Product ID required" }, { status: 400 });
     }
     
     const client = await clientPromise;
     const db = client.db("furniture_db");
     
     const result = await db.collection("furniture").deleteOne({ _id: new ObjectId(id) });
-    
-    if (result.deletedCount === 0) {
-      return NextResponse.json({ success: false, error: "Product not found" }, { status: 404 });
-    }
     
     return NextResponse.json({ 
       success: true, 
