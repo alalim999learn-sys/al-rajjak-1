@@ -53,7 +53,7 @@ export async function POST(req: Request) {
       }
     }
 
-    // --- ২. ডাটাবেস থেকে ডাটা আনা ---
+   
     const client = await clientPromise;
     const db = client.db("furniture_db");
     const products = await db.collection("furniture")
