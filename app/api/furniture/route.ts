@@ -3,7 +3,7 @@
 
  
 import { NextResponse } from "next/server";
-import { supabase } from "../../lib/supabase"; 
+import { supabase } from "../../lib/supabase";
 
 export async function POST(req: Request) {
   try {
@@ -29,8 +29,17 @@ export async function POST(req: Request) {
             {
               role: "system",
               content: `Du bist ein PostgreSQL-Experte. Extrahiere Filter aus der Nachricht als JSON.
-              Felder: brand, type, color_primary, fabric_type, price_min, price_max, search_term.
-              Antworte NUR im JSON-Format.`
+              
+              🔴 Mögliche Felder (genau diese Namen verwenden - passend zu deiner Tabelle):
+              - brand: string (Marke)
+              - type: string (Typ)
+              - color_primary: string (Farbe)
+              - fabric_type: string (Stoff)
+              - price_min: number (Mindestpreis)
+              - price_max: number (Höchstpreis)
+              - search_term: string (für title oder description)
+              
+              Antworte NUR im JSON-Format. Beispiel: {"brand": "OTTO HOME", "price_max": 1000}`
             },
             { role: "user", content: lastUserMessage }
           ],
@@ -48,7 +57,7 @@ export async function POST(req: Request) {
         console.error("JSON Parse Error:", rawContent);
       }
 
-      // --- ২. ডাইনামিক ফিল্টারিং ---
+      // --- ২. ডাইনামিক ফিল্টারিং (তোমার column names অনুযায়ী) ---
       if (filters.brand) queryBuilder = queryBuilder.ilike("brand", `%${filters.brand}%`);
       if (filters.type) queryBuilder = queryBuilder.ilike("type", `%${filters.type}%`);
       if (filters.color_primary) queryBuilder = queryBuilder.ilike("color_primary", `%${filters.color_primary}%`);
@@ -62,39 +71,55 @@ export async function POST(req: Request) {
 
     const { data: products, error } = await queryBuilder
       .limit(10)
-      .order("created_at", { ascending: false });
+      .order("current_price", { ascending: true });
 
     if (error) throw error;
 
-    // --- ৩. এআই রেসপন্স (সুপারচার্জড ইনভেন্টরি কনটেক্সট) ---
-    // এখানে আমরা JSON কলামগুলো থেকে ডাটা বের করে AI-কে দিচ্ছি
+    // --- ৩. ফিক্সড ইনভেন্টরি কনটেক্সট (তোমার exact column names অনুযায়ী) ---
     const inventoryContext = products && products.length > 0
-      ? products.map((p: any) => 
-          `Product: ${p.title} 
-           ID: ${p.id}
-           Price: ${p.current_price}€ (Original: ${p.original_price}€)
-           Installment: ${p.payment_info?.installment_available ? 'Available, Monthly: ' + p.payment_info.monthly_payment_eur + '€' : 'Not available'}
-           Special Features: ${p.material_info?.fabric_properties || 'N/A'}, ${p.certifications?.made_in_germany ? 'MADE IN GERMANY' : 'Imported'}
-           Dimensions: ${p.dimensions_text} (Width: ${p.dimension_info?.width_cm}cm)
-           Pet-Friendly: ${p.material_info?.fabric_properties?.toLowerCase().includes('pet') ? 'YES' : 'No'}
-           Delivery & Service: ${p.service_info?.delivery}, Assembly: ${p.service_info?.assembly_available ? 'Included/Available' : 'No'}`
-        ).join("\n\n")
+      ? products.map((p: any) => {
+          // JSONB fields parsing
+          const materialInfo = p.material_info || {};
+          const dimensionInfo = p.dimensions_detailed || {};  // ← dimensions_detailed
+          const serviceInfo = p.service_info || {};
+          const warrantyInfo = p.warranty_info || {};
+          const deliveryInfo = p.delivery_info || {};
+          const certificationInfo = p.certifications || {};
+          const paymentInfo = p.payment_info || {};
+          
+          // পোষা বান্ধব চেক (material_info.fabric_properties থেকে)
+          const isPetFriendly = materialInfo.fabric_properties?.toLowerCase().includes('pet') || false;
+          
+          return `
+🛋️ Produkt: ${p.title} [SHOW_FRONT:${p.id}]
+💰 Preis: ${p.current_price}€ (Ursprünglich: ${p.original_price}€)
+📦 Ratenzahlung: ${paymentInfo.installment_available ? `Ja, ${paymentInfo.monthly_payment_eur}€/Monat` : 'Nein'}
+🎨 Farbe: ${p.color_primary || 'N/A'} | 📏 Größe: ${p.dimensions || 'N/A'}
+🪵 Material: ${p.fabric_type || 'N/A'} | 🏷️ Marke: ${p.brand}
+🐾 Pet-Friendly: ${isPetFriendly ? 'Ja ✅' : 'Nein ❌'}
+🇩🇪 Made in Germany: ${certificationInfo.made_in_germany ? 'Ja ✅' : 'Nein ❌'}
+📏 Breite: ${dimensionInfo.width_cm || 'N/A'}cm
+🚚 Lieferung: ${deliveryInfo.delivery_days || 'N/A'} Tage | 🛡️ Garantie: ${warrantyInfo.warranty_years || 0} Jahre
+🏠 Assembly: ${serviceInfo.assembly || 'Nicht verfügbar'}
+---`;
+        }).join("\n")
       : "Keine passenden Möbel gefunden.";
 
     const finalSystemInstruction = `Du bist ein Sales-Experte für 'LemonSKN Furniture'. 
-    
-    WICHTIGE REGELN:
-    1. ANTWORTE IMMER AUF BENGALISCH (সবসময় বন্ধুসুলভ বাংলায় কথা বলো).
-    2. Nutze das INVENTAR unten, um Produkte zu empfehlen.
-    3. **STRICT RULE:** Du MUSST für jedes erwähnte Produkt den Tag [SHOW_FRONT:ID] am Ende der Beschreibung hinzufügen.
-    4. **Smart Search:** - যদি কেউ বিড়াল (Cat/Pet) এর কথা বলে, 'Pet-Friendly: YES' এমন সোফা দেখাও (যেমন ID: SF-CURSAL-MOD-08)।
-       - যদি কেউ কিস্তি (Installment) চায়, ডাটা থেকে মাসিক কিস্তির পরিমাণ জানাও।
-       - যদি কেউ বিশাল সোফা (৪ মিটার) চায়, 'Width' চেক করো (যেমন Orion U-Form ৪.০৯ মিটার)।
-       - যদি কেউ 'Made in Germany' চায়, ডাটা দেখে কনফার্ম করো।
-    5. যদি সঠিক কিছু না থাকে, তবে "নাই" না বলে কাছাকাছি অপশন সাজেস্ট করো।
 
-    INVENTAR:
-    ${inventoryContext}`;
+🔴 WICHTIGE REGELN:
+1. ANTWORTE IMMER AUF BENGALISCH (সবসময় বন্ধুসুলভ বাংলায় কথা বলো).
+2. Nutze das INVENTAR unten, um Produkte zu empfehlen.
+3. **STRICT RULE:** Du MUSST für jedes erwähnte Produkt den Tag [SHOW_FRONT:ID] am Ende der Beschreibung hinzufügen.
+4. **Smart Search:** 
+   - যদি কেউ বিড়াল (Pet/Cat) এর কথা বলে, 'Pet-Friendly: Ja ✅' এমন সোফা দেখাও
+   - যদি কেউ কিস্তি (Ratenzahlung) চায়, ডাটা থেকে মাসিক কিস্তির পরিমাণ জানাও
+   - যদি কেউ বিশাল সোফা (৪ মিটার) চায়, 'Breite' চেক করো
+   - যদি কেউ 'Made in Germany' চায়, ডাটা দেখে কনফার্ম করো
+5. যদি সঠিক কিছু না থাকে, তবে "নাই" না বলে কাছাকাছি অপশন সাজেস্ট করো।
+
+📦 INVENTAR:
+${inventoryContext}`;
 
     const finalResponse = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
@@ -106,9 +131,10 @@ export async function POST(req: Request) {
         model: "google/gemini-2.0-flash-001",
         messages: [
           { role: "system", content: finalSystemInstruction },
-          ...messages.slice(-5) 
+          ...messages.slice(-5)
         ],
-        temperature: 0.7,
+        temperature: 0.3,
+        max_tokens: 600,
       }),
     });
 

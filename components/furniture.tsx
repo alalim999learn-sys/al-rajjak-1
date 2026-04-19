@@ -269,7 +269,7 @@ export default function FurnitureChat({ clientData }: { clientData: any }) {
                         return (
                           <div key={item.id || item._id} style={galleryItemStyle}>
                             <img src={thumb} style={gridImgStyle} alt={item.title} onClick={() => { setGalleryZoomImages([thumb]); setShowGalleryZoom(true); }} />
-                            <div style={{ padding: '10px 8px 5px 8px', fontSize: '13px', fontWeight: '800', color:'#1e293b' }}>{item.title}</div>
+                            <div style={{ padding: '10px 8px 5px 8px', fontSize: '13px', fontWeight: '800', color:'#0c131f' }}>{item.title}</div>
                             <div style={{ color: '#e11d48', paddingBottom: '10px', fontSize: '14px', fontWeight:'900' }}>€{price}</div>
                             <button onClick={() => setSelectedItem(item)} style={viewDetailsBtnStyle}>View Details</button>
                           </div>
