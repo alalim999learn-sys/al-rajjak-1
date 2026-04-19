@@ -3,50 +3,33 @@
 
 
 import { NextResponse } from "next/server";
-import clientPromise from "../../../lib/mongodb";
-import { ObjectId } from "mongodb";
+import { supabase } from "../../../lib/supabase";
 
 // GET: সব প্রোডাক্ট বা নির্দিষ্ট ক্যাটাগরি দেখাবে
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const category = searchParams.get("category");
-    const limit = parseInt(searchParams.get("limit") || "100");
     const search = searchParams.get("search");
-    
-    const client = await clientPromise;
-    const db = client.db("furniture_db");
-    
-    let query: any = {};
-    
-    if (category && category !== "all") {
-      query.category = category;
-    }
-    
-    if (search) {
-      query.$or = [
-        { title: { $regex: search, $options: "i" } },
-        { brand: { $regex: search, $options: "i" } }
-      ];
-    }
-    
-    const data = await db.collection("furniture")
-      .find(query)
-      .sort({ createdAt: -1 })
-      .limit(limit)
-      .toArray();
 
-    return NextResponse.json({ 
-      success: true, 
-      count: data.length,
-      data: data.map(item => ({ 
-        ...item, 
-        mongoId: item._id.toString(),
-        _id: undefined 
-      })) 
-    });
-  } catch (error: any) { 
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 }); 
+    // টেবিলের নাম আপডেট করা হয়েছে
+    let query = supabase.from("bismillah_table").select("*");
+
+    if (category && category !== "all") {
+      query = query.eq("category", category);
+    }
+
+    if (search) {
+      query = query.ilike("title", `%${search}%`);
+    }
+
+    const { data, error } = await query.order("created_at", { ascending: false });
+
+    if (error) throw error;
+
+    return NextResponse.json({ success: true, count: data?.length || 0, data });
+  } catch (error: any) {
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }
 
@@ -54,106 +37,62 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    
+
+    // ভ্যালিডেশন চেক
     if (!body.title || !body.pricing?.current_price) {
-      return NextResponse.json({ 
-        success: false, 
-        error: "Missing required fields: title and price are required" 
-      }, { status: 400 });
+      return NextResponse.json(
+        { success: false, error: "Title and Current Price are required!" },
+        { status: 400 }
+      );
     }
-    
-    const client = await clientPromise;
-    const db = client.db("furniture_db");
-    
-    const productId = body.id || `PX-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
-    
-    const newProduct = {
-      ...body,
-      id: productId,
-      basePrice: Number(body.pricing?.current_price) || 0,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+
+    // Supabase টেবিলের জন্য ডাটা ফরম্যাট
+    // বডি থেকে আসা নেস্টেড অবজেক্টগুলো সরাসরি JSONB কলামে সেভ হবে
+    const insertData = {
+      id: body.id,
+      category: body.category,
+      brand: body.brand,
+      title: body.title,
+      status: body.status,
+      description: body.description,
+      
+      // ডিরেক্ট প্রাইস কলাম (ফিল্টারিং এর সুবিধার জন্য)
+      current_price: Number(body.pricing.current_price),
+      original_price: Number(body.pricing.original_price) || null,
+      discount_label: body.pricing.discount_label || "",
+      
+      // JSONB কলামসমূহ
+      pricing: body.pricing, 
+      images: body.images, 
+      features: body.features,
+      material_info: body.material_info,
+      dimensions_info: body.dimensions_info,
+      delivery_info: body.delivery_info,
+      certifications: body.certifications || {}
     };
-    
-    if ((newProduct as any)._id) delete (newProduct as any)._id;
-    
-    const result = await db.collection("furniture").insertOne(newProduct);
-    
-    return NextResponse.json({ 
-      success: true, 
-      id: result.insertedId,
-      productId: productId,
-      message: "Product created successfully" 
-    });
-  } catch (error: any) { 
-    console.error("POST Error:", error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 400 }); 
-  }
-}
 
-// PUT: সম্পূর্ণ প্রোডাক্ট আপডেট করবে
-export async function PUT(req: Request) {
-  try {
-    const body = await req.json();
-    const { mongoId, _id, ...updateData } = body;
-    
-    const targetId = mongoId || _id;
-    
-    if (!targetId || !ObjectId.isValid(targetId)) {
-      return NextResponse.json({ success: false, error: "Valid Product ID is required" }, { status: 400 });
-    }
-    
-    const client = await clientPromise;
-    const db = client.db("furniture_db");
-    
-    if (updateData.pricing?.current_price) {
-      updateData.basePrice = Number(updateData.pricing.current_price);
-    }
-    
-    const result = await db.collection("furniture").updateOne(
-      { _id: new ObjectId(targetId) },
-      { $set: { ...updateData, updatedAt: new Date() } }
-    );
-    
-    return NextResponse.json({ 
-      success: true, 
-      modifiedCount: result.modifiedCount,
-      message: "Product updated successfully" 
-    });
-  } catch (error: any) { 
-    console.error("PUT Error:", error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 400 }); 
-  }
-}
+    const { data, error } = await supabase
+      .from("bismillah_table") // টেবিলের নাম আপডেট
+      .insert([insertData])
+      .select();
 
-// PATCH: নির্দিষ্ট ফিল্ড আপডেট করবে
-export async function PATCH(req: Request) {
-  try {
-    const body = await req.json();
-    const { mongoId, _id, ...updateFields } = body;
-    
-    const targetId = mongoId || _id;
-    
-    if (!targetId || !ObjectId.isValid(targetId)) {
-      return NextResponse.json({ success: false, error: "Valid Product ID is required" }, { status: 400 });
+    if (error) {
+      console.error("Supabase Insert Error:", error);
+      throw error;
     }
-    
-    const client = await clientPromise;
-    const db = client.db("furniture_db");
-    
-    const result = await db.collection("furniture").updateOne(
-      { _id: new ObjectId(targetId) },
-      { $set: { ...updateFields, updatedAt: new Date() } }
-    );
-    
+
     return NextResponse.json({ 
       success: true, 
-      modifiedCount: result.modifiedCount,
-      message: "Product partially updated" 
+      data, 
+      message: "Product Published Successfully!" 
     });
-  } catch (error: any) { 
-    console.error("PATCH Error:", error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 400 }); 
+
+  } catch (error: any) {
+    console.error("POST Error Details:", error);
+    return NextResponse.json(
+      { success: false, error: error.message }, 
+      { status: 500 }
+    );
   }
 }
 
@@ -162,23 +101,20 @@ export async function DELETE(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
-    
-    if (!id || !ObjectId.isValid(id)) {
-      return NextResponse.json({ success: false, error: "Valid Product ID required" }, { status: 400 });
+
+    if (!id) {
+      return NextResponse.json({ success: false, error: "Product ID required" }, { status: 400 });
     }
-    
-    const client = await clientPromise;
-    const db = client.db("furniture_db");
-    
-    const result = await db.collection("furniture").deleteOne({ _id: new ObjectId(id) });
-    
-    return NextResponse.json({ 
-      success: true, 
-      deletedCount: result.deletedCount,
-      message: "Product deleted successfully" 
-    });
-  } catch (error: any) { 
-    console.error("DELETE Error:", error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 }); 
+
+    const { error } = await supabase
+      .from("bismillah_table") // টেবিলের নাম আপডেট
+      .delete()
+      .eq("id", id);
+
+    if (error) throw error;
+
+    return NextResponse.json({ success: true, message: "Product deleted successfully" });
+  } catch (error: any) {
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }

@@ -1,0 +1,260 @@
+
+
+
+
+ CREATE TABLE BISMILLAH_table (
+
+    -- Basic Info
+
+    id TEXT PRIMARY KEY,
+
+    brand TEXT,
+
+    title TEXT,
+
+    type TEXT,
+
+    status TEXT,
+
+    description TEXT,
+
+    
+
+    -- Pricing
+
+    original_price DECIMAL,
+
+    current_price DECIMAL,
+
+    currency TEXT DEFAULT 'EUR',
+
+    discount_label TEXT,
+
+    
+
+    -- Service Info (Stored as JSONB for flexibility)
+
+    service_info JSONB,
+
+    
+
+    -- Technical Details
+
+    dimensions TEXT,
+
+    color_primary TEXT,
+
+    fabric_type TEXT,
+
+    
+
+    -- Media
+
+    images TEXT[], -- Array of image strings
+
+    
+
+    -- Deep Specifications (Detailed info)
+
+    material_info JSONB,
+
+    frame_info JSONB,
+
+    cushion_info JSONB,
+
+    dimensions_detailed JSONB,
+
+    warranty_info JSONB,
+
+    delivery_info JSONB,
+
+    
+
+    -- Status & Stock
+
+    colors_available JSONB,
+
+    certifications JSONB,
+
+    load_capacity JSONB,
+
+    payment_info JSONB,
+
+    
+
+    -- System Fields
+
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW())
+
+); 
+
+INSERT INTO BISMILLAH_table (
+    id, brand, title, type, status, description, 
+    original_price, current_price, currency, discount_label, 
+    service_info, dimensions, color_primary, fabric_type, images,
+    material_info, frame_info, cushion_info, dimensions_detailed, 
+    warranty_info, delivery_info, colors_available, certifications, 
+    load_capacity, payment_info
+) VALUES 
+-- 1. OLEA-L2
+(
+    'SF-OLEA-L2-01', 'ALTDECOR', 'Ecksofa OLEA-L2 in L-Form', 'Eckcouch', 'Trend-Design', 'Hochwertiger Cord-Bezug POSO. Gemütliche atmosphere আপনার বসার ঘরের জন্য।',
+    1859, 1429.9, 'EUR', '-23%',
+    '{"delivery": "Kostenlose Lieferung in das Wohnzimmer", "assembly": "Inklusive Montage (ফ্রি ফিটিং)", "warranty": "2 Jahre Rundum-Garantie"}',
+    '289 x 176 cm', 'Beige - Poso 105', 'Cord / Velours', 
+    ARRAY['/furn/sofa11.webp', '/furn/sofa12.webp', '/furn/sofa13.webp', '/furn/sofa14.webp'],
+    '{"type": "Fabric", "is_vegan": true, "fabric_name": "Cord / Velours", "cover_washable": false, "cleaning_method": "Vacuum or wipe with damp cloth", "fabric_martindale": "100000", "fabric_properties": "Stain-resistant, Pet-friendly, Weich", "fabric_composition": "100% Polyester"}',
+    '{"material": "Solid Wood", "wood_type": "Beech", "wood_origin": "Germany", "construction": "Mortise-and-tenon", "fsc_certified": true, "frame_warranty_years": 10}',
+    '{"foam_type": "HR foam", "foam_density": "35kg/m³", "seat_hardness": "Medium", "seat_construction": "Pocket springs", "back_cushion_filled": "Fiber", "back_cushion_detachable": true}',
+    '{"depth_cm": 176, "width_cm": 289, "height_cm": 90, "leg_height_cm": 5, "seat_depth_cm": 60, "seat_height_cm": 45, "armrest_height_cm": 20, "robot_vacuum_clearance": true}',
+    '{"return_days": 30, "return_policy": "Free return within 30 days", "warranty_years": 2, "extended_years": 5, "extended_available": true, "extended_cost_eur": 49}',
+    '{"delivery_days": 7, "delivery_cost_eur": 0, "assembly_available": true, "assembly_cost_eur": 0, "old_removal_cost_eur": 49, "old_furniture_removal": true}',
+    '[{"code": "#D2B48C", "name": "Beige", "in_stock": true}, {"code": "#404040", "name": "Dark Gray", "in_stock": false}]',
+    '{"fsc": true, "made_in_eu": true, "oeko_tex": true, "fire_standard": "DIN EN 1021-1", "fire_resistant": true, "made_in_germany": false}',
+    '{"per_seat_kg": 50, "max_weight_kg": 300, "daily_use_years": 10}',
+    '{"payment_methods": ["PayPal", "Credit Card", "Bank Transfer", "Klarna", "Invoice"], "monthly_payment_eur": 59.58, "down_payment_percent": 0, "installment_available": true}'
+),
+-- 2. ARELIS
+(
+    'SF-ARELIS-02', 'HOMESY', 'Schlafsofa Arelis – Moderne 2-Sitzer', '2-Sitzer / Schlafsofa', 'Bestseller', 'Ideale Lösung für ছোট রুম বা গেস্টরুমের জন্য।',
+    512.56, 292.59, 'EUR', '-43%',
+    '{"delivery": "Express Versand (48h)", "assembly": "Keine Montage nötig (রেডি টু ইউজ)", "warranty": "12 Monate Garantie"}',
+    '160 x 78 cm', 'Hellgrau', 'Borg-Polsterstoff',
+    ARRAY['/furn/sofa21.webp', '/furn/sofa22.webp', '/furn/sofa23.webp', '/furn/sofa24.webp'],
+    '{"type": "Fabric", "is_vegan": true, "fabric_name": "Borg-Polsterstoff", "cover_washable": false, "cleaning_method": "Vacuum or wipe with damp cloth", "fabric_martindale": "50000", "fabric_properties": "Weich, Kuschelig, Pflegeleicht", "fabric_composition": "100% Polyester"}',
+    '{"material": "Metal + Wood", "wood_type": "Plywood", "construction": "Standard", "fsc_certified": false, "frame_warranty_years": 1}',
+    '{"foam_type": "Standard foam", "foam_density": "25kg/m³", "seat_hardness": "Medium soft", "seat_construction": "Foam only", "back_cushion_filled": "Fiber", "back_cushion_detachable": true}',
+    '{"depth_cm": 78, "width_cm": 160, "height_cm": 84, "leg_height_cm": 3, "seat_depth_cm": 55, "seat_height_cm": 42, "armrest_height_cm": 15, "robot_vacuum_clearance": false}',
+    '{"return_days": 14, "return_policy": "Free return within 14 days", "warranty_years": 1, "extended_years": 3, "extended_available": true, "extended_cost_eur": 29}',
+    '{"delivery_days": 2, "delivery_cost_eur": 0, "assembly_available": false, "old_furniture_removal": false}',
+    '[{"code": "#D3D3D3", "name": "Hellgrau", "in_stock": true}]',
+    '{"fsc": false, "made_in_eu": false, "oeko_tex": false, "fire_resistant": true}',
+    '{"per_seat_kg": 120, "max_weight_kg": 240, "daily_use_years": 5}',
+    '{"payment_methods": ["PayPal", "Credit Card", "Bank Transfer"], "monthly_payment_eur": 24.38, "installment_available": true}'
+),
+-- 3. ORION-U
+(
+    'SF-ORION-U-03', 'COTTA', 'Wohnlandschaft Orion U-Form', 'U-Form / XXL', 'Premium Luxus', 'Beeindruckende Breite von über 4 Metern. Platz für die ganze Familie.',
+    4199, 2249.99, 'EUR', '-46%',
+    '{"delivery": "Zwei-Mann-Handling (Wunschort)", "assembly": "Professioneller Aufbauservice (+120 EUR)", "warranty": "5 Jahre Herstellergarantie"}',
+    '409 x 225 cm', 'Mud (Dark Beige)', 'Struktur fein',
+    ARRAY['/furn/sofa31.webp', '/furn/sofa32.webp', '/furn/sofa33.webp', '/furn/sofa34.webp'],
+    '{"type": "Fabric", "is_vegan": true, "fabric_name": "Struktur fein", "cover_washable": false, "cleaning_method": "Vacuum or professional cleaning", "fabric_martindale": "100000", "fabric_properties": "Strapazierfähig, Pflegeleicht, Luxuriös", "fabric_composition": "100% Polyester"}',
+    '{"material": "Solid Wood", "wood_type": "Beech", "wood_origin": "Germany", "construction": "Premium", "fsc_certified": true, "frame_warranty_years": 5}',
+    '{"foam_type": "HR foam", "foam_density": "38kg/m³", "seat_hardness": "Medium firm", "seat_construction": "Pocket springs", "back_cushion_filled": "Fiber + Foam", "back_cushion_detachable": true}',
+    '{"depth_cm": 225, "width_cm": 409, "height_cm": 90, "leg_height_cm": 8, "seat_depth_cm": 65, "seat_height_cm": 42, "armrest_height_cm": 25, "robot_vacuum_clearance": true}',
+    '{"return_days": 30, "return_policy": "Free return within 30 days", "warranty_years": 5, "extended_years": 10, "extended_available": true, "extended_cost_eur": 99}',
+    '{"delivery_days": 14, "delivery_cost_eur": 0, "assembly_available": true, "assembly_cost_eur": 120, "old_removal_cost_eur": 79, "old_furniture_removal": true}',
+    '[{"code": "#A98A6B", "name": "Mud", "in_stock": true}]',
+    '{"fsc": true, "made_in_eu": true, "oeko_tex": true, "made_in_germany": true, "fire_resistant": true}',
+    '{"per_seat_kg": 120, "max_weight_kg": 560, "daily_use_years": 15}',
+    '{"payment_methods": ["PayPal", "Credit Card", "Bank Transfer", "Klarna", "Invoice"], "monthly_payment_eur": 93.75, "down_payment_percent": 0, "installment_available": true}'
+),
+-- 4. CHANTAL
+(
+    'SF-CHANTAL-04', 'FUN-MÖBEL', 'Designersofa Chantal in Opera Velvet', 'Design-Ecksofa', 'Exklusiv', 'Luxuriöser Samtbezug Opera Velvet. Unvergleichliches Ambiente.',
+    2499, 1499.99, 'EUR', '-40%',
+    '{"delivery": "Lieferzeit: 10-15 Werktage", "assembly": "Einfaches Stecksystem (সহজ হুক সেটআপ)", "warranty": "2 Jahre Garantie auf Stoff"}',
+    '302 x 194 cm', 'Blau / Grau', 'Opera Velvet (Samt)',
+    ARRAY['/furn/sofa41.webp', '/furn/sofa42.webp', '/furn/sofa43.webp', '/furn/sofa44.webp'],
+    '{"type": "Fabric", "is_vegan": true, "fabric_name": "Opera Velvet", "cover_washable": false, "cleaning_method": "Vacuum or professional cleaning", "fabric_martindale": "80000", "fabric_properties": "Weich, Luxuriös, Glänzend", "fabric_composition": "100% Polyester"}',
+    '{"material": "Solid Wood", "wood_type": "Birch", "wood_origin": "Poland", "construction": "Premium", "fsc_certified": true, "frame_warranty_years": 5}',
+    '{"foam_type": "HR foam", "foam_density": "35kg/m³", "seat_hardness": "Medium", "seat_construction": "Pocket springs", "back_cushion_filled": "Fiber", "back_cushion_detachable": true}',
+    '{"depth_cm": 194, "width_cm": 302, "height_cm": 88, "leg_height_cm": 6, "seat_depth_cm": 62, "seat_height_cm": 44, "armrest_height_cm": 18, "robot_vacuum_clearance": true}',
+    '{"return_days": 14, "return_policy": "Free return within 14 days", "warranty_years": 2, "extended_years": 5, "extended_available": true, "extended_cost_eur": 59}',
+    '{"delivery_days": 15, "delivery_cost_eur": 0, "assembly_available": true, "assembly_cost_eur": 0, "old_furniture_removal": false}',
+    '[{"code": "#0000FF", "name": "Blau", "in_stock": true}, {"code": "#808080", "name": "Grau", "in_stock": true}]',
+    '{"fsc": true, "made_in_eu": true, "oeko_tex": true, "fire_resistant": true, "made_in_germany": false}',
+    '{"per_seat_kg": 70, "max_weight_kg": 350, "daily_use_years": 10}',
+    '{"payment_methods": ["PayPal", "Credit Card", "Bank Transfer", "Klarna"], "monthly_payment_eur": 62.50, "installment_available": true}'
+),
+-- 5. FUNTASTIC
+(
+    'SF-FUNTASTIC-04', 'COLLECTION AB', '3-Sitzer Schlafsofa Funtastic', 'Schlafsofa', 'Budget Choice', 'Perfekte Lösung für Gästezimmer. Tagsüber Sofa, nachts Bett।',
+    950, 479.99, 'EUR', '-49%',
+    '{"delivery": "Frei Bordsteinkante", "assembly": "Selbstmontage (2 Personen empfohlen)", "warranty": "2 Jahre Gewährleistung"}',
+    '212 x 96 cm', 'Hellbraun', 'Microfaser PRIMABELLE',
+    ARRAY['/furn/sofa51.webp', '/furn/sofa52.webp', '/furn/sofa53.webp', '/furn/sofa54.webp'],
+    '{"type": "Fabric", "is_vegan": true, "fabric_name": "Microfaser PRIMABELLE", "cover_washable": true, "cleaning_method": "Wipe with damp cloth", "fabric_martindale": "60000", "fabric_properties": "Weich, Pflegeleicht, Wasserabweisend", "fabric_composition": "100% Polyester"}',
+    '{"material": "Wood + Metal", "wood_type": "Plywood", "construction": "Standard", "fsc_certified": false, "frame_warranty_years": 2}',
+    '{"foam_type": "Standard foam + Bonell springs", "foam_density": "28kg/m³", "seat_hardness": "Medium", "seat_construction": "Bonell springs", "back_cushion_filled": "Fiber", "back_cushion_detachable": true}',
+    '{"depth_cm": 96, "width_cm": 212, "height_cm": 84, "leg_height_cm": 4, "seat_depth_cm": 58, "seat_height_cm": 44, "armrest_height_cm": 16, "robot_vacuum_clearance": false}',
+    '{"return_days": 14, "return_policy": "Free return within 14 days", "warranty_years": 2, "extended_years": 5, "extended_available": true, "extended_cost_eur": 39}',
+    '{"delivery_days": 5, "delivery_cost_eur": 0, "assembly_available": false, "old_furniture_removal": false}',
+    '[{"code": "#CD853F", "name": "Hellbraun", "in_stock": true}]',
+    '{"made_in_eu": true, "fire_resistant": true}',
+    '{"per_seat_kg": 100, "max_weight_kg": 300, "daily_use_years": 7}',
+    '{"payment_methods": ["PayPal", "Credit Card", "Bank Transfer"], "monthly_payment_eur": 20.00, "installment_available": true}'
+),
+-- 6. KALLIE-XL
+(
+    'SF-KALLIE-XL-13', 'OTTO HOME', 'Big-Sofa XL KALLIE (Bubble-Optik)', 'Design-Sofa', 'Premium Trend', 'Statement-Piece für moderne Wohnzimmer. 3,40m Breite!',
+    1739, 1299.99, 'EUR', '-25%',
+    '{"delivery": "Inklusive Entsorgung von Altmöbeln (পুরাতন সোফা নিয়ে যাওয়ার সুবিধা)", "assembly": "Fachgerechte Montage inkl.", "warranty": "3 Jahre Premium Garantie"}',
+    '340 x 95 cm', 'Hellblau', 'Chenille',
+    ARRAY['/furn/sofa61.webp', '/furn/sofa62.webp', '/furn/sofa63.webp', '/furn/sofa64.webp'],
+    '{"type": "Fabric", "is_vegan": true, "fabric_name": "Chenille", "cover_washable": false, "cleaning_method": "Vacuum or wipe with damp cloth", "fabric_martindale": "90000", "fabric_properties": "Weich, Samtig, Strapazierfähig", "fabric_composition": "100% Polyester"}',
+    '{"material": "Solid Wood", "wood_type": "Beech", "wood_origin": "Germany", "construction": "Premium", "fsc_certified": true, "frame_warranty_years": 5}',
+    '{"foam_type": "HR foam", "foam_density": "40kg/m³", "seat_hardness": "Firm", "seat_construction": "Pocket springs", "back_cushion_filled": "Fiber", "back_cushion_detachable": true}',
+    '{"depth_cm": 95, "width_cm": 340, "height_cm": 72, "leg_height_cm": 5, "seat_depth_cm": 58, "seat_height_cm": 44, "armrest_height_cm": 12, "robot_vacuum_clearance": true}',
+    '{"return_days": 30, "return_policy": "Free return within 30 days", "warranty_years": 3, "extended_years": 7, "extended_available": true, "extended_cost_eur": 79}',
+    '{"delivery_days": 10, "delivery_cost_eur": 0, "assembly_available": true, "assembly_cost_eur": 0, "old_removal_cost_eur": 0, "old_furniture_removal": true}',
+    '[{"code": "#ADD8E6", "name": "Hellblau", "in_stock": true}]',
+    '{"fsc": true, "made_in_eu": true, "oeko_tex": true, "made_in_germany": true, "fire_resistant": true}',
+    '{"per_seat_kg": 112, "max_weight_kg": 560, "daily_use_years": 12}',
+    '{"payment_methods": ["PayPal", "Credit Card", "Bank Transfer", "Klarna", "Invoice"], "monthly_payment_eur": 54.17, "installment_available": true}'
+),
+-- 7. LEWII-RELAX
+(
+    'SF-LEWII-RELAX-07', 'OTTO HOME', 'Ecksofa LEWII mit elektr. Relaxfunktion', 'L-Form / Funktionssofa', 'High-Tech', 'Kombination aus Design এবং টেকনোলজি। সোফায় বসেই চার্জিং সুবিধা।',
+    1799.99, 799.99, 'EUR', '-56%',
+    '{"delivery": "Spezialversand für Elektronik", "assembly": "Anschluss & Setup Service (+49 EUR)", "warranty": "2 Jahre gesetzlich + 1 Jahr Motor"}',
+    '213 x 163 cm', 'Anthrazit', 'Webstoff',
+    ARRAY['/furn/sofa71.webp', '/furn/sofa72.webp', '/furn/sofa73.webp', '/furn/sofa74.webp'],
+    '{"type": "Fabric", "is_vegan": true, "fabric_name": "Webstoff", "cover_washable": false, "cleaning_method": "Vacuum or wipe with damp cloth", "fabric_martindale": "70000", "fabric_properties": "Strapazierfähig, Pflegeleicht, Modern", "fabric_composition": "100% Polyester"}',
+    '{"material": "Wood + Metal", "wood_type": "Plywood", "construction": "Standard", "fsc_certified": true, "frame_warranty_years": 5}',
+    '{"foam_type": "HR foam", "foam_density": "35kg/m³", "seat_hardness": "Medium", "seat_construction": "Pocket springs", "back_cushion_filled": "Fiber", "back_cushion_detachable": true}',
+    '{"depth_cm": 163, "width_cm": 213, "height_cm": 86, "leg_height_cm": 4, "seat_depth_cm": 55, "seat_height_cm": 50, "armrest_height_cm": 22, "robot_vacuum_clearance": false}',
+    '{"return_days": 14, "return_policy": "Free return within 14 days", "warranty_years": 2, "extended_years": 5, "extended_available": true, "extended_cost_eur": 49}',
+    '{"delivery_days": 8, "delivery_cost_eur": 0, "assembly_available": true, "assembly_cost_eur": 49, "old_furniture_removal": false}',
+    '[{"code": "#2F2F2F", "name": "Anthrazit", "in_stock": true}]',
+    '{"fsc": true, "made_in_eu": true, "oeko_tex": true, "made_in_germany": true, "fire_resistant": true}',
+    '{"per_seat_kg": 100, "max_weight_kg": 350, "daily_use_years": 8}',
+    '{"payment_methods": ["PayPal", "Credit Card", "Bank Transfer", "Klarna"], "monthly_payment_eur": 33.33, "installment_available": true}'
+),
+-- 8. CURSAL-MOD
+(
+    'SF-CURSAL-MOD-08', 'KAISER MÖBEL', 'Modulares Ecksofa Cursal - L-Form', 'Modulsofa', 'Flexibel', 'Gestalten Sie আপনার বসার ঘর সবসময় নতুন করে। পোষা প্রাণীদের জন্য নিরাপদ।',
+    1499, 1159, 'EUR', '-23%',
+    '{"delivery": "Modulare Lieferung (সহজ বহনযোগ্য)", "assembly": "Klick-System (খুবই সহজ জয়েনিং)", "warranty": "5 Jahre auf Holzrahmen"}',
+    '284 x 166 cm', 'Nata (Cream)', 'Artico (Pet-Friendly)',
+    ARRAY['/furn/sofa81.webp', '/furn/sofa82.webp', '/furn/sofa83.webp', '/furn/sofa84.webp'],
+    '{"type": "Fabric", "is_vegan": true, "fabric_name": "Artico", "cover_washable": false, "cleaning_method": "Vacuum or wipe with damp cloth", "fabric_martindale": "120000", "fabric_properties": "Pet-friendly, Kratzfest, Pflegeleicht", "fabric_composition": "100% Polyester"}',
+    '{"material": "Solid Wood", "wood_type": "Oak", "wood_origin": "Germany", "construction": "Mortise-and-tenon", "fsc_certified": true, "frame_warranty_years": 5}',
+    '{"foam_type": "HR foam", "foam_density": "35kg/m³", "seat_hardness": "Medium", "seat_construction": "Pocket springs", "back_cushion_filled": "Fiber", "back_cushion_detachable": true}',
+    '{"depth_cm": 166, "width_cm": 284, "height_cm": 70, "leg_height_cm": 7, "seat_depth_cm": 60, "seat_height_cm": 40, "armrest_height_cm": 15, "robot_vacuum_clearance": true}',
+    '{"return_days": 30, "return_policy": "Free return within 30 days", "warranty_years": 5, "extended_years": 10, "extended_available": true, "extended_cost_eur": 69}',
+    '{"delivery_days": 10, "delivery_cost_eur": 0, "assembly_available": true, "assembly_cost_eur": 0, "old_furniture_removal": false}',
+    '[{"code": "#FFFDD0", "name": "Nata", "in_stock": true}]',
+    '{"fsc": true, "made_in_eu": true, "oeko_tex": true, "made_in_germany": true, "fire_resistant": true}',
+    '{"per_seat_kg": 100, "max_weight_kg": 400, "daily_use_years": 12}',
+    '{"payment_methods": ["PayPal", "Credit Card", "Bank Transfer", "Klarna", "Invoice"], "monthly_payment_eur": 48.29, "installment_available": true}'
+),
+-- 9. IBIZA
+(
+    'SF-OUT-IBIZA-09', 'RIESS-AMBIENTE', 'Sitzgruppe IBIZA MODULAR LOUNGE', 'Outdoor Lounge', 'Wetterfest', 'Idealer Begleiter für Garten, Terrasse oder Balkon. বৃষ্টি ও রোদে নষ্ট হয় না।',
+    999, 499.95, 'EUR', '-50%',
+    '{"delivery": "Lieferung bis Bordsteinkante", "assembly": "Vormontiert (বক্স খুললেই রেডি)", "warranty": "2 Jahre UV-Beständigkeit Garantie"}',
+    '250 x 180 cm', 'Greige / Natur', 'Outdoor fabric',
+    ARRAY['/furn/sofa91.webp', '/furn/sofa92.webp', '/furn/sofa93.webp', '/furn/sofa94.webp'],
+    '{"type": "Fabric", "is_vegan": true, "fabric_name": "Outdoor fabric", "cover_washable": true, "cleaning_method": "Wipe with damp cloth or washable cover", "fabric_martindale": "50000", "fabric_properties": "Wetterfest, UV-beständig, Wasserabweisend", "fabric_composition": "100% Polyester"}',
+    '{"material": "Aluminum", "wood_type": null, "construction": "Welded", "fsc_certified": false, "frame_warranty_years": 5}',
+    '{"foam_type": "Outdoor foam", "foam_density": "30kg/m³", "seat_hardness": "Medium", "seat_construction": "Foam only", "back_cushion_filled": "Fiber", "back_cushion_detachable": true}',
+    '{"depth_cm": 180, "width_cm": 250, "height_cm": 80, "leg_height_cm": 8, "seat_depth_cm": 55, "seat_height_cm": 42, "armrest_height_cm": 18, "robot_vacuum_clearance": true}',
+    '{"return_days": 14, "return_policy": "Free return within 14 days", "warranty_years": 2, "extended_years": 5, "extended_available": true, "extended_cost_eur": 29}',
+    '{"delivery_days": 7, "delivery_cost_eur": 0, "assembly_available": false, "old_furniture_removal": false}',
+    '[{"code": "#B8A99A", "name": "Greige", "in_stock": true}, {"code": "#D4B896", "name": "Natur", "in_stock": true}]',
+    '{"made_in_eu": true, "fire_resistant": true}',
+    '{"per_seat_kg": 100, "max_weight_kg": 350, "daily_use_years": 8}',
+    '{"payment_methods": ["PayPal", "Credit Card", "Bank Transfer"], "monthly_payment_eur": 20.83, "installment_available": true}'
+);

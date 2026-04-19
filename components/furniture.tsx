@@ -11,7 +11,7 @@ const ImageZoomViewer = ({ images, initialIndex, onClose }: { images: string[]; 
   const [zoomLevel, setZoomLevel] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 }); // Fixed: Initialized with 0
 
   const zoomIn = () => setZoomLevel(prev => Math.min(prev + 0.25, 3));
   const zoomOut = () => setZoomLevel(prev => Math.max(prev - 0.25, 1));
@@ -82,7 +82,7 @@ const ProductDetailModal = ({ item, onClose, onAskAI }: { item: any; onClose: ()
     return ["/api/placeholder/400/320"];
   }, [item]);
 
-  const price = item.pricing?.current_price || item.price || "N/A";
+  const price = item.current_price || item.pricing?.current_price || item.price || "N/A";
 
   return (
     <>
@@ -98,7 +98,6 @@ const ProductDetailModal = ({ item, onClose, onAskAI }: { item: any; onClose: ()
             <div style={{ fontSize: '13px', color: '#64748b', marginBottom: '20px', lineHeight: '1.5' }}>
                 {item.category && <span style={{display:'block', marginBottom:'5px'}}>Category: <b>{item.category}</b></span>}
                 {item.description || "High-quality luxury furniture by LemonSKN."}
-                
                 {item.details && (
                   <div style={{marginTop: '10px', padding: '10px', background: '#f8fafc', borderRadius: '8px'}}>
                     <div>🎨 Color: {item.details.color}</div>
@@ -162,10 +161,10 @@ export default function FurnitureChat({ clientData }: { clientData: any }) {
       const match = part.match(/\[SHOW_FRONT:([^\]]+)\]/);
       if (match) {
         const productId = match[1].trim();
-        const product = allProducts.find(p => (p._id?.toString() === productId || p.id === productId));
+        const product = allProducts.find(p => (p.id?.toString() === productId || p._id?.toString() === productId));
         if (product) {
           const thumb = product.image || (product.images && product.images[0]) || "/api/placeholder/50/50";
-          const price = product.pricing?.current_price || product.price || "N/A";
+          const price = product.current_price || product.pricing?.current_price || product.price || "N/A";
           return (
             <div key={index} style={productLinkStyle} onClick={() => setSelectedItem(product)}>
               <img src={thumb} alt={product.title} style={{ width: '45px', height: '45px', objectFit: 'cover', borderRadius: '8px' }} />
@@ -201,16 +200,14 @@ export default function FurnitureChat({ clientData }: { clientData: any }) {
 
       const data = await res.json();
       if (data.success) {
-        setMessages(prev => [...prev, { role: 'assistant', content: data.text }]);
-        
-        // ব্যাকএন্ড থেকে আসা নতুন প্রোডাক্টগুলো লিস্টে যুক্ত করা (যাতে চ্যাটে ছবি দেখা যায়)
         if (data.inventory && Array.isArray(data.inventory)) {
           setAllProducts(prev => {
-            const combined = [...prev, ...data.inventory];
-            // ডুপ্লিকেট রিমুভ করা ID এর মাধ্যমে
-            return combined.filter((v, i, a) => a.findIndex(t => (t._id === v._id)) === i);
+            const existingIds = new Set(prev.map(p => (p.id || p._id).toString()));
+            const newUnique = data.inventory.filter((p: any) => !existingIds.has((p.id || p._id).toString()));
+            return [...prev, ...newUnique];
           });
         }
+        setMessages(prev => [...prev, { role: 'assistant', content: data.text }]);
       }
     } catch (err) {
       console.error(err);
@@ -268,18 +265,10 @@ export default function FurnitureChat({ clientData }: { clientData: any }) {
                 ) : (
                     filteredItems.map((item: any) => {
                         const thumb = item.image || (item.images && item.images[0]) || "/api/placeholder/150/130";
-                        const price = item.pricing?.current_price || item.price || "N/A";
+                        const price = item.current_price || item.pricing?.current_price || item.price || "N/A";
                         return (
                           <div key={item.id || item._id} style={galleryItemStyle}>
-                            <img 
-                                src={thumb} 
-                                style={gridImgStyle} 
-                                alt={item.title} 
-                                onClick={() => { 
-                                    setGalleryZoomImages([thumb]); 
-                                    setShowGalleryZoom(true); 
-                                }} 
-                            />
+                            <img src={thumb} style={gridImgStyle} alt={item.title} onClick={() => { setGalleryZoomImages([thumb]); setShowGalleryZoom(true); }} />
                             <div style={{ padding: '10px 8px 5px 8px', fontSize: '13px', fontWeight: '800', color:'#1e293b' }}>{item.title}</div>
                             <div style={{ color: '#e11d48', paddingBottom: '10px', fontSize: '14px', fontWeight:'900' }}>€{price}</div>
                             <button onClick={() => setSelectedItem(item)} style={viewDetailsBtnStyle}>View Details</button>
@@ -318,12 +307,10 @@ const inputFieldStyle: React.CSSProperties = { flex: 1, padding: '12px 20px', bo
 const sendButtonStyle: React.CSSProperties = { background: '#000', borderRadius: '50%', width: '45px', height: '45px', border: 'none', color: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px' };
 const productLinkStyle: React.CSSProperties = { display: 'flex', alignItems: 'center', gap: '10px', background: '#f8fafc', padding: '10px', borderRadius: '15px', margin: '10px 0', cursor: 'pointer', border: '1px solid #e2e8f0', transition: 'background 0.2s' };
 const askAiBtnStyle: React.CSSProperties = { width: '100%', padding: '15px', background: '#000', color: '#fff', border: 'none', borderRadius: '15px', cursor: 'pointer', fontWeight: '900', fontSize: '14px', letterSpacing: '0.5px' };
-
 const modalOverlayFixedStyle: React.CSSProperties = { position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.7)', zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(5px)' };
 const modalContentStyle: React.CSSProperties = { width: '92%', maxWidth: '400px', background: '#fff', borderRadius: '28px', overflow: 'hidden', position: 'relative', boxShadow: '0 25px 50px rgba(0,0,0,0.3)' };
 const imageContainer: React.CSSProperties = { width: '100%', height: '250px', background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center' };
 const closeBtnStyle: React.CSSProperties = { position: 'absolute', top: '15px', right: '15px', background: 'rgba(255,255,255,0.9)', border: 'none', borderRadius: '50%', width: '35px', height: '35px', cursor: 'pointer', zIndex: 100, fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' };
-
 const zoomOverlayStyle: React.CSSProperties = { position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.95)', zIndex: 20000, display: 'flex', alignItems: 'center', justifyContent: 'center' };
 const zoomContainerStyle: React.CSSProperties = { width: '100%', height: '100%', position: 'relative', display: 'flex', flexDirection: 'column' };
 const zoomHeaderStyle: React.CSSProperties = { display: 'flex', justifyContent: 'space-between', padding: '20px', zIndex: 10 };
