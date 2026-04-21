@@ -11,7 +11,7 @@ const ImageZoomViewer = ({ images, initialIndex, onClose }: { images: string[]; 
   const [zoomLevel, setZoomLevel] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0 }); // Fixed: Initialized with 0
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
 
   const zoomIn = () => setZoomLevel(prev => Math.min(prev + 0.25, 3));
   const zoomOut = () => setZoomLevel(prev => Math.max(prev - 0.25, 1));
@@ -82,7 +82,7 @@ const ProductDetailModal = ({ item, onClose, onAskAI }: { item: any; onClose: ()
     return ["/api/placeholder/400/320"];
   }, [item]);
 
-  const price = item.current_price || item.pricing?.current_price || item.price || "N/A";
+  const price = item.current_price || item.price || "N/A";
 
   return (
     <>
@@ -92,19 +92,27 @@ const ProductDetailModal = ({ item, onClose, onAskAI }: { item: any; onClose: ()
           <div style={imageContainer} onClick={() => setShowZoom(true)}>
             <img src={productImages[activeImg]} alt={item.title} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', cursor: 'pointer' }} />
           </div>
+          
+          {productImages.length > 1 && (
+            <div style={{display:'flex', gap:'5px', padding:'10px', overflowX:'auto', background:'#f8fafc'}}>
+                {productImages.map((img, idx) => (
+                    <img key={idx} src={img} onClick={() => setActiveImg(idx)} style={{width:'50px', height:'50px', objectFit:'cover', borderRadius:'5px', cursor:'pointer', border: activeImg === idx ? '2px solid #000' : 'none'}} />
+                ))}
+            </div>
+          )}
+
           <div style={{ padding: '20px' }}>
             <h3 style={{ margin: 0, fontSize: '18px', color: '#000', fontWeight: '800' }}>{item.title}</h3>
             <p style={{ color: '#e11d48', fontWeight: '900', fontSize: '20px', margin: '10px 0' }}>€{price}</p>
             <div style={{ fontSize: '13px', color: '#64748b', marginBottom: '20px', lineHeight: '1.5' }}>
-                {item.category && <span style={{display:'block', marginBottom:'5px'}}>Category: <b>{item.category}</b></span>}
+                {item.type && <span style={{display:'block', marginBottom:'5px'}}>Typ: <b>{item.type}</b></span>}
                 {item.description || "High-quality luxury furniture by LemonSKN."}
-                {item.details && (
-                  <div style={{marginTop: '10px', padding: '10px', background: '#f8fafc', borderRadius: '8px'}}>
-                    <div>🎨 Color: {item.details.color}</div>
-                    <div>📏 Dimensions: {item.details.dimensions}</div>
-                    <div>🧵 Fabric: {item.details.fabric}</div>
-                  </div>
-                )}
+                
+                <div style={{marginTop: '10px', padding: '10px', background: '#f8fafc', borderRadius: '8px', fontSize:'12px'}}>
+                   {item.dimensions && <div>📏 Dimension: {item.dimensions}</div>}
+                   {item.fabric_type && <div>🧵 Stoff: {item.fabric_type}</div>}
+                   {item.color_primary && <div>🎨 Farbe: {item.color_primary}</div>}
+                </div>
             </div>
             <button onClick={() => { onAskAI(item.title); onClose(); }} style={askAiBtnStyle}>🤖 বিস্তারিত জানুন</button>
           </div>
@@ -118,8 +126,9 @@ const ProductDetailModal = ({ item, onClose, onAskAI }: { item: any; onClose: ()
 // --- ৩. মেইন চ্যাট কম্পোনেন্ট ---
 export default function FurnitureChat({ clientData }: { clientData: any }) {
   const [activeTab, setActiveTab] = useState<'ai' | 'gallery' | 'message'>('ai');
-  const [filter, setFilter] = useState<'all' | 'beds' | 'sofas'>('all');
+  const [filter, setFilter] = useState<'all' | 'sofa' | 'bett'>('all');
   const [allProducts, setAllProducts] = useState<any[]>([]);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [messages, setMessages] = useState<any[]>([
     { role: 'assistant', content: clientData?.welcomeMessage || `স্বাগতম! আমি কিভাবে আপনাকে সাহায্য করতে পারি?` }
   ]);
@@ -130,6 +139,7 @@ export default function FurnitureChat({ clientData }: { clientData: any }) {
   const [galleryZoomImages, setGalleryZoomImages] = useState<string[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  // ইনভেন্টরি ফেচ করা
   useEffect(() => {
     const fetchInventory = async () => {
       try {
@@ -144,6 +154,8 @@ export default function FurnitureChat({ clientData }: { clientData: any }) {
         }
       } catch (err) {
         console.error("Inventory Fetch Error:", err);
+      } finally {
+        setIsInitialLoading(false);
       }
     };
     fetchInventory();
@@ -151,7 +163,7 @@ export default function FurnitureChat({ clientData }: { clientData: any }) {
 
   const filteredItems = useMemo(() => {
     if (filter === 'all') return allProducts;
-    return allProducts.filter(item => item.category?.toLowerCase() === filter.toLowerCase());
+    return allProducts.filter(item => item.type?.toLowerCase().includes(filter.toLowerCase()));
   }, [filter, allProducts]);
 
   const parseAndRenderMessage = (content: string) => {
@@ -161,10 +173,12 @@ export default function FurnitureChat({ clientData }: { clientData: any }) {
       const match = part.match(/\[SHOW_FRONT:([^\]]+)\]/);
       if (match) {
         const productId = match[1].trim();
-        const product = allProducts.find(p => (p.id?.toString() === productId || p._id?.toString() === productId));
+        const product = allProducts.find(p => p.id?.toString() === productId);
+        
         if (product) {
-          const thumb = product.image || (product.images && product.images[0]) || "/api/placeholder/50/50";
-          const price = product.current_price || product.pricing?.current_price || product.price || "N/A";
+          const thumb = (product.images && product.images[0]) || product.image || "/api/placeholder/50/50";
+          const price = product.current_price || product.price || "N/A";
+          
           return (
             <div key={index} style={productLinkStyle} onClick={() => setSelectedItem(product)}>
               <img src={thumb} alt={product.title} style={{ width: '45px', height: '45px', objectFit: 'cover', borderRadius: '8px' }} />
@@ -202,8 +216,8 @@ export default function FurnitureChat({ clientData }: { clientData: any }) {
       if (data.success) {
         if (data.inventory && Array.isArray(data.inventory)) {
           setAllProducts(prev => {
-            const existingIds = new Set(prev.map(p => (p.id || p._id).toString()));
-            const newUnique = data.inventory.filter((p: any) => !existingIds.has((p.id || p._id).toString()));
+            const existingIds = new Set(prev.map(p => p.id.toString()));
+            const newUnique = data.inventory.filter((p: any) => !existingIds.has(p.id.toString()));
             return [...prev, ...newUnique];
           });
         }
@@ -256,26 +270,46 @@ export default function FurnitureChat({ clientData }: { clientData: any }) {
             <div style={galleryViewStyle}>
               <div style={filterBarStyle}>
                 <button onClick={() => setFilter('all')} style={getFilterStyle(filter === 'all')}>All</button>
-                <button onClick={() => setFilter('beds')} style={getFilterStyle(filter === 'beds')}>Beds</button>
-                <button onClick={() => setFilter('sofas')} style={getFilterStyle(filter === 'sofas')}>Sofas</button>
+                <button onClick={() => setFilter('bett')} style={getFilterStyle(filter === 'bett')}>Beds</button>
+                <button onClick={() => setFilter('sofa')} style={getFilterStyle(filter === 'sofa')}>Sofas</button>
               </div>
-              <div style={galleryGridStyle}>
-                {filteredItems.length === 0 ? (
-                    <div style={{gridColumn:'1/-1', textAlign:'center', padding:'40px', color:'#94a3b8'}}>No products found.</div>
-                ) : (
-                    filteredItems.map((item: any) => {
-                        const thumb = item.image || (item.images && item.images[0]) || "/api/placeholder/150/130";
-                        const price = item.current_price || item.pricing?.current_price || item.price || "N/A";
-                        return (
-                          <div key={item.id || item._id} style={galleryItemStyle}>
-                            <img src={thumb} style={gridImgStyle} alt={item.title} onClick={() => { setGalleryZoomImages([thumb]); setShowGalleryZoom(true); }} />
-                            <div style={{ padding: '10px 8px 5px 8px', fontSize: '13px', fontWeight: '800', color:'#000000' }}>{item.title}</div>
-                            <div style={{ color: '#e11d48', paddingBottom: '10px', fontSize: '14px', fontWeight:'900' }}>€{price}</div>
-                            <button onClick={() => setSelectedItem(item)} style={viewDetailsBtnStyle}>View Details</button>
-                          </div>
-                        );
-                    })
-                )}
+              
+              {isInitialLoading ? (
+                <div style={{textAlign:'center', padding:'40px', color:'#94a3b8'}}>Loading products...</div>
+              ) : (
+                <div style={galleryGridStyle}>
+                  {filteredItems.length === 0 ? (
+                      <div style={{gridColumn:'1/-1', textAlign:'center', padding:'40px', color:'#94a3b8'}}>No products found.</div>
+                  ) : (
+                      filteredItems.map((item: any) => {
+                          const thumb = (item.images && item.images[0]) || "/api/placeholder/150/130";
+                          const price = item.current_price || item.price || "N/A";
+                          return (
+                            <div key={item.id} style={galleryItemStyle}>
+                              <img src={thumb} style={gridImgStyle} alt={item.title} onClick={() => { setGalleryZoomImages(item.images || [thumb]); setShowGalleryZoom(true); }} />
+                              <div style={{ padding: '10px 8px 5px 8px', fontSize: '13px', fontWeight: '800', color:'#000000' }}>{item.title}</div>
+                              <div style={{ color: '#e11d48', paddingBottom: '10px', fontSize: '14px', fontWeight:'900' }}>€{price}</div>
+                              <button onClick={() => setSelectedItem(item)} style={viewDetailsBtnStyle}>View Details</button>
+                            </div>
+                          );
+                      })
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+
+          {activeTab === 'message' && (
+            <div style={{ padding: '20px', background: '#fff', height: '100%' }}>
+              <div style={{ marginBottom: '20px' }}>
+                <h3 style={{ margin: '0 0 5px 0' }}>Get in Touch</h3>
+                <p style={{ fontSize: '12px', color: '#64748b' }}>Send us your details and we'll get back to you.</p>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                <input style={formInputStyle} placeholder="Your Name" />
+                <input style={formInputStyle} placeholder="Phone Number" />
+                <textarea style={{...formInputStyle, height: '100px', resize: 'none'}} placeholder="How can we help you?" />
+                <button style={askAiBtnStyle} onClick={() => alert("Message sent!")}>Send Message</button>
               </div>
             </div>
           )}
@@ -307,6 +341,7 @@ const inputFieldStyle: React.CSSProperties = { flex: 1, padding: '12px 20px', bo
 const sendButtonStyle: React.CSSProperties = { background: '#000', borderRadius: '50%', width: '45px', height: '45px', border: 'none', color: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px' };
 const productLinkStyle: React.CSSProperties = { display: 'flex', alignItems: 'center', gap: '10px', background: '#f8fafc', padding: '10px', borderRadius: '15px', margin: '10px 0', cursor: 'pointer', border: '1px solid #e2e8f0', transition: 'background 0.2s' };
 const askAiBtnStyle: React.CSSProperties = { width: '100%', padding: '15px', background: '#000', color: '#fff', border: 'none', borderRadius: '15px', cursor: 'pointer', fontWeight: '900', fontSize: '14px', letterSpacing: '0.5px' };
+const formInputStyle: React.CSSProperties = { width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #e2e8f0', fontSize: '14px', outline: 'none' };
 const modalOverlayFixedStyle: React.CSSProperties = { position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.7)', zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(5px)' };
 const modalContentStyle: React.CSSProperties = { width: '92%', maxWidth: '400px', background: '#fff', borderRadius: '28px', overflow: 'hidden', position: 'relative', boxShadow: '0 25px 50px rgba(0,0,0,0.3)' };
 const imageContainer: React.CSSProperties = { width: '100%', height: '250px', background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center' };
