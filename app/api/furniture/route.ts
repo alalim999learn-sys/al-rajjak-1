@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     let filters = {};
 
     // ============================================================
-    // ধাপ ১: ইন্টেন্ট এক্সট্রাকশন (AI জেনারেটেড ফিল্টার)
+    // ধাপ ১: ইন্টেন্ট এক্সট্রাকশন
     // ============================================================
     if (lastUserMessage !== "INITIAL_LOAD_REQ") {
       const intentResponse = await fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -33,16 +33,17 @@ export async function POST(req: Request) {
             {
               role: "system",
               content: `Du bist ein SQL-Experte für Möbel. Analysiere die Nachricht und gib NUR JSON zurück.
-              
-🔴 Mögliche Felder:
-- price_min: number (Mindestpreis, wenn "ab X Euro")
-- price_max: number (Höchstpreis, wenn "unter X Euro" oder "bis X Euro")
-- search_term: string (für Titel/Beschreibung/Typ, z.B. "L-Form", "U-Form")
-- robot_friendly: boolean (wenn "Robot vacuum" erwähnt wird)
-- pet_friendly: boolean (wenn "Pet", "Katze", "Hund" erwähnt wird)
-- sort: "asc" oder "desc" (wenn "cheap" oder "expensive")
 
-Antworte NUR mit JSON. Beispiel: {"price_max": 500, "pet_friendly": true}`
+🔴 ম্যাপ করার নিয়ম (Strict Column Mapping):
+- category: "sofa", "bed", "chair", "table", "other"
+- sub_type: lowercase string (z.B. "l_shape", "u_shape", "corner_sofa", "boxspring")
+- price_min/max: number
+- is_pet_friendly, is_robot_friendly, is_relax, is_outdoor, is_sleeper, is_german: boolean
+- sort: "asc" (günstig) oder "desc" (teuer)
+- search_term: string (NUR wenn category/sub_type nicht passt)
+- color: string (Farbe, z.B. "beige", "grau", "blau")
+
+Antworte NUR mit JSON. Beispiel: {"category": "sofa", "sub_type": "l_shape", "is_german": true, "color": "beige"}`
             },
             { role: "user", content: lastUserMessage }
           ],
@@ -54,116 +55,121 @@ Antworte NUR mit JSON. Beispiel: {"price_max": 500, "pet_friendly": true}`
       try {
         const rawContent = intentData.choices?.[0]?.message?.content || "{}";
         filters = JSON.parse(rawContent.replace(/```json|```/g, "").trim());
-      } catch (e) { 
-        console.error("Intent parse error:", e);
-        filters = {}; 
-      }
+      } catch (e) { filters = {}; }
 
-      console.log("🔍 Filters:", filters);
+      console.log("🔍 Optimized Filters:", filters);
 
-      // --- ডায়নামিক কোয়েরি বিল্ডিং ---
+      // ============================================================
+      // ধাপ ২: ডায়নামিক কোয়েরি বিল্ডিং (ফিক্সড অর্ডার + কালার সার্চ)
+      // ============================================================
+      
+      // --- সোজা ফিল্টার (AND conditions) ---
+      if (filters.category) queryBuilder = queryBuilder.eq("category", filters.category);
+      
+      // 🔥 ফিক্স ১: sub_type এর জন্য ilike (সেইফ)
+      if (filters.sub_type) queryBuilder = queryBuilder.ilike("sub_type", `%${filters.sub_type.toLowerCase()}%`);
+      
       if (filters.price_min) queryBuilder = queryBuilder.gte("current_price", filters.price_min);
       if (filters.price_max) queryBuilder = queryBuilder.lte("current_price", filters.price_max);
       
-      if (filters.robot_friendly) {
-        queryBuilder = queryBuilder.eq("dimensions_detailed->>robot_vacuum_clearance", "true");
-      }
-      
-      const sortOrder = filters.sort === "desc" ? false : true;
-      queryBuilder = queryBuilder.order("current_price", { ascending: sortOrder });
+      // Boolean Flags (Partial Indexes ব্যবহার করবে 🔥)
+      if (filters.is_pet_friendly) queryBuilder = queryBuilder.eq("is_pet_friendly", true);
+      if (filters.is_robot_friendly) queryBuilder = queryBuilder.eq("is_robot_friendly", true);
+      if (filters.is_german) queryBuilder = queryBuilder.eq("is_german", true);
+      if (filters.is_relax) queryBuilder = queryBuilder.eq("is_relax", true);
+      if (filters.is_sleeper) queryBuilder = queryBuilder.eq("is_sleeper", true);
+      if (filters.is_outdoor) queryBuilder = queryBuilder.eq("is_outdoor", true);
 
+      // ============================================================
+      // 🔥 OR কন্ডিশন (সার্চ টার্ম + কালার) - GIN Index ব্যবহার করবে
+      // ============================================================
       let orConditions = [];
+
+      // ১. জেনারেল সার্চ টার্ম (Trigram Index)
       if (filters.search_term) {
-        orConditions.push(`title.ilike.%${filters.search_term}%`, `description.ilike.%${filters.search_term}%`, `type.ilike.%${filters.search_term}%`);
+        orConditions.push(
+          `title.ilike.%${filters.search_term}%`,
+          `description.ilike.%${filters.search_term}%`
+        );
       }
-      if (filters.pet_friendly) {
-        orConditions.push(`material_info->>fabric_properties.ilike.%pet%`, `description.ilike.%pet%`);
+
+      // 🔥 ফিক্স ২: কালার সার্চ - GIN Index ব্যবহার করবে
+      if (filters.color) {
+        orConditions.push(
+          `color_primary.ilike.%${filters.color}%`,
+          `colors_available @> ARRAY['${filters.color}']::text[]`
+        );
       }
 
       if (orConditions.length > 0) {
         queryBuilder = queryBuilder.or(orConditions.join(","));
       }
+
+      // ============================================================
+      // 🔥 ফিক্স ৩: Sorting - সব ফিল্টারের পর (সঠিক অর্ডার)
+      // ============================================================
+      const sortOrder = filters.sort === "desc" ? false : true;
+      queryBuilder = queryBuilder.order("current_price", { ascending: sortOrder });
+      
     } else {
       queryBuilder = queryBuilder.order("current_price", { ascending: true });
     }
 
     // ============================================================
-    // ধাপ ২: ডাটাবেস থেকে ডাটা আনা
+    // ধাপ ৩: ডাটাবেস থেকে ডাটা আনা
     // ============================================================
     const { data: products, error } = await queryBuilder.limit(10);
     if (error) throw error;
 
-    console.log("📦 Products found:", products?.length || 0);
+    // ============================================================
+    // ধাপ ৪: ইনভেন্টরি কন্টেক্সট (প্রফেশনাল ফরম্যাট)
+    // ============================================================
+    let inventoryContext = products && products.length > 0 
+      ? products.map((p) => {
+          // 🔥 ফিক্স: কিস্তির টেক্সট প্রফেশনাল
+          const installmentText = p.installment_available && p.monthly_payment
+            ? `প্রতি মাসে মাত্র ${p.monthly_payment}${p.currency}`
+            : "বর্তমানে কিস্তি সুবিধা নেই";
 
-    // ============================================================
-    // ধাপ ৩: ইনভেন্টরি কন্টেক্সট তৈরি (সম্পূর্ণ তথ্য সহ)
-    // ============================================================
-    let inventoryContext = "";
-    
-    if (products && products.length > 0) {
-      inventoryContext = products.map((p) => {
-        // JSONB ফিল্ড সেফ এক্সেস
-        const materialInfo = p.material_info || {};
-        const dimensionInfo = p.dimensions_detailed || {};
-        const paymentInfo = p.payment_info || {};
-        const warrantyInfo = p.warranty_info || {};
-        const deliveryInfo = p.delivery_info || {};
-        const certificationInfo = p.certifications || {};
-        
-        // ফিচার ডিটেকশন
-        const isPetFriendly = materialInfo.fabric_properties?.toLowerCase().includes('pet') ? "হ্যাঁ" : "না";
-        const isRobotFriendly = dimensionInfo.robot_vacuum_clearance === true || dimensionInfo.robot_vacuum_clearance === "true" ? "হ্যাঁ" : "না";
-        const isVegan = materialInfo.is_vegan === true ? "হ্যাঁ" : "না";
-        const isGermanMade = certificationInfo.made_in_germany === true ? "হ্যাঁ" : "না";
-        const hasInstallment = paymentInfo.installment_available === true ? "হ্যাঁ" : "না";
-        const monthlyPayment = paymentInfo.monthly_payment_eur || "N/A";
-        const warrantyYears = warrantyInfo.warranty_years || "N/A";
-        const deliveryDays = deliveryInfo.delivery_days || "N/A";
-        
-        return `
+          // 🔥 ফিক্স: সাইজ দেখানোর ফরম্যাট
+          const dimensionText = p.width_cm 
+            ? `${p.width_cm}W x ${p.depth_cm}D x ${p.height_cm}H cm`
+            : (p.dimensions_text || 'N/A');
+
+          return `
 🆔 ID: ${p.id}
 🛋️ নাম: ${p.title} [SHOW_FRONT:${p.id}]
-💰 দাম: ${p.current_price}€ (মূল্য: ${p.original_price || 'N/A'}€)
-📏 সাইজ: ${p.dimensions || 'N/A'} | প্রস্থ: ${dimensionInfo.width_cm || 'N/A'}cm
-🏷️ ব্র্যান্ড: ${p.brand || 'N/A'} | টাইপ: ${p.type || 'N/A'}
+💰 দাম: ${p.current_price}${p.currency} (মূল: ${p.original_price || 'N/A'}${p.currency})
+📏 সাইজ: ${dimensionText}
+🏷️ ব্র্যান্ড: ${p.brand || 'N/A'} | টাইপ: ${p.category} (${p.sub_type || 'N/A'})
 🎨 রঙ: ${p.color_primary || 'N/A'} | 🧵 ফেব্রিক: ${p.fabric_type || 'N/A'}
-🐾 পোষা বান্ধব: ${isPetFriendly}
-🤖 রোবট ভ্যাকুয়াম: ${isRobotFriendly}
-🌿 ভেগান: ${isVegan}
-🇩🇪 জার্মানিতে তৈরি: ${isGermanMade}
-🛡️ ওয়ারেন্টি: ${warrantyYears} বছর
-🚚 ডেলিভারি: ${deliveryDays} দিনে
-💳 কিস্তি: ${hasInstallment === "হ্যাঁ" ? `${monthlyPayment}€/মাস` : 'না'}
+🐾 পোষা বান্ধব: ${p.is_pet_friendly ? 'হ্যাঁ' : 'না'}
+🤖 রোবট ফ্রেন্ডলি: ${p.is_robot_friendly ? 'হ্যাঁ' : 'না'}
+🇩🇪 জার্মানিতে তৈরি: ${p.is_german ? 'হ্যাঁ' : 'না'}
+⚡ রিলাক্স ফাংশন: ${p.is_relax ? 'হ্যাঁ' : 'না'}
+🏕️ আউটডোর: ${p.is_outdoor ? 'হ্যাঁ' : 'না'}
+🛏️ স্লিপার: ${p.is_sleeper ? 'হ্যাঁ' : 'না'}
+🛡️ ওয়ারেন্টি: ${p.warranty_years} বছর
+🚚 ডেলিভারি: ${p.delivery_days} দিনে
+💳 কিস্তি: ${installmentText}
 📝 বিবরণ: ${p.description?.substring(0, 150) || 'N/A'}...
 --------------------------------------------------`;
-      }).join("\n");
-    } else {
-      inventoryContext = "দুঃখিত, আপনার চাহিদা অনুযায়ী কোনো প্রোডাক্ট আমাদের স্টকে নেই।";
-    }
+        }).join("\n")
+      : "দুঃখিত, কোনো ম্যাচিং প্রোডাক্ট পাওয়া যায়নি।";
 
     // ============================================================
-    // ধাপ ৪: ফাইনাল AI রেসপন্স
+    // ধাপ ৫: ফাইনাল AI রেসপন্স
     // ============================================================
-    const finalSystemInstruction = `তুমি LemonSKN Furniture-এর একজন প্রফেশনাল এবং বন্ধুসুলভ সেলস অ্যাসিস্ট্যান্ট।
+    const finalSystemInstruction = `Du bist ein professioneller Verkaufsassistent für LemonSKN Furniture.
+Antworte IMMER auf BENGALISCH.
 
-🔴 সবচেয়ে গুরুত্বপূর্ণ নিয়ম:
-১. কাস্টমার যে ভাষাতেই প্রশ্ন করুক না কেন, তুমি সবসময় **বাংলা (Bengali)** ভাষায় উত্তর দেবে।
-২. তোমার ভাষা হবে সাবলীল, মার্জিত এবং পেশাদার।
-
-📦 ইনভেন্টরি ডাটা (শুধুমাত্র এখান থেকে তথ্য দেবে):
+ইনভেন্টরি ডাটা:
 ${inventoryContext}
 
-🔴 উত্তর দেওয়ার নির্দেশনা:
-১. যদি কোনো প্রোডাক্ট কাস্টমারের চাহিদার সাথে মিলে যায়, তাহলে সেটির নাম বলবে এবং অবশ্যই শেষে [SHOW_FRONT:ID] ট্যাগটি দেবে।
-২. দাম, সাইজ, ওয়ারেন্টি, ডেলিভারি টাইম গুরুত্বপূর্ণ তথ্য দেবে।
-৩. কিস্তির সুবিধা থাকলে মাসিক কিস্তির পরিমাণ জানাবে।
-৪. রোবট ভ্যাকুয়াম বা পোষা প্রাণীর কথা জিজ্ঞেস করলে 'হ্যাঁ' বা 'না' স্পষ্টভাবে বলবে।
-৫. ইনভেন্টরিতে নেই এমন কোনো মিথ্যা তথ্য দেবে না।
-৬. উত্তর হবে ৩-৫ লাইনের মধ্যে, সংক্ষিপ্ত কিন্তু তথ্যবহুল।`;
-
-    // 🔥 টাইমআউট সহ ফেচ (নেট স্পিড কম থাকলে)
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 30000);
+নির্দেশনা:
+- যদি কোনো প্রোডাক্ট মিলে যায়, সেটির নাম এবং [SHOW_FRONT:ID] ট্যাগ দাও।
+- কিস্তি, ওয়ারেন্টি এবং বিশেষ ফিচার (যেমন: রিলাক্স বা জার্মান মেক) হাইলাইট করো।
+- সংক্ষিপ্ত এবং তথ্যবহুল উত্তর দাও (৩-৫ লাইন)।`;
 
     const finalResponse = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
@@ -180,45 +186,30 @@ ${inventoryContext}
         temperature: 0.3,
         max_tokens: 800,
       }),
-      signal: controller.signal,
     });
-
-    clearTimeout(timeoutId);
 
     const aiFinalData = await finalResponse.json();
     const finalContent = aiFinalData.choices?.[0]?.message?.content || "দুঃখিত, আমি এই মুহূর্তে উত্তর দিতে পারছি না।";
 
-    // ============================================================
-    // ধাপ ৫: ব্যাকগ্রাউন্ড লগিং (ঐচ্ছিক)
-    // ============================================================
-    if (lastUserMessage !== "INITIAL_LOAD_REQ" && products?.length > 0) {
-      supabase.from("ai_user_interactions").insert([
-        {
-          user_query: lastUserMessage.substring(0, 500),
-          ai_response: finalContent.substring(0, 1000),
-          intent_category: filters.search_term || (filters.pet_friendly ? "Pet Friendly" : "General"),
-          session_id: `sess_${Date.now()}`
-        }
-      ]).then(({ error }) => { if (error) console.error("Log Error:", error); });
-    }
-
     return NextResponse.json({ 
       success: true, 
-      text: finalContent,
+      text: finalContent, 
       inventory: products 
     });
 
   } catch (error: any) {
     console.error("API Error:", error);
-    
-    // এরর টাইপ অনুযায়ী ফ্রেন্ডলি মেসেজ
-    let errorMessage = "দুঃখিত, একটি কারিগরি সমস্যা হয়েছে।";
-    if (error.name === 'AbortError') {
-      errorMessage = "সার্ভার খুব ব্যস্ত, একটু পরে আবার চেষ্টা করুন। 🙏";
-    } else if (error.message?.includes('fetch')) {
-      errorMessage = "নেটওয়ার্ক সমস্যা, আপনার ইন্টারনেট কানেকশন চেক করুন।";
-    }
-    
-    return NextResponse.json({ success: false, text: errorMessage }, { status: 500 });
+    return NextResponse.json({ 
+      success: false, 
+      text: "সার্ভারে সমস্যা হয়েছে। দয়া করে কিছুক্ষণ পর আবার চেষ্টা করুন।" 
+    }, { status: 500 });
   }
 }
+
+
+/*
+git add . 
+git commit -m "HU"
+git push origin main 
+
+*/

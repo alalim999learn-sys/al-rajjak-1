@@ -11,7 +11,7 @@ const ImageZoomViewer = ({ images, initialIndex, onClose }: { images: string[]; 
   const [zoomLevel, setZoomLevel] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [dragStart, setDragStart] = useState({ x: e?.clientX || 0, y: e?.clientY || 0 });
 
   const zoomIn = () => setZoomLevel(prev => Math.min(prev + 0.25, 3));
   const zoomOut = () => setZoomLevel(prev => Math.max(prev - 0.25, 1));
@@ -82,8 +82,6 @@ const ProductDetailModal = ({ item, onClose, onAskAI }: { item: any; onClose: ()
     return ["/api/placeholder/400/320"];
   }, [item]);
 
-  const price = item.current_price || item.price || "N/A";
-
   return (
     <>
       <div style={modalOverlayFixedStyle} onClick={onClose}>
@@ -103,16 +101,19 @@ const ProductDetailModal = ({ item, onClose, onAskAI }: { item: any; onClose: ()
 
           <div style={{ padding: '20px' }}>
             <h3 style={{ margin: 0, fontSize: '18px', color: '#000', fontWeight: '800' }}>{item.title}</h3>
-            <p style={{ color: '#e11d48', fontWeight: '900', fontSize: '20px', margin: '10px 0' }}>€{price}</p>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', margin: '10px 0' }}>
+                <span style={{ color: '#e11d48', fontWeight: '900', fontSize: '20px' }}>€{item.current_price}</span>
+                {item.original_price && <span style={{ color: '#94a3b8', textDecoration: 'line-through', fontSize: '14px' }}>€{item.original_price}</span>}
+            </div>
+            
             <div style={{ fontSize: '13px', color: '#64748b', marginBottom: '20px', lineHeight: '1.5' }}>
-                {item.type && <span style={{display:'block', marginBottom:'5px'}}>Typ: <b>{item.type}</b></span>}
-                {item.description || "High-quality luxury furniture by LemonSKN."}
-                
-                <div style={{marginTop: '10px', padding: '10px', background: '#f8fafc', borderRadius: '8px', fontSize:'12px'}}>
-                   {item.dimensions && <div>📏 Dimension: {item.dimensions}</div>}
-                   {item.fabric_type && <div>🧵 Stoff: {item.fabric_type}</div>}
-                   {item.color_primary && <div>🎨 Farbe: {item.color_primary}</div>}
+                <div style={{marginTop: '10px', padding: '10px', background: '#f8fafc', borderRadius: '8px', fontSize:'12px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:'8px'}}>
+                   <div>📏 {item.width_cm}x{item.depth_cm}x{item.height_cm} cm</div>
+                   <div>🧵 {item.fabric_type || 'N/A'}</div>
+                   <div>🎨 {item.color_primary || 'N/A'}</div>
+                   <div>🛡️ {item.warranty_years} Years</div>
                 </div>
+                <p style={{marginTop:'10px'}}>{item.description?.substring(0, 150)}...</p>
             </div>
             <button onClick={() => { onAskAI(item.title); onClose(); }} style={askAiBtnStyle}>🤖 বিস্তারিত জানুন</button>
           </div>
@@ -126,22 +127,20 @@ const ProductDetailModal = ({ item, onClose, onAskAI }: { item: any; onClose: ()
 // --- ৩. মেইন চ্যাট কম্পোনেন্ট ---
 export default function FurnitureChat({ clientData }: { clientData: any }) {
   const [activeTab, setActiveTab] = useState<'ai' | 'gallery' | 'message'>('ai');
-  const [filter, setFilter] = useState<'all' | 'sofa' | 'bett'>('all');
+  const [categoryFilter, setCategoryFilter] = useState('all');
   const [allProducts, setAllProducts] = useState<any[]>([]);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [messages, setMessages] = useState<any[]>([
-    { role: 'assistant', content: clientData?.welcomeMessage || `স্বাগতম! আমি কিভাবে আপনাকে সাহায্য করতে পারি?` }
+    { role: 'assistant', content: `স্বাগতম! LemonSKN ফার্নিচারে আপনাকে সাহায্য করতে আমি প্রস্তুত। আপনি কি ধরণের ফার্নিচার খুঁজছেন?` }
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [selectedItem, setSelectedItem] = useState<any>(null);
-  const [showGalleryZoom, setShowGalleryZoom] = useState(false);
-  const [galleryZoomImages, setGalleryZoomImages] = useState<string[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // ইনভেন্টরি ফেচ করা
+  // ইনভেন্টরি ফেচ করা (Mount এ)
   useEffect(() => {
-    const fetchInventory = async () => {
+    const fetchInitial = async () => {
       try {
         const res = await fetch('/api/furniture', {
           method: 'POST',
@@ -149,60 +148,51 @@ export default function FurnitureChat({ clientData }: { clientData: any }) {
           body: JSON.stringify({ messages: [{ role: 'user', content: 'INITIAL_LOAD_REQ' }] })
         });
         const data = await res.json();
-        if (data.success && data.inventory) {
-          setAllProducts(data.inventory);
-        }
-      } catch (err) {
-        console.error("Inventory Fetch Error:", err);
-      } finally {
-        setIsInitialLoading(false);
-      }
+        if (data.success && data.inventory) setAllProducts(data.inventory);
+      } catch (err) { console.error(err); }
+      finally { setIsInitialLoading(false); }
     };
-    fetchInventory();
+    fetchInitial();
   }, []);
 
   const filteredItems = useMemo(() => {
-    if (filter === 'all') return allProducts;
-    return allProducts.filter(item => item.type?.toLowerCase().includes(filter.toLowerCase()));
-  }, [filter, allProducts]);
+    if (categoryFilter === 'all') return allProducts;
+    return allProducts.filter(item => item.category?.toLowerCase() === categoryFilter.toLowerCase());
+  }, [categoryFilter, allProducts]);
 
+  // AI মেসেজের ভেতর [SHOW_FRONT:ID] চেক করে কার্ড রেন্ডার করা
   const parseAndRenderMessage = (content: string) => {
-    if (!content) return null;
     const parts = content.split(/(\[SHOW_FRONT:[^\]]+\])/g);
     return parts.map((part, index) => {
       const match = part.match(/\[SHOW_FRONT:([^\]]+)\]/);
       if (match) {
         const productId = match[1].trim();
-        const product = allProducts.find(p => p.id?.toString() === productId);
-        
+        const product = allProducts.find(p => p.id.toString() === productId);
         if (product) {
-          const thumb = (product.images && product.images[0]) || product.image || "/api/placeholder/50/50";
-          const price = product.current_price || product.price || "N/A";
-          
           return (
             <div key={index} style={productLinkStyle} onClick={() => setSelectedItem(product)}>
-              <img src={thumb} alt={product.title} style={{ width: '45px', height: '45px', objectFit: 'cover', borderRadius: '8px' }} />
+              <img src={product.images?.[0] || "/api/placeholder/50/50"} style={{ width: '45px', height: '45px', objectFit: 'cover', borderRadius: '8px' }} />
               <div style={{ flex: 1, overflow: 'hidden' }}>
                 <div style={{ fontWeight: 'bold', fontSize: '11px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{product.title}</div>
-                <div style={{ color: '#e11d48', fontWeight:'bold', fontSize: '12px' }}>€{price}</div>
+                <div style={{ color: '#e11d48', fontWeight:'bold', fontSize: '12px' }}>€{product.current_price}</div>
               </div>
             </div>
           );
         }
       }
-      return <span key={index} style={{ whiteSpace: 'pre-wrap' }}>{part}</span>;
+      return <span key={index}>{part}</span>;
     });
   };
 
-  useEffect(() => { if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight; }, [messages, loading]);
+  useEffect(() => { scrollRef.current?.scrollTo(0, scrollRef.current.scrollHeight); }, [messages, loading]);
 
   const handleSend = async (forcedInput?: string) => {
-    const textToSend = forcedInput || input;
-    if (!textToSend.trim() || loading) return;
+    const text = forcedInput || input;
+    if (!text.trim() || loading) return;
 
-    const userMsg = { role: 'user', content: textToSend };
+    const userMsg = { role: 'user', content: text };
     setMessages(prev => [...prev, userMsg]);
-    if (!forcedInput) setInput('');
+    setInput('');
     setLoading(true);
 
     try {
@@ -211,148 +201,127 @@ export default function FurnitureChat({ clientData }: { clientData: any }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: [...messages, userMsg] })
       });
-
       const data = await res.json();
       if (data.success) {
-        if (data.inventory && Array.isArray(data.inventory)) {
+        // নতুন ইনভেন্টরি ডাটা থাকলে সিঙ্ক করা
+        if (data.inventory) {
           setAllProducts(prev => {
             const existingIds = new Set(prev.map(p => p.id.toString()));
-            const newUnique = data.inventory.filter((p: any) => !existingIds.has(p.id.toString()));
-            return [...prev, ...newUnique];
+            const uniqueNew = data.inventory.filter((p:any) => !existingIds.has(p.id.toString()));
+            return [...prev, ...uniqueNew];
           });
         }
         setMessages(prev => [...prev, { role: 'assistant', content: data.text }]);
       }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
+    } catch (err) { console.error(err); }
+    finally { setLoading(false); }
   };
 
   return (
-    <>
-      <div style={containerStyle}>
-        <div style={headerStyle}>
-          <div>
-            <div style={{ fontSize: '16px', fontWeight: '900', letterSpacing: '1px' }}>{clientData?.shopName || 'LemonSKN Furniture'}</div>
-            <div style={{ fontSize: '10px', opacity: 0.8, textTransform: 'uppercase' }}>AI Sales Assistant • Online</div>
-          </div>
-        </div>
-
-        <div style={tabRowStyle}>
-          <button onClick={() => setActiveTab('ai')} style={{...tabButtonStyle, borderBottom: activeTab === 'ai' ? '3px solid #000' : 'none', fontWeight: activeTab === 'ai' ? 'bold' : 'normal'}}>🤖 Assistant</button>
-          <button onClick={() => setActiveTab('gallery')} style={{...tabButtonStyle, borderBottom: activeTab === 'gallery' ? '3px solid #000' : 'none', fontWeight: activeTab === 'gallery' ? 'bold' : 'normal'}}>🖼️ Gallery</button>
-          <button onClick={() => setActiveTab('message')} style={{...tabButtonStyle, borderBottom: activeTab === 'message' ? '3px solid #000' : 'none', fontWeight: activeTab === 'message' ? 'bold' : 'normal'}}>✉️ Contact</button>
-        </div>
-
-        <div style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-          {activeTab === 'ai' && (
-            <>
-              <div ref={scrollRef} style={chatBodyStyle}>
-                {messages.map((m, i) => (
-                  <div key={i} style={{ alignSelf: m.role === 'user' ? 'flex-end' : 'flex-start', maxWidth: '85%', marginBottom: '15px' }}>
-                    <div style={{ ...bubbleBase, backgroundColor: m.role === 'user' ? '#000' : '#fff', color: m.role === 'user' ? '#fff' : '#000', boxShadow: m.role === 'user' ? '0 4px 10px rgba(0,0,0,0.2)' : '0 2px 5px rgba(0,0,0,0.05)' }}>
-                      {m.role === 'assistant' ? parseAndRenderMessage(m.content) : m.content}
-                    </div>
-                  </div>
-                ))}
-                {loading && <div style={{ fontSize: '12px', color: '#94a3b8', fontStyle: 'italic', paddingLeft: '5px' }}>🤔 LemonSKN Assistant is typing...</div>}
-              </div>
-              <div style={inputWrapperStyle}>
-                <input style={inputFieldStyle} value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleSend()} placeholder="Ask about beds, sofas, or pricing..." />
-                <button onClick={() => handleSend()} style={sendButtonStyle}>🚀</button>
-              </div>
-            </>
-          )}
-
-          {activeTab === 'gallery' && (
-            <div style={galleryViewStyle}>
-              <div style={filterBarStyle}>
-                <button onClick={() => setFilter('all')} style={getFilterStyle(filter === 'all')}>All</button>
-                <button onClick={() => setFilter('bett')} style={getFilterStyle(filter === 'bett')}>Beds</button>
-                <button onClick={() => setFilter('sofa')} style={getFilterStyle(filter === 'sofa')}>Sofas</button>
-              </div>
-              
-              {isInitialLoading ? (
-                <div style={{textAlign:'center', padding:'40px', color:'#94a3b8'}}>Loading products...</div>
-              ) : (
-                <div style={galleryGridStyle}>
-                  {filteredItems.length === 0 ? (
-                      <div style={{gridColumn:'1/-1', textAlign:'center', padding:'40px', color:'#94a3b8'}}>No products found.</div>
-                  ) : (
-                      filteredItems.map((item: any) => {
-                          const thumb = (item.images && item.images[0]) || "/api/placeholder/150/130";
-                          const price = item.current_price || item.price || "N/A";
-                          return (
-                            <div key={item.id} style={galleryItemStyle}>
-                              <img src={thumb} style={gridImgStyle} alt={item.title} onClick={() => { setGalleryZoomImages(item.images || [thumb]); setShowGalleryZoom(true); }} />
-                              <div style={{ padding: '10px 8px 5px 8px', fontSize: '13px', fontWeight: '800', color:'#000000' }}>{item.title}</div>
-                              <div style={{ color: '#e11d48', paddingBottom: '10px', fontSize: '14px', fontWeight:'900' }}>€{price}</div>
-                              <button onClick={() => setSelectedItem(item)} style={viewDetailsBtnStyle}>View Details</button>
-                            </div>
-                          );
-                      })
-                  )}
-                </div>
-              )}
-            </div>
-          )}
-
-          {activeTab === 'message' && (
-            <div style={{ padding: '20px', background: '#fff', height: '100%' }}>
-              <div style={{ marginBottom: '20px' }}>
-                <h3 style={{ margin: '0 0 5px 0' }}>Get in Touch</h3>
-                <p style={{ fontSize: '12px', color: '#64748b' }}>Send us your details and we'll get back to you.</p>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-                <input style={formInputStyle} placeholder="Your Name" />
-                <input style={formInputStyle} placeholder="Phone Number" />
-                <textarea style={{...formInputStyle, height: '100px', resize: 'none'}} placeholder="How can we help you?" />
-                <button style={askAiBtnStyle} onClick={() => alert("Message sent!")}>Send Message</button>
-              </div>
-            </div>
-          )}
+    <div style={containerStyle}>
+      <div style={headerStyle}>
+        <div>
+          <div style={{ fontSize: '16px', fontWeight: '900' }}>LemonSKN Furniture</div>
+          <div style={{ fontSize: '10px', opacity: 0.8 }}>AI SALES ASSISTANT • ONLINE</div>
         </div>
       </div>
 
-      {selectedItem && <ProductDetailModal item={selectedItem} onClose={() => setSelectedItem(null)} onAskAI={(name) => { setActiveTab('ai'); handleSend(`I want to know more about: ${name}`); }} />}
-      {showGalleryZoom && <ImageZoomViewer images={galleryZoomImages} initialIndex={0} onClose={() => setShowGalleryZoom(false)} />}
-    </>
+      <div style={tabRowStyle}>
+        <button onClick={() => setActiveTab('ai')} style={{...tabButtonStyle, borderBottom: activeTab === 'ai' ? '3px solid #000' : 'none'}}>🤖 Assistant</button>
+        <button onClick={() => setActiveTab('gallery')} style={{...tabButtonStyle, borderBottom: activeTab === 'gallery' ? '3px solid #000' : 'none'}}>🖼️ Gallery</button>
+        <button onClick={() => setActiveTab('message')} style={{...tabButtonStyle, borderBottom: activeTab === 'message' ? '3px solid #000' : 'none'}}>✉️ Contact</button>
+      </div>
+
+      <div style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+        {activeTab === 'ai' && (
+          <>
+            <div ref={scrollRef} style={chatBodyStyle}>
+              {messages.map((m, i) => (
+                <div key={i} style={{ alignSelf: m.role === 'user' ? 'flex-end' : 'flex-start', maxWidth: '85%', marginBottom: '15px' }}>
+                  <div style={{ ...bubbleBase, backgroundColor: m.role === 'user' ? '#000' : '#fff', color: m.role === 'user' ? '#fff' : '#000' }}>
+                    {m.role === 'assistant' ? parseAndRenderMessage(m.content) : m.content}
+                  </div>
+                </div>
+              ))}
+              {loading && <div style={{ fontSize: '11px', color: '#94a3b8', marginLeft: '10px' }}>AI ভাবছে...</div>}
+            </div>
+            <div style={inputWrapperStyle}>
+              <input style={inputFieldStyle} value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleSend()} placeholder="সোফা বা বেড সম্পর্কে জিজ্ঞাসা করুন..." />
+              <button onClick={() => handleSend()} style={sendButtonStyle}>🚀</button>
+            </div>
+          </>
+        )}
+
+        {activeTab === 'gallery' && (
+          <div style={galleryViewStyle}>
+            <div style={filterBarStyle}>
+              {['all', 'sofa', 'bed', 'chair'].map(cat => (
+                <button key={cat} onClick={() => setCategoryFilter(cat)} style={getFilterStyle(categoryFilter === cat)}>{cat.toUpperCase()}</button>
+              ))}
+            </div>
+            <div style={galleryGridStyle}>
+              {filteredItems.map((item) => (
+                <div key={item.id} style={galleryItemStyle}>
+                  <img src={item.images?.[0] || "/api/placeholder/150/130"} style={gridImgStyle} onClick={() => setSelectedItem(item)} />
+                  <div style={{ padding: '10px 8px', fontSize: '13px', fontWeight: '800' }}>{item.title}</div>
+                  <div style={{ color: '#e11d48', fontWeight:'900', paddingBottom:'10px' }}>€{item.current_price}</div>
+                  <button onClick={() => setSelectedItem(item)} style={viewDetailsBtnStyle}>View Details</button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'message' && (
+          <div style={{ padding: '20px', background: '#fff', height: '100%' }}>
+            <h3>সরাসরি যোগাযোগ করুন</h3>
+            <p style={{fontSize:'12px', color:'#64748b', marginBottom:'20px'}}>আপনার নাম এবং ফোন নাম্বার দিন, আমাদের টিম কল করবে।</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <input style={formInputStyle} placeholder="নাম" />
+              <input style={formInputStyle} placeholder="ফোন নাম্বার" />
+              <textarea style={{...formInputStyle, height:'100px'}} placeholder="আপনার মেসেজ..." />
+              <button style={askAiBtnStyle}>মেসেজ পাঠান</button>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {selectedItem && <ProductDetailModal item={selectedItem} onClose={() => setSelectedItem(null)} onAskAI={(name) => { setActiveTab('ai'); handleSend(`আমি ${name} সম্পর্কে আরও জানতে চাই`); }} />}
+    </div>
   );
 }
 
-// --- CSS Styles ---
-const containerStyle: React.CSSProperties = { width: '100%', maxWidth: '450px', height: '90vh', maxHeight: '750px', background: '#f8fafc', borderRadius: '24px', display: 'flex', flexDirection: 'column', border: '1px solid #e2e8f0', boxShadow: '0 20px 50px rgba(0,0,0,0.15)', overflow: 'hidden', margin: '10px auto' };
-const headerStyle: React.CSSProperties = { background: '#000', padding: '20px', color: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'center' };
+// --- CSS Styles (আগের মতোই, শুধু কন্টেইনার ফিক্স) ---
+const containerStyle: React.CSSProperties = { width: '100%', maxWidth: '450px', height: '90vh', background: '#f8fafc', borderRadius: '24px', display: 'flex', flexDirection: 'column', border: '1px solid #e2e8f0', boxShadow: '0 20px 50px rgba(0,0,0,0.1)', overflow: 'hidden', margin: '10px auto', position:'relative' };
+const headerStyle: React.CSSProperties = { background: '#000', padding: '20px', color: '#fff' };
 const tabRowStyle: React.CSSProperties = { display: 'flex', background: '#fff', borderBottom: '1px solid #f1f5f9' };
-const tabButtonStyle: React.CSSProperties = { flex: 1, padding: '15px 5px', border: 'none', background: 'none', cursor: 'pointer', fontSize: '13px', transition: 'all 0.2s' };
-const filterBarStyle: React.CSSProperties = { display: 'flex', gap: '8px', padding: '12px', justifyContent: 'center', background: '#fff', position: 'sticky', top: 0, zIndex: 5 };
-const getFilterStyle = (active: boolean): React.CSSProperties => ({ padding: '8px 18px', borderRadius: '25px', border: active ? 'none' : '1px solid #e2e8f0', background: active ? '#000' : '#fff', color: active ? '#fff' : '#64748b', fontSize: '12px', fontWeight: 'bold', cursor: 'pointer', transition: '0.2s' });
+const tabButtonStyle: React.CSSProperties = { flex: 1, padding: '15px 5px', border: 'none', background: 'none', cursor: 'pointer', fontSize: '12px', fontWeight:'bold' };
+const chatBodyStyle: React.CSSProperties = { flex: 1, overflowY: 'auto', padding: '15px', display: 'flex', flexDirection: 'column' };
+const bubbleBase: React.CSSProperties = { padding: '12px 16px', borderRadius: '18px', fontSize: '14px', lineHeight: '1.4', boxShadow: '0 2px 5px rgba(0,0,0,0.05)' };
+const inputWrapperStyle: React.CSSProperties = { padding: '15px', background: '#fff', display: 'flex', gap: '8px', borderTop: '1px solid #f1f5f9' };
+const inputFieldStyle: React.CSSProperties = { flex: 1, padding: '12px 18px', borderRadius: '25px', border: '1px solid #e2e8f0', outline: 'none' };
+const sendButtonStyle: React.CSSProperties = { background: '#000', borderRadius: '50%', width: '45px', height: '45px', border: 'none', color: '#fff', cursor: 'pointer' };
 const galleryViewStyle: React.CSSProperties = { flex: 1, overflowY: 'auto', background: '#fff' };
-const galleryGridStyle: React.CSSProperties = { display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '15px', padding: '15px' };
-const galleryItemStyle: React.CSSProperties = { border: '1px solid #f1f5f9', borderRadius: '16px', overflow: 'hidden', textAlign: 'center', background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.04)', transition:'transform 0.2s' };
-const gridImgStyle: React.CSSProperties = { width: '100%', height: '140px', objectFit: 'cover', cursor: 'pointer' };
-const viewDetailsBtnStyle: React.CSSProperties = { width: '85%', background: '#f1f5f9', color: '#1e293b', border: 'none', padding: '8px', borderRadius: '10px', marginBottom: '12px', fontSize: '11px', fontWeight: 'bold', cursor: 'pointer' };
-const chatBodyStyle: React.CSSProperties = { flex: 1, overflowY: 'auto', padding: '20px', display: 'flex', flexDirection: 'column' };
-const bubbleBase: React.CSSProperties = { padding: '12px 16px', borderRadius: '20px', fontSize: '14px', lineHeight: '1.5' };
-const inputWrapperStyle: React.CSSProperties = { padding: '15px', background: '#fff', display: 'flex', gap: '10px', borderTop: '1px solid #f1f5f9' };
-const inputFieldStyle: React.CSSProperties = { flex: 1, padding: '12px 20px', borderRadius: '30px', border: '1px solid #e2e8f0', outline: 'none', fontSize: '14px' };
-const sendButtonStyle: React.CSSProperties = { background: '#000', borderRadius: '50%', width: '45px', height: '45px', border: 'none', color: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px' };
-const productLinkStyle: React.CSSProperties = { display: 'flex', alignItems: 'center', gap: '10px', background: '#f8fafc', padding: '10px', borderRadius: '15px', margin: '10px 0', cursor: 'pointer', border: '1px solid #e2e8f0', transition: 'background 0.2s' };
-const askAiBtnStyle: React.CSSProperties = { width: '100%', padding: '15px', background: '#000', color: '#fff', border: 'none', borderRadius: '15px', cursor: 'pointer', fontWeight: '900', fontSize: '14px', letterSpacing: '0.5px' };
-const formInputStyle: React.CSSProperties = { width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #e2e8f0', fontSize: '14px', outline: 'none' };
-const modalOverlayFixedStyle: React.CSSProperties = { position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.7)', zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(5px)' };
-const modalContentStyle: React.CSSProperties = { width: '92%', maxWidth: '400px', background: '#fff', borderRadius: '28px', overflow: 'hidden', position: 'relative', boxShadow: '0 25px 50px rgba(0,0,0,0.3)' };
-const imageContainer: React.CSSProperties = { width: '100%', height: '250px', background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center' };
-const closeBtnStyle: React.CSSProperties = { position: 'absolute', top: '15px', right: '15px', background: 'rgba(255,255,255,0.9)', border: 'none', borderRadius: '50%', width: '35px', height: '35px', cursor: 'pointer', zIndex: 100, fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' };
-const zoomOverlayStyle: React.CSSProperties = { position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.95)', zIndex: 20000, display: 'flex', alignItems: 'center', justifyContent: 'center' };
-const zoomContainerStyle: React.CSSProperties = { width: '100%', height: '100%', position: 'relative', display: 'flex', flexDirection: 'column' };
-const zoomHeaderStyle: React.CSSProperties = { display: 'flex', justifyContent: 'space-between', padding: '20px', zIndex: 10 };
-const zoomControlsStyle: React.CSSProperties = { display: 'flex', gap: '15px' };
-const zoomBtnStyle: React.CSSProperties = { background: '#222', color: '#fff', border: 'none', padding: '8px 15px', borderRadius: '8px', cursor: 'pointer', fontSize: '16px' };
-const zoomLevelStyle: React.CSSProperties = { color: '#fff', fontSize: '14px', alignSelf: 'center' };
-const zoomCloseBtnStyle: React.CSSProperties = { background: '#f00', color: '#fff', border: 'none', width: '35px', height: '35px', borderRadius: '50%', cursor: 'pointer', fontWeight: 'bold' };
-const zoomImageContainerStyle: React.CSSProperties = { flex: 1, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' };
-const zoomImageStyle: React.CSSProperties = { maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' };
-const zoomNavBtnStyle: React.CSSProperties = { position: 'absolute', top: '50%', transform: 'translateY(-50%)', background: 'rgba(255,255,255,0.1)', color: '#fff', border: 'none', width: '50px', height: '80px', fontSize: '40px', cursor: 'pointer', backdropFilter: 'blur(2px)' };
+const filterBarStyle: React.CSSProperties = { display: 'flex', gap: '5px', padding: '10px', overflowX:'auto', background: '#fff', borderBottom:'1px solid #eee' };
+const getFilterStyle = (active: boolean): React.CSSProperties => ({ padding: '6px 15px', borderRadius: '20px', border: 'none', background: active ? '#000' : '#f1f5f9', color: active ? '#fff' : '#64748b', fontSize: '11px', fontWeight: 'bold', cursor: 'pointer' });
+const galleryGridStyle: React.CSSProperties = { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', padding: '10px' };
+const galleryItemStyle: React.CSSProperties = { border: '1px solid #f1f5f9', borderRadius: '15px', overflow: 'hidden', textAlign: 'center' };
+const gridImgStyle: React.CSSProperties = { width: '100%', height: '120px', objectFit: 'cover', cursor: 'pointer' };
+const viewDetailsBtnStyle: React.CSSProperties = { width: '90%', background: '#f1f5f9', border: 'none', padding: '6px', borderRadius: '8px', marginBottom: '10px', fontSize: '11px', fontWeight: 'bold' };
+const productLinkStyle: React.CSSProperties = { display: 'flex', alignItems: 'center', gap: '10px', background: '#f0f9ff', padding: '8px', borderRadius: '12px', marginTop: '10px', border: '1px solid #bae6fd', cursor: 'pointer' };
+const askAiBtnStyle: React.CSSProperties = { width: '100%', padding: '14px', background: '#000', color: '#fff', border: 'none', borderRadius: '12px', fontWeight: 'bold', cursor: 'pointer' };
+const formInputStyle: React.CSSProperties = { width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #e2e8f0' };
+const modalOverlayFixedStyle: React.CSSProperties = { position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.7)', zIndex: 999, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(4px)' };
+const modalContentStyle: React.CSSProperties = { width: '90%', maxWidth: '400px', background: '#fff', borderRadius: '25px', overflow: 'hidden', position: 'relative' };
+const imageContainer: React.CSSProperties = { width: '100%', height: '230px', background: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center' };
+const closeBtnStyle: React.CSSProperties = { position: 'absolute', top: '10px', right: '10px', background: '#fff', border: 'none', borderRadius: '50%', width: '30px', height: '30px', cursor: 'pointer', zIndex: 10, boxShadow:'0 2px 5px rgba(0,0,0,0.2)' };
+const zoomOverlayStyle: React.CSSProperties = { position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: '#000', zIndex: 1000, display: 'flex', flexDirection: 'column' };
+const zoomContainerStyle: React.CSSProperties = { flex:1, position:'relative', display:'flex', flexDirection:'column' };
+const zoomHeaderStyle: React.CSSProperties = { padding:'20px', display:'flex', justifyContent:'space-between', alignItems:'center' };
+const zoomControlsStyle: React.CSSProperties = { display:'flex', gap:'10px' };
+const zoomBtnStyle: React.CSSProperties = { background:'#333', color:'#fff', border:'none', padding:'5px 12px', borderRadius:'5px' };
+const zoomLevelStyle: React.CSSProperties = { color:'#fff', fontSize:'12px' };
+const zoomCloseBtnStyle: React.CSSProperties = { background:'#e11d48', color:'#fff', border:'none', width:'30px', height:'30px', borderRadius:'50%' };
+const zoomImageContainerStyle: React.CSSProperties = { flex:1, display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden' };
+const zoomImageStyle: React.CSSProperties = { maxWidth:'100%', maxHeight:'100%', objectFit:'contain' };
+const zoomNavBtnStyle: React.CSSProperties = { position:'absolute', top:'50%', background:'rgba(255,255,255,0.1)', color:'#fff', border:'none', padding:'20px 10px', fontSize:'30px', cursor:'pointer' };
