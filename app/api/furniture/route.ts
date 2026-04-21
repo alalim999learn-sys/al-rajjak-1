@@ -220,7 +220,7 @@ ${inventoryContext}
           ...messages.slice(-3)
         ],
         temperature: 0.3,
-        max_tokens: 800,
+        max_tokens: 900,
       }),
     });
 
