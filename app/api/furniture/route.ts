@@ -34,16 +34,22 @@ export async function POST(req: Request) {
               role: "system",
               content: `Du bist ein SQL-Experte für Möbel. Analysiere die Nachricht und gib NUR JSON zurück.
 
-🔴 ম্যাপ করার নিয়ম (Strict Column Mapping):
+🔴 ম্যাপ করার নিয়ম:
 - category: "sofa", "bed", "chair", "table", "other"
-- sub_type: lowercase string (z.B. "l_shape", "u_shape", "ecksofa", "schlafsofa")
-- price_min/max: number
-- Boolean Flags: is_pet_friendly, is_robot_friendly, is_relax, is_outdoor, is_sleeper, is_german
-- sort: "asc" oder "desc"
+- sub_type: "design-ecksofa", "modulsofa", "schlafsofa", "design-sofa", "outdoor lounge", "eckcouch", "u-form", "l-form"
+- price_min, price_max: number
+- sort: "asc" (সস্তা) oder "desc" (দামি)
 - search_term: string
-- color: string (e.g., "beige", "gray", "blue")
+- color: string
+- is_pet_friendly, is_robot_friendly, is_relax, is_outdoor, is_sleeper, is_german, installment_available: boolean
 
-Antworte NUR mit JSON. Beispiel: {"category": "sofa", "is_pet_friendly": true, "color": "beige"}`
+🔴 বিশেষ নিয়ম:
+- "সবচেয়ে দামি" → sort: "desc"
+- "সবচেয়ে সস্তা" → sort: "asc"
+- "এল-শেপ", "L-shape" → sub_type: "l-form"
+- "ইউ-শেপ", "U-shape" → sub_type: "u-form"
+
+Antworte NUR mit JSON.`
             },
             { role: "user", content: lastUserMessage }
           ],
@@ -81,6 +87,7 @@ Antworte NUR mit JSON. Beispiel: {"category": "sofa", "is_pet_friendly": true, "
       if (filters.is_relax === true) queryBuilder = queryBuilder.eq("is_relax", true);
       if (filters.is_sleeper === true) queryBuilder = queryBuilder.eq("is_sleeper", true);
       if (filters.is_outdoor === true) queryBuilder = queryBuilder.eq("is_outdoor", true);
+      if (filters.installment_available === true) queryBuilder = queryBuilder.eq("installment_available", true);
 
       // OR Conditions (Search + Color)
       let orConditions = [];
@@ -92,7 +99,6 @@ Antworte NUR mit JSON. Beispiel: {"category": "sofa", "is_pet_friendly": true, "
         );
       }
       
-      // 🔥 ফিক্স: Colors array search - GIN Index ব্যবহার করবে
       if (filters.color) {
         orConditions.push(
           `color_primary.ilike.%${filters.color}%`,
@@ -104,9 +110,17 @@ Antworte NUR mit JSON. Beispiel: {"category": "sofa", "is_pet_friendly": true, "
         queryBuilder = queryBuilder.or(orConditions.join(","));
       }
 
-      // Sorting
-      const sortOrder = filters.sort === "desc" ? false : true;
-      queryBuilder = queryBuilder.order("current_price", { ascending: sortOrder });
+      // ============================================================
+      // 🔥 ফিক্স ১: Sorting Logic (তোমার সাজেশন)
+      // ============================================================
+      if (filters.sort === "desc") {
+        queryBuilder = queryBuilder.order("current_price", { ascending: false });
+      } else if (filters.sort === "asc") {
+        queryBuilder = queryBuilder.order("current_price", { ascending: true });
+      } else {
+        // ডিফল্ট: নতুন প্রোডাক্ট আগে দেখাবে
+        queryBuilder = queryBuilder.order("created_at", { ascending: false });
+      }
       
     } else {
       queryBuilder = queryBuilder.order("created_at", { ascending: false });
@@ -115,20 +129,42 @@ Antworte NUR mit JSON. Beispiel: {"category": "sofa", "is_pet_friendly": true, "
     // ============================================================
     // ধাপ ৩: ডাটা ফেচ
     // ============================================================
-    const { data: products, error } = await queryBuilder.limit(50);
+    let { data: products, error } = await queryBuilder.limit(50);
     if (error) throw error;
 
     // ============================================================
-    // 🔥 ধাপ ৪: ইনভেন্টরি কন্টেক্সট (সব ফিল্ড সহ)
+    // 🔥 ফিক্স ২: Discount Sorting (ডাটাবেস লেভেলে)
+    // ============================================================
+    const isDiscountQuery = lastUserMessage.includes("সবথেকে বেশি ছাড়") || 
+                            lastUserMessage.includes("most discount") ||
+                            lastUserMessage.includes("সবচেয়ে বেশি ছাড়");
+    
+    if (isDiscountQuery && products && products.length > 0) {
+      // ডাটাবেস লেভেলে discount ক্যালকুলেট করা যায় না, তাই এখানে sort করছি
+      products = [...products].sort((a, b) => {
+        const discountA = a.original_price 
+          ? ((a.original_price - a.current_price) / a.original_price) * 100 
+          : 0;
+        const discountB = b.original_price 
+          ? ((b.original_price - b.current_price) / b.original_price) * 100 
+          : 0;
+        return discountB - discountA;
+      });
+    }
+
+    // ============================================================
+    // ধাপ ৪: ইনভেন্টরি কন্টেক্সট
     // ============================================================
     let inventoryContext = products && products.length > 0 
       ? products.map((p) => {
-          // 🔥 ফিক্স 1: কিস্তি টেক্সট
+          const discountPercent = p.original_price 
+            ? Math.round(((p.original_price - p.current_price) / p.original_price) * 100)
+            : 0;
+          
           const installmentText = p.installment_available && p.monthly_payment
             ? `মাসে ${p.monthly_payment}${p.currency}`
             : "কিস্তি সুবিধা নেই";
 
-          // 🔥 ফিক্স 2: সাইজ ফরম্যাট
           const dimensionText = p.width_cm 
             ? `${p.width_cm}W x ${p.depth_cm}D x ${p.height_cm}H cm`
             : (p.dimensions_text || 'N/A');
@@ -136,7 +172,7 @@ Antworte NUR mit JSON. Beispiel: {"category": "sofa", "is_pet_friendly": true, "
           return `
 🆔 ID: ${p.id}
 🛋️ নাম: ${p.title} [SHOW_FRONT:${p.id}]
-💰 দাম: ${p.current_price}${p.currency} 🔥 (ছিল: ${p.original_price || 'N/A'}${p.currency})
+💰 দাম: ${p.current_price}${p.currency} (ছিল: ${p.original_price || 'N/A'}${p.currency}) | ছাড়: ${discountPercent}%
 📏 সাইজ: ${dimensionText}
 🏷️ ব্র্যান্ড: ${p.brand || 'N/A'} | টাইপ: ${p.category} (${p.sub_type || 'N/A'})
 🎨 রঙ: ${p.color_primary || 'N/A'} | 🧵 ফেব্রিক: ${p.fabric_type || 'N/A'}
@@ -152,7 +188,7 @@ Antworte NUR mit JSON. Beispiel: {"category": "sofa", "is_pet_friendly": true, "
 📝 বিবরণ: ${p.description?.substring(0, 150) || 'N/A'}...
 --------------------------------------------------`;
         }).join("\n")
-      : "😔 দুঃখিত, আপনার চাহিদা অনুযায়ী কোনো প্রোডাক্ট আমাদের স্টকে নেই।";
+      : "😔 দুঃখিত, আপনার চাহিদা অনুযায়ী কোনো প্রোডাক্ট আমাদের স্টকে নেই।";
 
     // ============================================================
     // ধাপ ৫: ফাইনাল AI রেসপন্স
@@ -165,11 +201,11 @@ ${inventoryContext}
 🔴 কঠোর নির্দেশনা:
 ১. কাস্টমার যে ভাষাতেই প্রশ্ন করুক, তুমি সবসময় **বাংলা (Bengali)** উত্তর দেবে।
 ২. প্রতিটি প্রোডাক্টের নামের শেষে [SHOW_FRONT:ID] ট্যাগ দিতেই হবে।
-৩. দাম, সাইজ, ওয়ারেন্টি, ডেলিভারি টাইম গুরুত্বপূর্ণ তথ্য দেবে।
+৩. দাম, ছাড়ের পরিমাণ, সাইজ, ওয়ারেন্টি, ডেলিভারি টাইম গুরুত্বপূর্ণ তথ্য দেবে।
 ৪. কিস্তির সুবিধা থাকলে মাসিক কিস্তির পরিমাণ জানাবে।
-৫. রোবট ভ্যাকুয়াম, পোষা প্রাণী, রিলাক্স, জার্মান তৈরি, আউটডোর — 'হ্যাঁ' বা 'না' স্পষ্ট বলবে।
-৬. ইনভেন্টরিতে নেই এমন তথ্য বানাবে না।
-৭. উত্তর হবে ৩-৫ লাইনের মধ্যে।`;
+５. "সবচেয়ে দামি" বললে সবচেয়ে বেশি দামেরটা দেখাবে।
+৬. "সবথেকে বেশি ছাড়" বললে সবচেয়ে বেশি ডিসকাউন্টেরটা দেখাবে।
+৭. ইনভেন্টরিতে নেই এমন তথ্য বানাবে না।`;
 
     const finalResponse = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
@@ -205,7 +241,6 @@ ${inventoryContext}
     }, { status: 500 });
   }
 }
-
 /*
 git add . 
 git commit -m "HU"
