@@ -238,7 +238,7 @@ ${inventoryContext}
     const aiData = await finalResponse.json();
     const finalText =
       aiData.choices?.[0]?.message?.content ||
-      "দুঃখিত, এই মুহূর্তে উত্তর দিতে পারছি না।";
+      "no internet ";
 
     return NextResponse.json({
       success: true,
