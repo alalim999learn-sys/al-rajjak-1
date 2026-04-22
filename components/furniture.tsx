@@ -165,25 +165,31 @@ export default function FurnitureChat({ clientData }: { clientData: any }) {
 
   const filteredItems = useMemo(() => {
     if (categoryFilter === 'all') return allProducts;
-    // Database schema uses lowercase, ensuring matching here
     return allProducts.filter(item => item.category?.toLowerCase() === categoryFilter.toLowerCase());
   }, [categoryFilter, allProducts]);
 
+  // --- ফিক্সড প্রোডাক্ট রেন্ডারিং (বড় কার্ড ভিউ) ---
   const parseAndRenderMessage = (content: string) => {
     const parts = content.split(/(\[SHOW_FRONT:[^\]]+\])/g);
     return parts.map((part, index) => {
       const match = part.match(/\[SHOW_FRONT:([^\]]+)\]/);
       if (match) {
         const productId = match[1].trim();
-        // Safe string comparison for UUIDs
         const product = allProducts.find(p => String(p.id).toLowerCase() === productId.toLowerCase());
         if (product) {
           return (
             <div key={index} style={productLinkStyle} onClick={() => setSelectedItem(product)}>
-              <img src={getValidImg(product)} style={{ width: '45px', height: '45px', objectFit: 'cover', borderRadius: '8px' }} />
-              <div style={{ flex: 1, overflow: 'hidden' }}>
-                <div style={{ fontWeight: 'bold', fontSize: '11px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{product.title}</div>
-                <div style={{ color: '#e11d48', fontWeight:'bold', fontSize: '12px' }}>€{product.current_price}</div>
+              <img 
+                src={getValidImg(product)} 
+                style={{ width: '100%', height: '180px', objectFit: 'cover' }} 
+                alt={product.title}
+              />
+              <div style={{ padding: '12px' }}>
+                <div style={{ fontWeight: '800', fontSize: '13px', marginBottom: '4px' }}>{product.title}</div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ color: '#e11d48', fontWeight:'900', fontSize: '16px' }}>€{product.current_price}</div>
+                  <div style={{ fontSize: '10px', background: '#000', color: '#fff', padding: '4px 8px', borderRadius: '5px' }}>Details</div>
+                </div>
               </div>
             </div>
           );
@@ -245,8 +251,8 @@ export default function FurnitureChat({ clientData }: { clientData: any }) {
           <>
             <div ref={scrollRef} style={chatBodyStyle}>
               {messages.map((m, i) => (
-                <div key={i} style={{ alignSelf: m.role === 'user' ? 'flex-end' : 'flex-start', maxWidth: '85%', marginBottom: '15px' }}>
-                  <div style={{ ...bubbleBase, backgroundColor: m.role === 'user' ? '#000' : '#fff', color: m.role === 'user' ? '#fff' : '#000' }}>
+                <div key={i} style={{ alignSelf: m.role === 'user' ? 'flex-end' : 'flex-start', maxWidth: '90%', marginBottom: '15px' }}>
+                  <div style={{ ...bubbleBase, backgroundColor: m.role === 'user' ? '#000' : '#fff', color: m.role === 'user' ? '#fff' : '#000', boxShadow: m.role === 'assistant' ? '0 2px 5px rgba(0,0,0,0.05)' : 'none' }}>
                     {m.role === 'assistant' ? parseAndRenderMessage(m.content) : m.content}
                   </div>
                 </div>
@@ -302,7 +308,7 @@ export default function FurnitureChat({ clientData }: { clientData: any }) {
   );
 }
 
-// --- CSS Styles (Same as before, ensuring consistency) ---
+// --- CSS Styles (আপডেটেড productLinkStyle সহ) ---
 const containerStyle: React.CSSProperties = { width: '100%', maxWidth: '450px', height: '90vh', background: '#f8fafc', borderRadius: '24px', display: 'flex', flexDirection: 'column', border: '1px solid #e2e8f0', boxShadow: '0 20px 50px rgba(0,0,0,0.1)', overflow: 'hidden', margin: '10px auto', position:'relative' };
 const headerStyle: React.CSSProperties = { background: '#000', padding: '15px 20px', color: '#fff' };
 const tabRowStyle: React.CSSProperties = { display: 'flex', background: '#fff', borderBottom: '1px solid #f1f5f9' };
@@ -319,7 +325,21 @@ const galleryGridStyle: React.CSSProperties = { display: 'grid', gridTemplateCol
 const galleryItemStyle: React.CSSProperties = { border: '1px solid #f1f5f9', borderRadius: '15px', overflow: 'hidden', textAlign: 'center' };
 const gridImgStyle: React.CSSProperties = { width: '100%', height: '110px', objectFit: 'cover', cursor: 'pointer' };
 const viewDetailsBtnStyle: React.CSSProperties = { width: '90%', background: '#f1f5f9', border: 'none', padding: '5px', borderRadius: '8px', marginBottom: '8px', fontSize: '10px', fontWeight: 'bold' };
-const productLinkStyle: React.CSSProperties = { display: 'flex', alignItems: 'center', gap: '10px', background: '#f0f9ff', padding: '8px', borderRadius: '12px', marginTop: '10px', border: '1px solid #bae6fd', cursor: 'pointer', color: '#000' };
+
+// --- এটি বড় কার্ড ডিজাইনের জন্য আপডেট করা হয়েছে ---
+const productLinkStyle: React.CSSProperties = { 
+  display: 'flex', 
+  flexDirection: 'column', 
+  background: '#fff', 
+  borderRadius: '15px', 
+  marginTop: '10px', 
+  border: '1px solid #e2e8f0', 
+  cursor: 'pointer', 
+  color: '#000',
+  overflow: 'hidden',
+  boxShadow: '0 4px 10px rgba(0,0,0,0.05)'
+};
+
 const askAiBtnStyle: React.CSSProperties = { width: '100%', padding: '12px', background: '#000', color: '#fff', border: 'none', borderRadius: '10px', fontWeight: 'bold', cursor: 'pointer' };
 const formInputStyle: React.CSSProperties = { width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #e2e8f0' };
 const modalOverlayFixedStyle: React.CSSProperties = { position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.8)', zIndex: 999, display: 'flex', alignItems: 'center', justifyContent: 'center' };
