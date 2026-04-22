@@ -20,7 +20,7 @@ const ImageZoomViewer = ({ images, initialIndex, onClose }: { images: string[]; 
   const [zoomLevel, setZoomLevel] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [dragStart, setDragStart] = useState({ x: e.clientX - position.x, y: e.clientY - position.y });
 
   const zoomIn = () => setZoomLevel(prev => Math.min(prev + 0.25, 3));
   const zoomOut = () => setZoomLevel(prev => Math.max(prev - 0.25, 1));
@@ -122,6 +122,7 @@ const ProductDetailModal = ({ item, onClose, onAskAI }: { item: any; onClose: ()
                     <div>🎨 {item.color_primary || 'N/V'}</div>
                     <div>🛡️ {item.warranty_years}J. Garantie</div>
                 </div>
+                {/* description-এ বাংলা থাকলেও কোড সেটাকে কাটবে না, তবে ডাটাবেস ক্লিন করা জরুরি */}
                 <p style={{marginTop:'10px'}}>{item.description?.substring(0, 150)}...</p>
             </div>
             <button onClick={() => { onAskAI(item.title); onClose(); }} style={askAiBtnStyle}>🤖 Details anfragen</button>
@@ -307,7 +308,7 @@ export default function FurnitureChat({ clientData }: { clientData: any }) {
   );
 }
 
-// --- CSS Styles ---
+// --- CSS Styles (Bleiben unverändert) ---
 const containerStyle: React.CSSProperties = { width: '100%', maxWidth: '450px', height: '90vh', background: '#f8fafc', borderRadius: '24px', display: 'flex', flexDirection: 'column', border: '1px solid #e2e8f0', boxShadow: '0 20px 50px rgba(0,0,0,0.1)', overflow: 'hidden', margin: '10px auto', position:'relative' };
 const headerStyle: React.CSSProperties = { background: '#000', padding: '15px 20px', color: '#fff' };
 const tabRowStyle: React.CSSProperties = { display: 'flex', background: '#fff', borderBottom: '1px solid #f1f5f9' };
