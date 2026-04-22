@@ -10,15 +10,14 @@ export async function POST(req: Request) {
   try {
     const { messages } = await req.json();
     if (!messages || messages.length === 0) {
-      return NextResponse.json({ success: false, text: "No messages provided." });
+      return NextResponse.json({ success: false, text: "Keine Nachrichten bereitgestellt." });
     }
 
     const lastUserMessage = messages[messages.length - 1].content;
     let queryBuilder = supabase.from("bismillah_table").select("*");
-    let filters = {};
 
     // ============================================================
-    // ধাপ ১: ইন্টেন্ট এক্সট্রাকশন
+    // SCHRITT 1: Intent-Extraktion mit Gemini 2.5 Pro
     // ============================================================
     if (lastUserMessage !== "INITIAL_LOAD_REQ") {
       const intentResponse = await fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -26,30 +25,22 @@ export async function POST(req: Request) {
         headers: {
           "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
           "Content-Type": "application/json",
+          "HTTP-Referer": "https://lemonskn-furniture.de", // ঐচ্ছিক কিন্তু ভালো
         },
         body: JSON.stringify({
-          model: "google/gemini-2.0-flash-001",
+          model: "google/gemini-2.5-pro", // মডেল আপডেট করা হয়েছে
           messages: [
             {
               role: "system",
-              content: `Du bist ein SQL-Experte für Möbel. Analysiere die Nachricht und gib NUR JSON zurück.
-
-🔴 ম্যাপ করার নিয়ম:
-- category: "sofa", "bed", "chair", "table", "other"
-- sub_type: "design-ecksofa", "modulsofa", "schlafsofa", "design-sofa", "outdoor lounge", "eckcouch", "u-form", "l-form"
-- price_min, price_max: number
-- sort: "asc" (সস্তা) oder "desc" (দামি)
-- search_term: string
-- color: string
-- is_pet_friendly, is_robot_friendly, is_relax, is_outdoor, is_sleeper, is_german, installment_available: boolean
-
-🔴 বিশেষ নিয়ম:
-- "সবচেয়ে দামি" → sort: "desc"
-- "সবচেয়ে সস্তা" → sort: "asc"
-- "এল-শেপ", "L-shape" → sub_type: "l-form"
-- "ইউ-শেপ", "U-shape" → sub_type: "u-form"
-
-Antworte NUR mit JSON.`
+              content: `Du bist ein KI-Analyst für Möbel-Anfragen. Extrahiere Parameter als JSON.
+              
+              Mapping:
+              - search_term: Name des Produkts (z.B. "Chantal", "Opera")
+              - category: "sofa", "bed", "chair", "table", "other"
+              - price_max: zahl
+              - is_pet_friendly, is_robot_friendly, is_german: boolean
+              
+              WICHTIG: Wenn der Nutzer nach Details zu einem Produkt fragt, setze den Namen in search_term.`
             },
             { role: "user", content: lastUserMessage }
           ],
@@ -58,145 +49,42 @@ Antworte NUR mit JSON.`
       });
 
       const intentData = await intentResponse.json();
+      let filters = {};
       try {
-        const rawContent = intentData.choices?.[0]?.message?.content || "{}";
-        filters = JSON.parse(rawContent.replace(/```json|```/g, "").trim());
+        const raw = intentData.choices?.[0]?.message?.content || "{}";
+        filters = JSON.parse(raw.replace(/```json|```/g, "").trim());
       } catch (e) { filters = {}; }
 
-      console.log("🔍 Filters:", filters);
-
       // ============================================================
-      // ধাপ ২: কোয়েরি বিল্ডিং
+      // SCHRITT 2: Query-Building (Fix für Galeriesuche)
       // ============================================================
       
-      if (filters.category) {
-        queryBuilder = queryBuilder.eq("category", filters.category.toLowerCase());
-      }
-      
-      if (filters.sub_type) {
-        queryBuilder = queryBuilder.ilike("sub_type", `%${filters.sub_type.toLowerCase()}%`);
-      }
-      
-      if (filters.price_min) queryBuilder = queryBuilder.gte("current_price", filters.price_min);
-      if (filters.price_max) queryBuilder = queryBuilder.lte("current_price", filters.price_max);
-      
-      // Boolean Flags
-      if (filters.is_pet_friendly === true) queryBuilder = queryBuilder.eq("is_pet_friendly", true);
-      if (filters.is_robot_friendly === true) queryBuilder = queryBuilder.eq("is_robot_friendly", true);
-      if (filters.is_german === true) queryBuilder = queryBuilder.eq("is_german", true);
-      if (filters.is_relax === true) queryBuilder = queryBuilder.eq("is_relax", true);
-      if (filters.is_sleeper === true) queryBuilder = queryBuilder.eq("is_sleeper", true);
-      if (filters.is_outdoor === true) queryBuilder = queryBuilder.eq("is_outdoor", true);
-      if (filters.installment_available === true) queryBuilder = queryBuilder.eq("installment_available", true);
-
-      // OR Conditions (Search + Color)
-      let orConditions = [];
-      
-      if (filters.search_term) {
-        orConditions.push(
-          `title.ilike.%${filters.search_term}%`,
-          `description.ilike.%${filters.search_term}%`
-        );
-      }
-      
-      if (filters.color) {
-        orConditions.push(
-          `color_primary.ilike.%${filters.color}%`,
-          `colors_available @> ARRAY['${filters.color}']::text[]`
-        );
-      }
-
-      if (orConditions.length > 0) {
-        queryBuilder = queryBuilder.or(orConditions.join(","));
-      }
-
-      // Sorting Logic
-      if (filters.sort === "desc") {
-        queryBuilder = queryBuilder.order("current_price", { ascending: false });
-      } else if (filters.sort === "asc") {
-        queryBuilder = queryBuilder.order("current_price", { ascending: true });
+      // ID সার্চকে অগ্রাধিকার দিন (গ্যালারি ক্লিকের জন্য)
+      const idMatch = lastUserMessage.match(/ID:\s*(\d+)/i);
+      if (idMatch) {
+        queryBuilder = queryBuilder.eq("id", idMatch[1]);
       } else {
-        queryBuilder = queryBuilder.order("created_at", { ascending: false });
+        if (filters.search_term) {
+          queryBuilder = queryBuilder.or(`title.ilike.%${filters.search_term}%,description.ilike.%${filters.search_term}%`);
+        }
+        if (filters.category) queryBuilder = queryBuilder.eq("category", filters.category);
+        if (filters.price_max) queryBuilder = queryBuilder.lte("current_price", filters.price_max);
+        // ... অন্যান্য ফিল্টার
       }
-      
-    } else {
-      queryBuilder = queryBuilder.order("created_at", { ascending: false });
     }
 
     // ============================================================
-    // ধাপ ৩: ডাটা ফেচ
+    // SCHRITT 3 & 4: ডাটা ফেচ এবং কন্টেক্সট
     // ============================================================
-    let { data: products, error } = await queryBuilder.limit(50);
-    if (error) throw error;
+    let { data: products } = await queryBuilder.limit(10).order("created_at", { ascending: false });
 
-    // Discount Sorting
-    const isDiscountQuery = lastUserMessage.includes("সবথেকে বেশি ছাড়") || 
-                            lastUserMessage.includes("most discount") ||
-                            lastUserMessage.includes("সবচেয়ে বেশি ছাড়");
-    
-    if (isDiscountQuery && products && products.length > 0) {
-      products = [...products].sort((a, b) => {
-        const discountA = a.original_price ? ((a.original_price - a.current_price) / a.original_price) * 100 : 0;
-        const discountB = b.original_price ? ((b.original_price - b.current_price) / b.original_price) * 100 : 0;
-        return discountB - discountA;
-      });
-    }
-
-    // ============================================================
-    // ধাপ ৪: ইনভেন্টরি কন্টেক্সট
-    // ============================================================
     let inventoryContext = products && products.length > 0 
-      ? products.map((p) => {
-          const discountPercent = p.original_price 
-            ? Math.round(((p.original_price - p.current_price) / p.original_price) * 100)
-            : 0;
-          
-          const installmentText = p.installment_available && p.monthly_payment
-            ? `মাসে ${p.monthly_payment}${p.currency}`
-            : "কিস্তি সুবিধা নেই";
-
-          const dimensionText = p.width_cm 
-            ? `${p.width_cm}W x ${p.depth_cm}D x ${p.height_cm}H cm`
-            : (p.dimensions_text || 'N/A');
-
-          return `
-🆔 ID: ${p.id}
-🛋️ নাম: ${p.title} [SHOW_FRONT:${p.id}]
-💰 দাম: ${p.current_price}${p.currency} (ছিল: ${p.original_price || 'N/A'}${p.currency}) | ছাড়: ${discountPercent}%
-📏 সাইজ: ${dimensionText}
-🏷️ ব্র্যান্ড: ${p.brand || 'N/A'} | টাইপ: ${p.category} (${p.sub_type || 'N/A'})
-🎨 রঙ: ${p.color_primary || 'N/A'} | 🧵 ফেব্রিক: ${p.fabric_type || 'N/A'}
-🐾 পোষা বান্ধব: ${p.is_pet_friendly ? '✅ হ্যাঁ' : '❌ না'}
-🤖 রোবট ফ্রেন্ডলি: ${p.is_robot_friendly ? '✅ হ্যাঁ' : '❌ না'}
-🇩🇪 জার্মানিতে তৈরি: ${p.is_german ? '✅ হ্যাঁ' : '❌ না'}
-⚡ রিলাক্স ফাংশন: ${p.is_relax ? '✅ হ্যাঁ' : '❌ না'}
-🏕️ আউটডোর: ${p.is_outdoor ? '✅ হ্যাঁ' : '❌ না'}
-🛏️ স্লিপার: ${p.is_sleeper ? '✅ হ্যাঁ' : '❌ না'}
-🛡️ ওয়ারেন্টি: ${p.warranty_years} বছর
-🚚 ডেলিভারি: ${p.delivery_days} দিনে
-💳 কিস্তি: ${installmentText}
-📝 বিবরণ: ${p.description?.substring(0, 150) || 'N/A'}...
---------------------------------------------------`;
-        }).join("\n")
-      : "😔 দুঃখিত, আপনার চাহিদা অনুযায়ী কোনো প্রোডাক্ট আমাদের স্টকে নেই।";
+      ? products.map(p => `ID: ${p.id} | Name: ${p.title} [SHOW_FRONT:${p.id}] | Preis: ${p.current_price}€ | Info: ${p.description}`).join("\n")
+      : "Kein Produkt gefunden.";
 
     // ============================================================
-    // ধাপ ৫: ফাইনাল AI রেসপন্স
+    // SCHRITT 5: Finaler Response mit Gemini 2.5 Pro
     // ============================================================
-    const finalSystemInstruction = `তুমি LemonSKN Furniture-এর একজন প্রফেশনাল সেলস অ্যাসিস্ট্যান্ট।
-
-📦 ইনভেন্টরি ডাটা (শুধু এখান থেকে উত্তর দেবে):
-${inventoryContext}
-
-🔴 কঠোর নির্দেশনা:
-১. কাস্টমার যে ভাষাতেই প্রশ্ন করুক, তুমি সবসময় **বাংলা (Bengali)** উত্তর দেবে।
-২. প্রতিটি প্রোডাক্টের নামের শেষে [SHOW_FRONT:ID] ট্যাগ দিতেই হবে।
-৩. দাম, ছাড়ের পরিমাণ, সাইজ, ওয়ারেন্টি, ডেলিভারি টাইম গুরুত্বপূর্ণ তথ্য দেবে।
-৪. কিস্তির সুবিধা থাকলে মাসিক কিস্তির পরিমাণ জানাবে。
-৫. "সবচেয়ে দামি" বললে সবচেয়ে বেশি দামেরটা দেখাবে।
-۶. "সবথেকে বেশি ছাড়" বললে সবচেয়ে বেশি ডিসকাউন্টেরটা দেখাবে।
-৭. ইনভেন্টরিতে নেই এমন তথ্য বানাবে না।`;
-
     const finalResponse = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -204,40 +92,31 @@ ${inventoryContext}
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-2.0-flash-001",
+        model: "google/gemini-2.5-pro",
         messages: [
-          { role: "system", content: finalSystemInstruction },
+          { 
+            role: "system", 
+            content: `Du bist LemonSKN Sales Assistant. Antworte auf DEUTSCH. 
+            Nutze diese Daten: ${inventoryContext}. 
+            Erwähne immer [SHOW_FRONT:ID] hinter dem Produktnamen.` 
+          },
           ...messages.slice(-3)
         ],
         temperature: 0.3,
-        max_tokens: 800,
       }),
     });
 
     const aiFinalData = await finalResponse.json();
-    const finalContent = aiFinalData.choices?.[0]?.message?.content || "দুঃখিত, আমি এই মুহূর্তে উত্তর দিতে পারছি না।";
-
     return NextResponse.json({ 
       success: true, 
-      text: finalContent, 
+      text: aiFinalData.choices?.[0]?.message?.content || "Fehler.",
       inventory: products 
     });
 
-  } catch (error: any) {
-    console.error("API Error:", error);
-    return NextResponse.json({ 
-      success: false, 
-      text: "সার্ভারে সমস্যা হয়েছে। দয়া করে কিছুক্ষণ পর আবার চেষ্টা করুন। 🙏" 
-    }, { status: 500 });
+  } catch (error) {
+    return NextResponse.json({ success: false, text: "Server Error" }, { status: 500 });
   }
 }
-
-
-
-
-
-
-
 
 /*
 git add . 

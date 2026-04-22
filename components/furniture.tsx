@@ -5,7 +5,7 @@
 "use client";
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 
-// --- ১. হেল্পার ফাংশন (ইমেজ হ্যান্ডলিং) ---
+// --- 1. Hilfsfunktion (Bildverarbeitung) ---
 const getValidImg = (item: any) => {
   if (!item) return "/api/placeholder/400/320";
   if (item.cover_image) return item.cover_image;
@@ -14,7 +14,7 @@ const getValidImg = (item: any) => {
   return "/api/placeholder/400/320";
 };
 
-// --- ২. ইমেজ জুম ভিউয়ার কম্পোনেন্ট ---
+// --- 2. Bild-Zoom-Viewer Komponente ---
 const ImageZoomViewer = ({ images, initialIndex, onClose }: { images: string[]; initialIndex: number; onClose: () => void }) => {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [zoomLevel, setZoomLevel] = useState(1);
@@ -78,7 +78,7 @@ const ImageZoomViewer = ({ images, initialIndex, onClose }: { images: string[]; 
   );
 };
 
-// --- ৩. প্রোডাক্ট ডিটেইল মোডাল ---
+// --- 3. Produktdetail-Modal ---
 const ProductDetailModal = ({ item, onClose, onAskAI }: { item: any; onClose: () => void; onAskAI: (name: string) => void }) => {
   const [activeImg, setActiveImg] = useState(0);
   const [showZoom, setShowZoom] = useState(false);
@@ -117,14 +117,14 @@ const ProductDetailModal = ({ item, onClose, onAskAI }: { item: any; onClose: ()
             </div>
             <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '20px' }}>
                 <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'8px', background:'#f8fafc', padding:'10px', borderRadius:'8px'}}>
-                    <div>📏 {item.width_cm}x{item.depth_cm}x{item.height_cm}</div>
-                    <div>🧵 {item.fabric_type || 'N/A'}</div>
-                    <div>🎨 {item.color_primary || 'N/A'}</div>
-                    <div>🛡️ {item.warranty_years}Y Warranty</div>
+                    <div>📏 {item.width_cm}x{item.depth_cm}x{item.height_cm} cm</div>
+                    <div>🧵 {item.fabric_type || 'N/V'}</div>
+                    <div>🎨 {item.color_primary || 'N/V'}</div>
+                    <div>🛡️ {item.warranty_years}J. Garantie</div>
                 </div>
                 <p style={{marginTop:'10px'}}>{item.description?.substring(0, 150)}...</p>
             </div>
-            <button onClick={() => { onAskAI(item.title); onClose(); }} style={askAiBtnStyle}>🤖 বিস্তারিত জানুন</button>
+            <button onClick={() => { onAskAI(item.title); onClose(); }} style={askAiBtnStyle}>🤖 Details anfragen</button>
           </div>
         </div>
       </div>
@@ -133,14 +133,14 @@ const ProductDetailModal = ({ item, onClose, onAskAI }: { item: any; onClose: ()
   );
 };
 
-// --- ৪. মেইন চ্যাট কম্পোনেন্ট ---
+// --- 4. Haupt-Chat-Komponente ---
 export default function FurnitureChat({ clientData }: { clientData: any }) {
   const [activeTab, setActiveTab] = useState<'ai' | 'gallery' | 'message'>('ai');
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [allProducts, setAllProducts] = useState<any[]>([]);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [messages, setMessages] = useState<any[]>([
-    { role: 'assistant', content: `স্বাগতম! LemonSKN ফার্নিচারে আপনাকে সাহায্য করতে আমি প্রস্তুত। আপনি কি ধরণের ফার্নিচার খুঁজছেন?` }
+    { role: 'assistant', content: `Willkommen! Ich bin bereit, Ihnen bei LemonSKN Furniture zu helfen. Welche Art von Möbeln suchen Sie?` }
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -157,7 +157,7 @@ export default function FurnitureChat({ clientData }: { clientData: any }) {
         });
         const data = await res.json();
         if (data.success && data.inventory) setAllProducts(data.inventory);
-      } catch (err) { console.error("Fetch Error:", err); }
+      } catch (err) { console.error("Fehler beim Abrufen:", err); }
       finally { setIsInitialLoading(false); }
     };
     fetchInitial();
@@ -168,7 +168,6 @@ export default function FurnitureChat({ clientData }: { clientData: any }) {
     return allProducts.filter(item => item.category?.toLowerCase() === categoryFilter.toLowerCase());
   }, [categoryFilter, allProducts]);
 
-  // --- ফিক্সড প্রোডাক্ট রেন্ডারিং (বড় কার্ড ভিউ) ---
   const parseAndRenderMessage = (content: string) => {
     const parts = content.split(/(\[SHOW_FRONT:[^\]]+\])/g);
     return parts.map((part, index) => {
@@ -236,14 +235,14 @@ export default function FurnitureChat({ clientData }: { clientData: any }) {
       <div style={headerStyle}>
         <div>
           <div style={{ fontSize: '16px', fontWeight: '900' }}>LemonSKN Furniture</div>
-          <div style={{ fontSize: '10px', opacity: 0.8 }}>AI SALES ASSISTANT • ONLINE</div>
+          <div style={{ fontSize: '10px', opacity: 0.8 }}>KI-VERKAUFSASSISTENT • ONLINE</div>
         </div>
       </div>
 
       <div style={tabRowStyle}>
-        <button onClick={() => setActiveTab('ai')} style={{...tabButtonStyle, borderBottom: activeTab === 'ai' ? '3px solid #000' : 'none'}}>🤖 Assistant</button>
-        <button onClick={() => setActiveTab('gallery')} style={{...tabButtonStyle, borderBottom: activeTab === 'gallery' ? '3px solid #000' : 'none'}}>🖼️ Gallery</button>
-        <button onClick={() => setActiveTab('message')} style={{...tabButtonStyle, borderBottom: activeTab === 'message' ? '3px solid #000' : 'none'}}>✉️ Contact</button>
+        <button onClick={() => setActiveTab('ai')} style={{...tabButtonStyle, borderBottom: activeTab === 'ai' ? '3px solid #000' : 'none'}}>🤖 Assistent</button>
+        <button onClick={() => setActiveTab('gallery')} style={{...tabButtonStyle, borderBottom: activeTab === 'gallery' ? '3px solid #000' : 'none'}}>🖼️ Galerie</button>
+        <button onClick={() => setActiveTab('message')} style={{...tabButtonStyle, borderBottom: activeTab === 'message' ? '3px solid #000' : 'none'}}>✉️ Kontakt</button>
       </div>
 
       <div style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
@@ -257,10 +256,10 @@ export default function FurnitureChat({ clientData }: { clientData: any }) {
                   </div>
                 </div>
               ))}
-              {loading && <div style={{ fontSize: '11px', color: '#94a3b8', marginLeft: '10px' }}>AI ভাবছে...</div>}
+              {loading && <div style={{ fontSize: '11px', color: '#94a3b8', marginLeft: '10px' }}>KI denkt nach...</div>}
             </div>
             <div style={inputWrapperStyle}>
-              <input style={inputFieldStyle} value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleSend()} placeholder="সোফা বা বেড সম্পর্কে জিজ্ঞাসা করুন..." />
+              <input style={inputFieldStyle} value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleSend()} placeholder="Fragen Sie nach Sofas oder Betten..." />
               <button onClick={() => handleSend()} style={sendButtonStyle}>🚀</button>
             </div>
           </>
@@ -270,11 +269,11 @@ export default function FurnitureChat({ clientData }: { clientData: any }) {
           <div style={galleryViewStyle}>
             <div style={filterBarStyle}>
               {['all', 'sofa', 'bed', 'chair', 'table'].map(cat => (
-                <button key={cat} onClick={() => setCategoryFilter(cat)} style={getFilterStyle(categoryFilter === cat)}>{cat.toUpperCase()}</button>
+                <button key={cat} onClick={() => setCategoryFilter(cat)} style={getFilterStyle(categoryFilter === cat)}>{cat === 'all' ? 'ALLE' : cat.toUpperCase()}</button>
               ))}
             </div>
             {isInitialLoading ? (
-              <div style={{textAlign:'center', padding:'50px', color:'#94a3b8'}}>লোড হচ্ছে...</div>
+              <div style={{textAlign:'center', padding:'50px', color:'#94a3b8'}}>Wird geladen...</div>
             ) : (
               <div style={galleryGridStyle}>
                 {filteredItems.map((item) => (
@@ -282,7 +281,7 @@ export default function FurnitureChat({ clientData }: { clientData: any }) {
                       <img src={getValidImg(item)} style={gridImgStyle} onClick={() => setSelectedItem(item)} onError={(e) => { e.currentTarget.src = "/api/placeholder/150/130"; }} />
                       <div style={{ padding: '8px', fontSize: '11px', fontWeight: '800', whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis' }}>{item.title}</div>
                       <div style={{ color: '#e11d48', fontWeight:'900', fontSize:'13px', paddingBottom:'5px' }}>€{item.current_price}</div>
-                      <button onClick={() => setSelectedItem(item)} style={viewDetailsBtnStyle}>View Details</button>
+                      <button onClick={() => setSelectedItem(item)} style={viewDetailsBtnStyle}>Details anzeigen</button>
                     </div>
                 ))}
               </div>
@@ -292,23 +291,23 @@ export default function FurnitureChat({ clientData }: { clientData: any }) {
 
         {activeTab === 'message' && (
           <div style={{ padding: '20px', background: '#fff', height: '100%' }}>
-            <h3>সরাসরি যোগাযোগ করুন</h3>
+            <h3>Direkter Kontakt</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop:'15px' }}>
-              <input style={formInputStyle} placeholder="নাম" />
-              <input style={formInputStyle} placeholder="ফোন নাম্বার" />
-              <textarea style={{...formInputStyle, height:'100px'}} placeholder="আপনার মেসেজ..." />
-              <button style={askAiBtnStyle}>মেসেজ পাঠান</button>
+              <input style={formInputStyle} placeholder="Name" />
+              <input style={formInputStyle} placeholder="Telefonnummer" />
+              <textarea style={{...formInputStyle, height:'100px'}} placeholder="Ihre Nachricht..." />
+              <button style={askAiBtnStyle}>Nachricht senden</button>
             </div>
           </div>
         )}
       </div>
 
-      {selectedItem && <ProductDetailModal item={selectedItem} onClose={() => setSelectedItem(null)} onAskAI={(name) => { setActiveTab('ai'); handleSend(`আমি ${name} সম্পর্কে আরও জানতে চাই`); }} />}
+      {selectedItem && <ProductDetailModal item={selectedItem} onClose={() => setSelectedItem(null)} onAskAI={(name) => { setActiveTab('ai'); handleSend(`Ich möchte mehr über ${name} erfahren`); }} />}
     </div>
   );
 }
 
-// --- CSS Styles (আপডেটেড productLinkStyle সহ) ---
+// --- CSS Styles ---
 const containerStyle: React.CSSProperties = { width: '100%', maxWidth: '450px', height: '90vh', background: '#f8fafc', borderRadius: '24px', display: 'flex', flexDirection: 'column', border: '1px solid #e2e8f0', boxShadow: '0 20px 50px rgba(0,0,0,0.1)', overflow: 'hidden', margin: '10px auto', position:'relative' };
 const headerStyle: React.CSSProperties = { background: '#000', padding: '15px 20px', color: '#fff' };
 const tabRowStyle: React.CSSProperties = { display: 'flex', background: '#fff', borderBottom: '1px solid #f1f5f9' };
@@ -326,7 +325,6 @@ const galleryItemStyle: React.CSSProperties = { border: '1px solid #f1f5f9', bor
 const gridImgStyle: React.CSSProperties = { width: '100%', height: '110px', objectFit: 'cover', cursor: 'pointer' };
 const viewDetailsBtnStyle: React.CSSProperties = { width: '90%', background: '#f1f5f9', border: 'none', padding: '5px', borderRadius: '8px', marginBottom: '8px', fontSize: '10px', fontWeight: 'bold' };
 
-// --- এটি বড় কার্ড ডিজাইনের জন্য আপডেট করা হয়েছে ---
 const productLinkStyle: React.CSSProperties = { 
   display: 'flex', 
   flexDirection: 'column', 
