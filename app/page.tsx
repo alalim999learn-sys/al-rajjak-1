@@ -4,7 +4,7 @@
 // C:\Users\Shanon\al-rajjak-1\app\page.tsx
 import Image from 'next/image';
 import Navbar from "./Navbar";
-import AIChatRow from '../components/AIChatRow';
+ 
 import CookieBanner from "./CookieBanner"; 
 import { 
   UserPlus, 
@@ -68,7 +68,7 @@ export default function Home() {
             </p>
           </div>
           <div className="mt-12">
-            <AIChatRow />
+            
           </div>
         </div>
       </section>
