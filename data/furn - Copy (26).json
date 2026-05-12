@@ -1,0 +1,38 @@
+
+
+
+
+ {
+  "Luxury": {
+    "Metal": [
+      {
+        "id": "",
+        "product_name": "",
+        "brand": "",
+        "price": 0.0,
+        "currency": "USD",
+        "specifications": {
+          "movement": "",
+          "case_material": "",
+          "case_diameter": "",
+          "water_resistance": "",
+          "glass_type": ""
+        },
+        "image_path": ""
+      }
+    ],
+    "Leather": []
+  },
+  "Smart_watch": {
+    "Silicone": [],
+    "Steel": []
+  },
+  "Sport": {
+    "Digital": [],
+    "Analog": []
+  },
+  "Casual": {
+    "Leather": [],
+    "Nato_strap": []
+  }
+}

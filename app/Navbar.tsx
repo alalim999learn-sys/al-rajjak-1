@@ -1,13 +1,18 @@
+//C:\Users\Shanon\al-rajjak-1\app\Navbar.tsx
 
-
-//Navbar
 "use client";
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Shield, ArrowRight } from 'lucide-react';
+import { usePathname } from 'next/navigation'; // এটি নতুন যোগ করা হয়েছে
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname(); // বর্তমান ইউআরএল চেক করার জন্য
+
+  // --- স্মার্ট শপ পেইজে নেভিবার বন্ধ করার লজিক ---
+  // আপনার শপ পেইজের ইউআরএল যদি অন্য কিছু হয় তবে এখানে সেটা দিন
+  const isShopPage = pathname === '/watches' || pathname === '/admin/watches' || pathname === '/agent';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,15 +22,18 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // জার্মান ভাষায় আপডেট করা ন্যাভিগেশন লিঙ্কস
+  // যদি শপ পেইজ হয়, তবে কিছুই রিটার্ন করবে না (Navbar গায়েব হয়ে যাবে)
+  if (isShopPage) return null;
+
+  // জার্মান ভাষায় আপডেট করা ন্যাভিগেশন লিঙ্কস
   const navLinks = [
-    { name: 'Startseite', href: '/' },             // Home -> Startseite
-    { name: 'Leistungen', href: '/#services' },     // Services -> Leistungen
-    { name: 'Über mich', href: '/ueber-mich' },      // About -> Über mich
-    { name: 'Kontakt', href: '/kontakt' },          // Kontakt যোগ করা হয়েছে
-    { name: 'Impressum', href: '/impressum' },      
-    { name: 'Datenschutz', href: '/datenschutz' }, // Privacy -> Datenschutz
-    { name: 'AGB', href: '/agb' },           // এজিবি লিঙ্ক যোগ করা হলো
+    { name: 'Startseite', href: '/' },
+    { name: 'Leistungen', href: '/#services' },
+    { name: 'Über mich', href: '/ueber-mich' },
+    { name: 'Kontakt', href: '/kontakt' },
+    { name: 'Impressum', href: '/impressum' },
+    { name: 'Datenschutz', href: '/datenschutz' },
+    { name: 'AGB', href: '/agb' },
   ];
 
   return (

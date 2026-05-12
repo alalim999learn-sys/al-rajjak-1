@@ -1,6 +1,7 @@
 
 
 
+
 //components/layout.tsx
 import { Analytics } from "@vercel/analytics/next";
 import Image from "next/image";
