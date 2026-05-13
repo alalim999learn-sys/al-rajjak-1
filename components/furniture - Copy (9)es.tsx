@@ -15,16 +15,16 @@ interface Product {
   warranty: string | null; images: string[]; 
 }
 
-const CATEGORY_MAP_EN: Record<string, string[]> = {
-  "Luxury": ["Metal", "Leather"],
-  "Smartwatch": ["Silicone", "Steel"],
-  "Sport": ["Digital", "Analog"],
-  "Casual": ["Leather", "Nato Strap"]
+const CATEGORY_MAP_ES: Record<string, string[]> = {
+  "Lujo": ["Metal", "Cuero"],
+  "Reloj Inteligente": ["Silicona", "Acero"],
+  "Deportivo": ["Digital", "Analógico"],
+  "Casual": ["Cuero", "Correa Nato"]
 };
 
 export default function GlobalSmartShop() {
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
-  const [selectedSubCategory, setSelectedSubCategory] = useState<string>('All');
+  const [selectedCategory, setSelectedCategory] = useState<string>('Todos');
+  const [selectedSubCategory, setSelectedSubCategory] = useState<string>('Todos');
   const [selectedRange, setSelectedRange] = useState<'all' | 'entry' | 'mid' | 'high'>('all');
   const [products, setProducts] = useState<Product[]>([]);
   const [welcomeMsg, setWelcomeMsg] = useState<string>(""); 
@@ -77,9 +77,9 @@ export default function GlobalSmartShop() {
     setActiveImgIdx(0);
   };
 
-  // Zoom Handlers
+  // জুম হ্যান্ডলার
   const handleToggleZoom = (e: React.MouseEvent | React.TouchEvent) => {
-    e.stopPropagation(); 
+    e.stopPropagation(); // স্লাইডারের ইভেন্ট থামিয়ে দিবে
     if (scale > 1) {
       setScale(1);
       setPosition({ x: 0, y: 0 });
@@ -108,8 +108,8 @@ export default function GlobalSmartShop() {
 
   const getProcessedProducts = () => {
     let filtered = products.filter(p => {
-      const matchCat = selectedCategory === 'All' || p.category === selectedCategory;
-      const matchSub = selectedSubCategory === 'All' || p.sub_category === selectedSubCategory;
+      const matchCat = selectedCategory === 'Todos' || p.category === selectedCategory;
+      const matchSub = selectedSubCategory === 'Todos' || p.sub_category === selectedSubCategory;
       return matchCat && matchSub;
     });
 
@@ -125,8 +125,8 @@ export default function GlobalSmartShop() {
     return sorted;
   };
 
-  const categories = ["All", ...Object.keys(CATEGORY_MAP_EN)];
-  const currentSubCats = selectedCategory !== 'All' ? ["All", ...(CATEGORY_MAP_EN[selectedCategory] || [])] : [];
+  const categories = ["Todos", ...Object.keys(CATEGORY_MAP_ES)];
+  const currentSubCats = selectedCategory !== 'Todos' ? ["Todos", ...(CATEGORY_MAP_ES[selectedCategory] || [])] : [];
 
   return (
     <div className="smart-shop-fullscreen-overlay">
@@ -137,7 +137,7 @@ export default function GlobalSmartShop() {
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', padding: '10px 0 5px 0', marginTop : '-33px' }}>
              <img src="/watch.png" alt="Logo" style={{ width: '35px', height: '35px', objectFit: 'contain' }} />
              <div style={{ fontSize: '18px', fontWeight: '900', color: '#FFD700', letterSpacing: '0.5px'  }}>
-                Neighborhood Watch Store
+                Relojería del Barrio
              </div>
           </div>
           {welcomeMsg && (
@@ -149,17 +149,17 @@ export default function GlobalSmartShop() {
 
         <div style={scrollContainer} className="hide-scrollbar">
           <div style={{ padding: '10px 15px', background: '#0f172a' }}>
-            <p style={labelStyle}>What type of watch are you looking for?</p>
+            <p style={labelStyle}>¿Qué tipo de reloj buscas?</p>
             <div style={filterRow} className="hide-scrollbar">
               {categories.map(cat => (
-                <button key={cat} onClick={() => { setSelectedCategory(cat); setSelectedSubCategory('All'); }}
+                <button key={cat} onClick={() => { setSelectedCategory(cat); setSelectedSubCategory('Todos'); }}
                   style={{ ...pillStyle, background: selectedCategory === cat ? '#FF4500' : '#1e293b' }}>{cat}</button>
               ))}
             </div>
 
-            {selectedCategory !== 'All' && (
+            {selectedCategory !== 'Todos' && (
               <>
-                <p style={{...labelStyle, marginTop: '10px'}}>Choose your preferred material</p>
+                <p style={{...labelStyle, marginTop: '10px'}}>Elige tu material preferido</p>
                 <div style={filterRow} className="hide-scrollbar">
                   {currentSubCats.map(sub => (
                     <button key={sub} onClick={() => setSelectedSubCategory(sub)}
@@ -169,12 +169,12 @@ export default function GlobalSmartShop() {
               </>
             )}
 
-            <p style={{...labelStyle, marginTop: '10px'}}>Filter by your budget</p>
+            <p style={{...labelStyle, marginTop: '10px'}}>Filtra por tu presupuesto</p>
             <div style={budgetGrid}>
               {[
-                { label: 'ALL', value: 'all' },
-                { label: 'BASIC', value: 'entry' },
-                { label: 'MID-RANGE', value: 'mid' },
+                { label: 'TODOS', value: 'all' },
+                { label: 'BÁSICO', value: 'entry' },
+                { label: 'MEDIO', value: 'mid' },
                 { label: 'PREMIUM', value: 'high' }
               ].map(r => (
                 <button key={r.value} onClick={() => setSelectedRange(r.value as any)} 
@@ -236,6 +236,7 @@ export default function GlobalSmartShop() {
                 onTouchMove={(e) => handleMove(e.touches[0].clientX, e.touches[0].clientY)} 
                 onTouchEnd={handleEnd}
               >
+                {/* Image Component - Only this handles Zoom on Double Click */}
                 <img 
                   src={selectedProduct.images[activeImgIdx]} 
                   onDoubleClick={handleToggleZoom}
@@ -250,6 +251,7 @@ export default function GlobalSmartShop() {
                   draggable={false} 
                 />
 
+                {/* Navigation Buttons - stopPropagation used to prevent triggering parent events */}
                 {scale === 1 && selectedProduct.images.length > 1 && (
                     <>
                       <button 
@@ -289,15 +291,15 @@ export default function GlobalSmartShop() {
                     )}
                 </div>
                 <div style={specsBox}>
-                  <p style={specRow}><span>⚙️ Movement:</span> <b>{selectedProduct.movement || 'N/A'}</b></p>
-                  <p style={specRow}><span>💎 Glass:</span> <b>{selectedProduct.glass_type || 'N/A'}</b></p>
+                  <p style={specRow}><span>⚙️ Movimiento:</span> <b>{selectedProduct.movement || 'N/A'}</b></p>
+                  <p style={specRow}><span>💎 Cristal:</span> <b>{selectedProduct.glass_type || 'N/A'}</b></p>
                   <p style={specRow}><span>🌊 Water Res:</span> <b>{selectedProduct.water_resistance || 'N/A'}</b></p>
-                  <p style={specRow}><span>🛡️ Warranty:</span> <b>{selectedProduct.warranty || 'N/A'}</b></p>
+                  <p style={specRow}><span>🛡️ Garantía:</span> <b>{selectedProduct.warranty || 'N/A'}</b></p>
                 </div>
                 <button onClick={() => {
-                    const msg = encodeURIComponent(`Hi, I'm interested in this watch:\n*${selectedProduct.brand} - ${selectedProduct.name}*\nPrice: €${selectedProduct.price}`);
+                    const msg = encodeURIComponent(`Hola, me interesa este reloj:\n*${selectedProduct.brand} - ${selectedProduct.name}*\nPrecio: €${selectedProduct.price}`);
                     window.open(`https://wa.me/${shopOwnerNumber}?text=${msg}`, '_blank');
-                }} style={whatsappBtn}>Inquire on WhatsApp</button>
+                }} style={whatsappBtn}>Preguntar por WhatsApp </button>
               </div>
             </div>
           </div>
@@ -330,8 +332,8 @@ const scrollContainer: React.CSSProperties = { flex: 1, overflowY: 'auto' };
 
 const filterRow: React.CSSProperties = { 
   display: 'flex', 
-  flexWrap: 'wrap', 
-  gap: '10px 8px', 
+  flexWrap: 'wrap',    // এটি বাটনগুলোকে নিচের লাইনে পাঠাবে
+  gap: '10px 8px',     // প্রথমটি (10px) ওপর-নিচ গ্যাপ, দ্বিতীয়টি (8px) পাশাপাশি গ্যাপ
   paddingBottom: '15px' 
 };
 const labelStyle: React.CSSProperties = { color: '#FFD700', fontSize: '10px', fontWeight: '900', marginBottom: '5px', textTransform: 'uppercase' };
@@ -344,7 +346,7 @@ const pillStyle: React.CSSProperties = {
   fontWeight: '700', 
   cursor: 'pointer', 
   whiteSpace: 'nowrap',
-  flexShrink: 0 
+  flexShrink: 0 // বাটন যাতে চ্যাপ্টা বা ছোট হয়ে না যায়
 };
 const budgetGrid: React.CSSProperties = { display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px' };
 const budgetBtn: React.CSSProperties = { border: 'none', padding: '8px', borderRadius: '8px', fontSize: '10px', fontWeight: '900' };

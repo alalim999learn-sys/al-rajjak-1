@@ -1,13 +1,13 @@
 //C:\Users\Shanon\al-rajjak-1\app\admin\watches\page.tsx
 
 
-  
+ 
 "use client";
 import React, { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import ShopKnowledgeManager from '@/components/admin/ShopKnowledgeManager';
 
-// --- Supabase Configuration ---
+// --- সুপাবেস কনফিগারেশন ---
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 const supabase = createClient(supabaseUrl, supabaseKey);
@@ -21,15 +21,15 @@ interface Product {
   warranty: string; images: string[];
 }
 
-const CATEGORY_MAP_EN: Record<string, string[]> = {
-  "Luxury": ["Metal", "Leather"],
-  "Smartwatch": ["Silicone", "Steel"],
-  "Sport": ["Digital", "Analog"],
-  "Casual": ["Leather", "Nato Strap"]
+const CATEGORY_MAP_ES: Record<string, string[]> = {
+  "Lujo": ["Metal", "Cuero"],
+  "Reloj Inteligente": ["Silicona", "Acero"],
+  "Deportivo": ["Digital", "Analógico"],
+  "Casual": ["Cuero", "Correa Nato"]
 };
 
 const initialForm: Product = {
-  id: '', name: '', brand: '', category: 'Luxury', sub_category: 'Metal',
+  id: '', name: '', brand: '', category: 'Lujo', sub_category: 'Metal',
   price: 0, original_price: null, movement: '', glass_type: '',
   water_resistance: '', warranty: '', images: []
 };
@@ -42,7 +42,7 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   
-  // Filter State
+  // ফিল্টার স্টেট
   const [filterCat, setFilterCat] = useState<string>('All');
   const [searchTerm, setSearchTerm] = useState<string>('');
 
@@ -55,7 +55,7 @@ export default function AdminDashboard() {
       const res = await fetch('/api/admin/watches');
       const data = await res.json();
       if (data.success) setProducts(data.data);
-    } catch (e) { console.error("Error loading products", e); }
+    } catch (e) { console.error("Error al cargar productos", e); }
   };
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,13 +72,13 @@ export default function AdminDashboard() {
         const filePath = `watches-images/${fileName}`;
 
         const { data, error } = await supabase.storage
-          .from('watches') 
+          .from('watches_new') 
           .upload(filePath, file);
 
         if (error) throw error;
 
         const { data: publicUrlData } = supabase.storage
-          .from('watches')
+          .from('watches_new')
           .getPublicUrl(filePath);
 
         if (publicUrlData) uploadedUrls.push(publicUrlData.publicUrl);
@@ -86,7 +86,7 @@ export default function AdminDashboard() {
 
       setForm(prev => ({ ...prev, images: [...prev.images, ...uploadedUrls] }));
     } catch (error: any) {
-      alert("Error uploading to Supabase: " + error.message);
+      alert("Error al subir a Supabase: " + error.message);
     } finally {
       setUploading(false);
     }
@@ -95,7 +95,7 @@ export default function AdminDashboard() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (form.images.length === 0) {
-        alert("You must upload at least one image!");
+        alert("¡Debes subir al menos una imagen!");
         return;
     }
     setLoading(true);
@@ -109,19 +109,19 @@ export default function AdminDashboard() {
         await fetchProducts();
         setForm(initialForm);
         setIsEditing(false);
-        alert("Saved successfully!");
+        alert("¡Guardado con éxito!");
       }
-    } catch (e) { alert("Error saving product"); }
+    } catch (e) { alert("Error al guardar el producto"); }
     setLoading(false);
   };
 
   const deleteProduct = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this product?")) return;
+    if (!confirm("¿Estás seguro de eliminar este producto?")) return;
     await fetch(`/api/admin/watches?id=${id}`, { method: 'DELETE' });
     fetchProducts();
   };
 
-  // Filter Logic
+  // ফিল্টার লজিক
   const filteredProducts = products.filter(p => {
     const matchesCat = filterCat === 'All' || p.category === filterCat;
     const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -135,40 +135,40 @@ export default function AdminDashboard() {
       
       {/* TABS */}
       <div style={{ display: 'flex', gap: '10px', marginBottom: '30px', borderBottom: '2px solid #e2e8f0' }}>
-        <button onClick={() => setActiveTab('products')} style={activeTab === 'products' ? activeTabStyle : tabStyle}>📦 PRODUCTS</button>
-        <button onClick={() => setActiveTab('welcome')} style={activeTab === 'welcome' ? activeTabStyle : tabStyle}>📢 WELCOME / BANNER</button>
+        <button onClick={() => setActiveTab('products')} style={activeTab === 'products' ? activeTabStyle : tabStyle}>📦 PRODUCTOS</button>
+        <button onClick={() => setActiveTab('welcome')} style={activeTab === 'welcome' ? activeTabStyle : tabStyle}>📢 BIENVENIDA / BANNER</button>
       </div>
 
       {activeTab === 'products' && (
         <div key="products-tab">
-          <h2 style={sectionTitle}>{isEditing ? 'EDIT PRODUCT' : 'ADD NEW PRODUCT'}</h2>
+          <h2 style={sectionTitle}>{isEditing ? 'EDITAR PRODUCTO' : 'AGREGAR NUEVO PRODUCTO'}</h2>
           
           {/* FORM - Add/Edit Product */}
           <form onSubmit={handleSubmit} style={formGridStyle}>
-             <input placeholder="ID (e.g., GD001)" value={form.id} onChange={e => setForm({ ...form, id: e.target.value })} required style={inputStyle} disabled={isEditing} />
-             <input placeholder="Brand (e.g., Guodhu)" value={form.brand} onChange={e => setForm({ ...form, brand: e.target.value })} required style={inputStyle} />
-             <input placeholder="Name / Model" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required style={{ ...inputStyle, gridColumn: 'span 2' }} />
+             <input placeholder="ID (ej: GD001)" value={form.id} onChange={e => setForm({ ...form, id: e.target.value })} required style={inputStyle} disabled={isEditing} />
+             <input placeholder="Marca (ej: Guodhu)" value={form.brand} onChange={e => setForm({ ...form, brand: e.target.value })} required style={inputStyle} />
+             <input placeholder="Nombre / Modelo" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required style={{ ...inputStyle, gridColumn: 'span 2' }} />
              
-             <select value={form.category} onChange={(e) => setForm({...form, category: e.target.value, sub_category: CATEGORY_MAP_EN[e.target.value][0]})} style={inputStyle}>
-                {Object.keys(CATEGORY_MAP_EN).map(cat => <option key={cat} value={cat}>{cat}</option>)}
+             <select value={form.category} onChange={(e) => setForm({...form, category: e.target.value, sub_category: CATEGORY_MAP_ES[e.target.value][0]})} style={inputStyle}>
+                {Object.keys(CATEGORY_MAP_ES).map(cat => <option key={cat} value={cat}>{cat}</option>)}
              </select>
              <select value={form.sub_category} onChange={e => setForm({ ...form, sub_category: e.target.value })} style={inputStyle}>
-                {CATEGORY_MAP_EN[form.category]?.map(sub => <option key={sub} value={sub}>{sub}</option>)}
+                {CATEGORY_MAP_ES[form.category]?.map(sub => <option key={sub} value={sub}>{sub}</option>)}
              </select>
 
-             <input type="number" placeholder="Current Price ($)" value={form.price || ''} onChange={e => setForm({ ...form, price: Number(e.target.value) })} style={inputStyle} />
-             <input type="number" placeholder="Original Price ($)" value={form.original_price || ''} onChange={e => setForm({ ...form, original_price: Number(e.target.value) })} style={inputStyle} />
+             <input type="number" placeholder="Precio Actual (€)" value={form.price || ''} onChange={e => setForm({ ...form, price: Number(e.target.value) })} style={inputStyle} />
+             <input type="number" placeholder="Precio Original (€)" value={form.original_price || ''} onChange={e => setForm({ ...form, original_price: Number(e.target.value) })} style={inputStyle} />
 
-             <input placeholder="⚙️ Movement" value={form.movement} onChange={e => setForm({ ...form, movement: e.target.value })} style={inputStyle} />
-             <input placeholder="💎 Glass" value={form.glass_type} onChange={e => setForm({ ...form, glass_type: e.target.value })} style={inputStyle} />
+             <input placeholder="⚙️ Movimiento" value={form.movement} onChange={e => setForm({ ...form, movement: e.target.value })} style={inputStyle} />
+             <input placeholder="💎 Cristal" value={form.glass_type} onChange={e => setForm({ ...form, glass_type: e.target.value })} style={inputStyle} />
              <input placeholder="🌊 Water Res" value={form.water_resistance} onChange={e => setForm({ ...form, water_resistance: e.target.value })} style={inputStyle} />
-             <input placeholder="🛡️ Warranty" value={form.warranty} onChange={e => setForm({ ...form, warranty: e.target.value })} style={inputStyle} />
+             <input placeholder="🛡️ Garantía" value={form.warranty} onChange={e => setForm({ ...form, warranty: e.target.value })} style={inputStyle} />
 
              {/* IMAGE UPLOAD */}
              <div style={{ gridColumn: '1 / -1', background: '#f8fafc', padding: '20px', borderRadius: '12px', border: '2px dashed #2563eb' }}>
-                <label style={{ display: 'block', marginBottom: '10px', fontWeight: 'bold', color: '#1e293b' }}>📸 UPLOAD IMAGES TO SUPABASE</label>
+                <label style={{ display: 'block', marginBottom: '10px', fontWeight: 'bold', color: '#1e293b' }}>📸 SUBIR IMÁGENES A SUPABASE</label>
                 <input type="file" accept="image/*" multiple onChange={handleImageUpload} disabled={uploading} style={{ marginBottom: '10px' }} />
-                {uploading && <p style={{ color: '#2563eb', fontWeight: 'bold' }}>Uploading to Supabase... ⏳</p>}
+                {uploading && <p style={{ color: '#2563eb', fontWeight: 'bold' }}>Subiendo a Supabase... ⏳</p>}
                 
                 <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '10px' }}>
                     {form.images.map((url, index) => (
@@ -183,26 +183,26 @@ export default function AdminDashboard() {
              
              <div style={{ gridColumn: '1 / -1', display: 'flex', gap: '10px' }}>
                 <button type="submit" style={submitBtnStyle} disabled={loading || uploading}>
-                  {loading ? 'Processing...' : isEditing ? 'UPDATE PRODUCT' : 'SAVE PRODUCT'}
+                  {loading ? 'Procesando...' : isEditing ? 'ACTUALIZAR PRODUCTO' : 'GUARDAR PRODUCTO'}
                 </button>
                 {isEditing && (
-                  <button type="button" onClick={() => { setForm(initialForm); setIsEditing(false); }} style={{ ...submitBtnStyle, background: '#64748b' }}>CANCEL</button>
+                  <button type="button" onClick={() => { setForm(initialForm); setIsEditing(false); }} style={{ ...submitBtnStyle, background: '#64748b' }}>CANCELAR</button>
                 )}
              </div>
           </form>
 
           {/* --- FILTER SECTION --- */}
           <div style={{ marginTop: '40px', display: 'flex', gap: '15px', alignItems: 'center', background: '#f1f5f9', padding: '15px', borderRadius: '8px' }}>
-             <span style={{ fontWeight: 'bold' }}>🔍 FILTER:</span>
+             <span style={{ fontWeight: 'bold' }}>🔍 FILTRAR:</span>
              <input 
-               placeholder="Search by name, brand or ID..." 
+               placeholder="Buscar por nombre, marca o ID..." 
                value={searchTerm} 
                onChange={e => setSearchTerm(e.target.value)} 
                style={{ ...inputStyle, flex: 2 }} 
              />
              <select value={filterCat} onChange={e => setFilterCat(e.target.value)} style={{ ...inputStyle, flex: 1 }}>
-                <option value="All">All Categories</option>
-                {Object.keys(CATEGORY_MAP_EN).map(cat => <option key={cat} value={cat}>{cat}</option>)}
+                <option value="All">Todas las Categorías</option>
+                {Object.keys(CATEGORY_MAP_ES).map(cat => <option key={cat} value={cat}>{cat}</option>)}
              </select>
              <span style={{ fontSize: '14px', color: '#64748b' }}>Total: {filteredProducts.length}</span>
           </div>
@@ -212,11 +212,11 @@ export default function AdminDashboard() {
             <table style={tableStyle}>
               <thead>
                 <tr style={{ background: '#f1f5f9' }}>
-                  <th style={thStyle}>PHOTO</th>
-                  <th style={thStyle}>ID / CATEGORY</th>
-                  <th style={thStyle}>BRAND / NAME</th>
-                  <th style={thStyle}>PRICE</th>
-                  <th style={thStyle}>ACTIONS</th>
+                  <th style={thStyle}>FOTO</th>
+                  <th style={thStyle}>ID / CATEGORÍA</th>
+                  <th style={thStyle}>MARCA / NOMBRE</th>
+                  <th style={thStyle}>PRECIO</th>
+                  <th style={thStyle}>ACCIONES</th>
                 </tr>
               </thead>
               <tbody>
@@ -231,17 +231,17 @@ export default function AdminDashboard() {
                     </td>
                     <td style={tdStyle}><b>{p.brand}</b><br/><span style={{fontSize:'12px', color: '#64748b'}}>{p.name}</span></td>
                     <td style={tdStyle}>
-                      <span style={{ color: '#059669', fontWeight: 'bold' }}>${p.price}</span>
+                      <span style={{ color: '#059669', fontWeight: 'bold' }}>€{p.price}</span>
                       {p.original_price && <br/>}
-                      {p.original_price && <span style={{ fontSize: '11px', textDecoration: 'line-through', color: '#94a3b8' }}>${p.original_price}</span>}
+                      {p.original_price && <span style={{ fontSize: '11px', textDecoration: 'line-through', color: '#94a3b8' }}>€{p.original_price}</span>}
                     </td>
                     <td style={tdStyle}>
-                      <button onClick={() => { setForm(p); setIsEditing(true); window.scrollTo({ top: 0, behavior: 'smooth' }); }} style={editBtnStyle}>Edit</button>
-                      <button onClick={() => deleteProduct(p.id)} style={delBtnStyle}>Delete</button>
+                      <button onClick={() => { setForm(p); setIsEditing(true); window.scrollTo({ top: 0, behavior: 'smooth' }); }} style={editBtnStyle}>Editar</button>
+                      <button onClick={() => deleteProduct(p.id)} style={delBtnStyle}>Borrar</button>
                     </td>
                   </tr>
                 )) : (
-                  <tr><td colSpan={5} style={{ padding: '20px', textAlign: 'center', color: '#94a3b8' }}>No products found.</td></tr>
+                  <tr><td colSpan={5} style={{ padding: '20px', textAlign: 'center', color: '#94a3b8' }}>No se encontraron productos.</td></tr>
                 )}
               </tbody>
             </table>
@@ -251,7 +251,7 @@ export default function AdminDashboard() {
 
       {activeTab === 'welcome' && (
         <div className="welcome-only-mode" style={cardStyle}>
-          <h2 style={sectionTitle}>📢 WELCOME CONFIGURATION</h2>
+          <h2 style={sectionTitle}>📢 CONFIGURACIÓN DE BIENVENIDA</h2>
           <ShopKnowledgeManager />
         </div>
       )}

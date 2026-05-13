@@ -27,7 +27,7 @@ export default function ShopKnowledgeManager() {
       const res = await fetch('/api/admin/welcom');
       const data = await res.json();
       if (data.success) setWelcomeList(data.data);
-    } catch (e) { console.error("Error loading messages", e); }
+    } catch (e) { console.error("Error al cargar mensajes", e); }
   };
 
   // --- Welcome Message Submit (Add & Edit) ---
@@ -51,10 +51,10 @@ export default function ShopKnowledgeManager() {
         await fetchWelcomeMessages();
         setWelcomeContent('');
         setEditingId(null);
-        alert(editingId ? "Message updated successfully!" : "Message added successfully!");
+        alert(editingId ? "¡Mensaje actualizado con éxito!" : "¡Mensaje añadido con éxito!");
       }
     } catch (e) { 
-      alert("Error processing the request"); 
+      alert("Error al procesar la solicitud"); 
     } finally {
       setWLoading(false);
     }
@@ -74,11 +74,11 @@ export default function ShopKnowledgeManager() {
 
   // --- Delete Logic ---
   const deleteWelcome = async (id: number) => {
-    if (!confirm("Are you sure you want to delete this message?")) return;
+    if (!confirm("¿Estás seguro de eliminar este mensaje?")) return;
     try {
       const res = await fetch(`/api/admin/welcom?id=${id}`, { method: 'DELETE' });
       if (res.ok) fetchWelcomeMessages();
-    } catch (e) { alert("Error deleting the message"); }
+    } catch (e) { alert("Error al eliminar el mensaje"); }
   };
 
   return (
@@ -87,16 +87,16 @@ export default function ShopKnowledgeManager() {
       {/* --- WELCOME MESSAGE SECTION --- */}
       <div style={{ marginBottom: '40px' }}>
         <h2 style={{ fontWeight: '900', borderBottom: '3px solid #3b82f6', paddingBottom: '10px', color: '#3b82f6', fontSize: '18px' }}>
-          {editingId ? '📝 EDIT WELCOME MESSAGE' : '📢 PROMOTION / WELCOME MESSAGE'}
+          {editingId ? '📝 EDITAR MENSAJE DE BIENVENIDA' : '📢 PROMOCIÓN / MENSAJE DE BIENVENIDA'}
         </h2>
         
         <p style={{ fontSize: '13px', color: '#64748b', marginBottom: '15px' }}>
-          This message will appear in the shop's top bar.
+          Este mensaje aparecerá en la barra superior de la tienda.
         </p>
         
         <form onSubmit={handleWelcomeSubmit} style={{ ...formCardStyle, border: editingId ? '2px solid #3b82f6' : '1px solid #e2e8f0' }}>
           <input 
-            placeholder="Write your offer (e.g., 50% discount today!)" 
+            placeholder="Escribe tu oferta (ej: ¡50% de descuento hoy!)" 
             value={welcomeContent} 
             onChange={e => setWelcomeContent(e.target.value)} 
             required 
@@ -105,12 +105,12 @@ export default function ShopKnowledgeManager() {
           
           <div style={{ display: 'flex', gap: '10px' }}>
             <button type="submit" style={{ ...submitBtn, background: '#3b82f6', flex: 2 }} disabled={wLoading}>
-              {wLoading ? 'SAVING...' : editingId ? 'UPDATE MESSAGE' : 'POST NEW MESSAGE'}
+              {wLoading ? 'GUARDANDO...' : editingId ? 'ACTUALIZAR MENSAJE' : 'PUBLICAR NUEVO MENSAJE'}
             </button>
             
             {editingId && (
               <button type="button" onClick={cancelEdit} style={{ ...submitBtn, background: '#64748b', flex: 1 }}>
-                CANCEL
+                CANCELAR
               </button>
             )}
           </div>
@@ -118,19 +118,19 @@ export default function ShopKnowledgeManager() {
 
         <div style={{ marginTop: '30px' }}>
           <h3 style={{ fontSize: '14px', fontWeight: 'bold', color: '#1e293b', marginBottom: '15px' }}>
-            ACTIVE MESSAGES
+            MENSAJES ACTIVOS
           </h3>
           
           {welcomeList.length === 0 && !wLoading && (
-            <p style={{ fontSize: '13px', color: '#94a3b8', textAlign: 'center' }}>No messages configured.</p>
+            <p style={{ fontSize: '13px', color: '#94a3b8', textAlign: 'center' }}>No hay mensajes configurados.</p>
           )}
 
           {welcomeList.map(msg => (
             <div key={msg.id} style={msgCardStyle}>
               <span style={{ flex: 1, color: '#334155' }}>{msg.content}</span>
               <div style={{ display: 'flex', gap: '8px' }}>
-                <button onClick={() => startEdit(msg)} style={editBtnStyle}>Edit</button>
-                <button onClick={() => deleteWelcome(msg.id!)} style={delBtnStyle}>Delete</button>
+                <button onClick={() => startEdit(msg)} style={editBtnStyle}>Editar</button>
+                <button onClick={() => deleteWelcome(msg.id!)} style={delBtnStyle}>Eliminar</button>
               </div>
             </div>
           ))}
