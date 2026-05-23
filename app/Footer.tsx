@@ -1,12 +1,21 @@
-// app/Footer.tsx
-// app/Footer.tsx
-// app/Footer.tsx
-// app/Footer.tsx
+//C:\Users\Shanon\al-rajjak-1\app\Footer.tsx
+
+
+
 "use client";
 import React from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation'; // ১. এটি নতুন যোগ করা হয়েছে
 
 export default function Footer() {
+  const pathname = usePathname(); // ২. বর্তমান URL ট্র্যাক করার জন্য
+
+  // ৩. যে যে পেজে ফুটার গায়েব করতে চান, সেগুলো এখানে দিন
+  const isShopPage = pathname === '/watches' || pathname === '/admin/watches' || pathname === '/agent' || pathname === '/barber';
+
+  // ৪. যদি শপ পেজ হয়, তবে কিছুই রিটার্ন করবে না (Footer গায়েব হয়ে যাবে)
+  if (isShopPage) return null;
+
   return (
     <footer className="bg-slate-900 text-white pt-20 pb-10 px-6 border-t border-slate-800 w-full relative z-10 font-sans">
       <div className="max-w-6xl mx-auto">
@@ -27,7 +36,7 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* 2. Quick Links (AGB যুক্ত করা হয়েছে) */}
+          {/* 2. Quick Links */}
           <div className="text-center md:text-left">
             <h4 className="text-[10px] font-black mb-6 text-white uppercase tracking-[0.4em] opacity-40">Navigation</h4>
             <div className="grid grid-cols-2 gap-4 text-slate-400 font-bold text-[11px] uppercase tracking-widest">
