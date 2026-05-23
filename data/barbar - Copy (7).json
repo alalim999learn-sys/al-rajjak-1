@@ -1,0 +1,1967 @@
+
+
+
+
+{
+  "categories": [
+    {
+      "id": "classic-timeless",
+      "emoji": "✂️",
+      "name": {
+        "en": "Classic & Timeless",
+        "es": "Clásico y Atemporal",
+        "fr": "Classique et Intemporel",
+        "it": "Classico e Senza Tempo",
+        "de": "Klassisch & Zeitlos"
+      },
+      "models": [
+        {
+          "id": "model-1",
+          "name": {
+            "en": "The Executive Side Part",
+            "es": "La Raya Lateral Ejecutiva",
+            "fr": "La Raie Sur le Côté Exécutive",
+            "it": "La Riga Laterale da Dirigente",
+            "de": "Der Executive Seitenscheitel"
+          },
+          "styles": [
+            {
+              "name": {
+                "en": "Classic Side Part",
+                "de": "Klassischer Seitenscheitel",
+                "es": "Raya Lateral Clásica",
+                "fr": "Raie sur le Côté Classique",
+                "it": "Riga Lateral Classica"
+              },
+              "price": "€22",
+              "desc": {
+                "en": "Traditional clean side parting with defined lines.",
+                "es": "Raya lateral limpia tradicional con líneas definidas.",
+                "fr": "Raie sur le côté propre et traditionnelle avec des lignes définies.",
+                "it": "Riga laterale pulita tradizionale con linee definite.",
+                "de": "Traditioneller, sauberer Seitenscheitel mit klaren Linien."
+              },
+              "img": "/barber/category-11Classic-Side-Part.webp"
+            },
+            {
+              "name": {
+                "en": "Side Part Fade",
+                "de": "Seitenscheitel mit Fade",
+                "es": "Raya Lateral con Desvanecimiento",
+                "fr": "Raie sur le Côté Dégradé",
+                "it": "Riga Laterale Sfumata"
+              },
+              "price": "€25",
+              "desc": {
+                "en": "Side part paired with a clean skin fade.",
+                "es": "Raya lateral combinada con un desvanecimiento de piel limpio.",
+                "fr": "Raie sur le côté associée à un dégradé à blanc propre.",
+                "it": "Riga laterale abbinata a sfumatura a pelle pulita.",
+                "de": "Seitenscheitel kombiniert mit einem sauberen Skin Fade."
+              },
+              "img": "/barber/category12Side-Part-Fade.webp"
+            },
+            {
+              "name": {
+                "en": "60 40 Side Part",
+                "de": "60 40 Seitenscheitel",
+                "es": "Raya Lateral 60 40",
+                "fr": "Raie sur le Côté 60 40",
+                "it": "Riga Laterale 60 40"
+              },
+              "price": "€22",
+              "desc": {
+                "en": "Classic balanced proportion elegant parting.",
+                "es": "Raya elegante de proporción clásica y equilibrada.",
+                "fr": "Raie élégante aux proportions classiques et équilibrées.",
+                "it": "Riga elegante con proporzioni classiche e bilanciate.",
+                "de": "Klassischer, ausgewogener und eleganter Scheitel."
+              },
+              "img": "/barber/catgeory-1360-40-Side-Part.webp"
+            },
+            {
+             "name": {
+                "en": "Side Part Low Taper Fade",
+                "de": "Seitenscheitel mit Low Taper Fade",
+                "es": "Raya Lateral con Desvanecimiento Taper Bajo",
+                "fr": "Raie sur le Côté Dégradé Taper Bas",
+                "it": "Riga Laterale Sfumatura Taper Bassa"
+              },
+              "price": "€24",
+              "desc": {
+                "en": "Subtle low taper with distinct neat parting.",
+                "es": "Disminución baja sutil con una raya limpia y distintiva.",
+                "fr": "Dégradé bas subtil avec une raie nette et distincte.",
+                "it": "Sfumatura bassa e leggera con riga netta e distinta.",
+                "de": "Dezenter, niedriger Taper mit klarem, ordentlichem Scheitel."
+              },
+              "img": "/barber/category14side-part-low-taper-fade-haircut-men.webp"
+            },
+            {
+              "name": {
+                "en": "Side Part Old Money Haircut",
+                "de": "Old Money Seitenscheitel Haarschnitt",
+                "es": "Corte de Pelo Raya Lateral Old Money",
+                "fr": "Coupe de Cheveux Raie sur le Côté Old Money",
+                "it": "Taglio Riga Laterale Old Money"
+              },
+              "price": "€30",
+              "desc": {
+                "en": "Premium, vintage luxury aesthetics for gentlemen.",
+                "es": "Estética de lujo vintage premium para caballeros.",
+                "fr": "Esthétique de luxe vintage haut de gamme pour gentlemen.",
+                "it": "Estetica di lusso vintage premium per veri gentiluomini.",
+                "de": "Premium- und Vintage-Luxusästhetik für Gentlemen."
+              },
+              "img": "/barber/category15side-part-old-money-haircut-men.webp"
+            },
+            {
+              "name": {
+                "en": "Side Part Two Block",
+                "de": "Two Block Seitenscheitel",
+                "es": "Raya Lateral Estilo Two Block",
+                "fr": "Raie sur le Côté Two Block",
+                "it": "Riga Laterale Two Block"
+              },
+              "price": "€28",
+              "desc": {
+                "en": "Modern split top with disconnected lower sections.",
+                "es": "Parte superior dividida moderna con secciones inferiores desconectadas.",
+                "fr": "Sommet divisé moderne avec sections inférieures déconnectées.",
+                "it": "Parte superiore divisa moderna con sezioni inferiori staccate.",
+                "de": "Moderner, geteilter Oberkopf mit getrennten Unterpartien."
+              },
+              "img": "/barber/category16side-part-two-block-haircut.webp"
+            }
+          ]
+        },
+        {
+          "id": "model-2",
+          "name": {
+            "en": "Traditional Buzz Cut",
+            "es": "Corte Rapado Tradicional",
+            "fr": "Coupe Rasée Traditionnelle (Buzz Cut)",
+            "it": "Taglio Rasato Tradizionale (Buzz Cut)",
+            "de": "Traditioneller Buzz Cut"
+          },
+          "styles": [
+            {
+              "name": {
+                "en": "Induction Cut Military Buzz",
+                "de": "Induction Cut Militär Buzz",
+                "es": "Corte de Inducción Militar Buzz",
+                "fr": "Coupe d'Incorporation Buzz Militaire",
+                "it": "Taglio Militare Buzz d'Induzione"
+              },
+              "price": "€18",
+              "desc": {
+                "en": "Ultra-short uniform clean military cut.",
+                "es": "Corte militar limpio, uniforme y ultracorto.",
+                "fr": "Coupe militaire ultra-courte, uniforme et propre.",
+                "it": "Taglio militare ultra-corto, uniforme e pulito.",
+                "de": "Ultrakurzer, uniformer und sauberer Militärschnitt."
+              },
+              "img": "/barber/121Induction-Cut-Military-Buzz-1.png"
+            },
+            {
+              "name": {
+                "en": "Burr Cut",
+                "de": "Burr Cut",
+                "es": "Corte Burr",
+                "fr": "Coupe Burr",
+                "it": "Taglio Burr"
+              },
+              "price": "€18",
+              "desc": {
+                "en": "Slightly longer and softer than induction cut.",
+                "es": "Ligeramente más largo y suave que el corte de inducción.",
+                "fr": "Légèrement plus long et plus doux que la coupe induction.",
+                "it": "Leggermente più lungo e morbido rispetto all'induction cut.",
+                "de": "Etwas länger und weicher als der Induction Cut."
+              },
+              "img": "/barber/122Burr-Cut.png"
+            },
+            {
+              "name": {
+                "en": "Crew Cut",
+                "de": "Crew Cut",
+                "es": "Corte Crew",
+                "fr": "Coupe Crew",
+                "it": "Taglio Crew"
+              },
+              "price": "€20",
+              "desc": {
+                "en": "Short tapered classic look with minimal effort.",
+                "es": "Look clásico corto y disminuido con el mínimo esfuerzo.",
+                "fr": "Look classique court et dégradé avec un minimum d'effort.",
+                "it": "Look classico corto e sfumato con il minimo sforzo.",
+                "de": "Kurzer, verlaufender klassischer Look mit minimalem Aufwand."
+              },
+              "img": "/barber/123Crew-Cut.png"
+            },
+            {
+             "name": {
+                "en": "High and Tight Buzz Cut",
+                "de": "High and Tight Buzz Cut",
+                "es": "Corte Buzz Alto y Ajustado",
+                "fr": "Coupe Buzz Haute et Serrée",
+                "it": "Taglio Buzz Alto e Sfumato"
+              },
+              "price": "€20",
+              "desc": {
+                "en": "Shaved sides with minimal clean top length.",
+                "es": "Laterales afeitados con una longitud superior limpia y mínima.",
+                "fr": "Côtés rasés mit longueur minimale et propre sur le dessus.",
+                "it": "Lati rasati con una lunghezza superiore minima e pulita.",
+                "de": "Rasierte Seiten mit minimaler, sauberer Länge am Oberkopf."
+              },
+              "img": "/barber/124High-and-Tight-Buzz-Cut-1.png"
+            },
+            {
+              "name": {
+                "en": "Buzz Cut with Line Up",
+                "de": "Buzz Cut mit Line Up",
+                "es": "Corte Buzz con Perfilado",
+                "fr": "Coupe Buzz avec Ligne de Contour",
+                "it": "Taglio Buzz con Linea di Contorno"
+              },
+              "price": "€22",
+              "desc": {
+                "en": "Crisp, sharp professional hairline definition.",
+                "es": "Definición de la línea del cabello profesional, nítida y afilada.",
+                "fr": "Contours des cheveux professionnels, nets et précis.",
+                "it": "Definizione dell'attaccatura dei capelli professionale e nitida.",
+                "de": "Knackige, scharfe und professionelle Haarlinien-Definition."
+              },
+              "img": "/barber/125Buzz-Cut-with-Line-Up.png"
+            },
+            {
+             "name": {
+                "en": "Buzz Cut Fade",
+                "de": "Buzz Cut mit Fade",
+                "es": "Corte Buzz con Desvanecimiento",
+                "fr": "Coupe Buzz Dégradée",
+                "it": "Taglio Buzz Sfumato"
+              },
+              "price": "€22",
+              "desc": {
+                "en": "Classic buzz smoothly blending into the skin.",
+                "es": "Rapado clásico que se mezcla suavemente con la piel.",
+                "fr": "Coupe rasée classique se fondant doucement avec la peau.",
+                "it": "Taglio rasato classico che si sfuma dolcemente sulla pelle.",
+                "de": "Klassischer Buzz Cut, der sanft in die Haut übergeht."
+              },
+              "img": "/barber/126Buzz-Cut-Fade.png"
+            },
+            {
+              "name": {
+                "en": "Ivy League Buzz Cut",
+                "de": "Ivy League Buzz Cut",
+                "es": "Corte Buzz Ivy League",
+                "fr": "Coupe Buzz Ivy League",
+                "it": "Taglio Buzz Ivy League"
+              },
+              "price": "€24",
+              "desc": {
+                "en": "Sophisticated collegiate neat crew variation.",
+                "es": "Variación sofisticada y limpia de estilo universitario.",
+                "fr": "Variante propre et sophistiquée du style universitaire.",
+                "it": "Variante pulita e sofisticata in stile collegiale.",
+                "de": "Anspruchsvolle, gepflegte College-Crew-Schnittvariante."
+              },
+              "img": "/barber/127Ivy-League-Buzz-Cut.png"
+            },
+            {
+             "name": {
+                "en": "Caesar Buzz Cut",
+                "de": "Caesar Buzz Cut",
+                "es": "Corte Buzz César",
+                "fr": "Coupe Buzz César",
+                "it": "Taglio Buzz Cesare"
+              },
+              "price": "€23",
+              "desc": {
+                "en": "Short crop with straight horizontal forward fringe.",
+                "es": "Corte corto con flequillo delantero horizontal recto.",
+                "fr": "Coupe courte avec frange avant droite et horizontale.",
+                "it": "Taglio corto con frangia anteriore dritta e orizzontale.",
+                "de": "Kurzer Crop mit geradem, horizontalem Vorderpony."
+              },
+              "img": "/barber/128Caesar-Buzz-Cut.png"
+            }
+          ]
+        },
+        {
+          "id": "model-3",
+          "name": {
+            "en": "Classic Pompadour",
+            "es": "Pompadour Clásico",
+            "fr": "Pompadour Classique",
+            "it": "Pompadour Classico",
+            "de": "Klassischer Pompadour"
+          },
+          "styles": [
+            {
+              "name": {
+                "en": "Modern Pompadour",
+                "de": "Moderner Pompadour",
+                "es": "Pompadour Moderno",
+                "fr": "Pompadour Moderne",
+                "it": "Pompadour Moderno"
+              },
+              "price": "€26",
+              "desc": {
+                "en": "Swept up high volume with contemporary texture.",
+                "es": "Alto volumen peinado hacia arriba con textura contemporánea.",
+                "fr": "Volume élevé coiffé vers le haut avec texture contemporaine.",
+                "it": "Volume alto pettinato verso l'alto con texture contemporanea.",
+                "de": "Nach oben gestyltes hohes Volumen mit moderner Textur."
+              },
+              "img": "/barber/131Modern-Pompadour.webp"
+            },
+            {
+              "name": {
+                "en": "Fade Pompadour",
+                "de": "Pompadour mit Fade",
+                "es": "Pompadour con Desvanecimiento",
+                "fr": "Pompadour Dégradé",
+                "it": "Pompadour Sfumato"
+              },
+              "price": "€28",
+              "desc": {
+                "en": "High-volume top paired with blurry side fade.",
+                "es": "Parte superior de alto volumen combinada con un desvanecimiento lateral borroso.",
+                "fr": "Dessus volumineux associé à un dégradé latéral progressif.",
+                "it": "Parte superiore voluminosa abbinata a sfumatura laterale morbida.",
+                "de": "Hohes Volumen oben kombiniert mit einem verschwommenen Seitenfade."
+              },
+              "img": "/barber/132Fade-Pompadour.webp"
+            },
+            {
+              "name": {
+                "en": "Short Pompadour",
+                "de": "Kurzer Pompadour",
+                "es": "Pompadour Corto",
+                "fr": "Pompadour Court",
+                "it": "Pompadour Corto"
+              },
+              "price": "€24",
+              "desc": {
+                "en": "Low-profile compact swept-up vintage style.",
+                "es": "Estilo vintage compacto y de bajo perfil peinado hacia arriba.",
+                "fr": "Style vintage compact et discret coiffé vers le haut.",
+                "it": "Stile vintage compatto e a basso profilo pettinato verso l'alto.",
+                "de": "Kompakter, dezenter, nach oben gestylter Vintage-Stil."
+              },
+              "img": "/barber/133Short-Pompadour.webp"
+            },
+            {
+             "name": {
+                "en": "Classic Pompadour",
+                "de": "Klassischer Pompadour",
+                "es": "Pompadour Clásico",
+                "fr": "Pompadour Classique",
+                "it": "Pompadour Classico"
+              },
+              "price": "€26",
+              "desc": {
+                "en": "Traditional rockabilly high-volume premium look.",
+                "es": "Look premium tradicional de alto volumen estilo rockabilly.",
+                "fr": "Look haut de gamme traditionnel à grand volume style rockabilly.",
+                "it": "Look premium tradizionale ad alto volume in stile rockabilly.",
+                "de": "Traditioneller Rockabilly-Premium-Look mit hohem Volumen."
+              },
+              "img": "/barber/134Classic-Pompadour.webp"
+            },
+            {
+              "name": {
+                "en": "Mini Pompadour",
+                "de": "Mini Pompadour",
+                "es": "Mini Pompadour",
+                "fr": "Mini Pompadour",
+                "it": "Mini Pompadour"
+              },
+              "price": "€23",
+              "desc": {
+                "en": "Subtle structured volume ideal for shorter hair.",
+                "es": "Volumen estructurado sutil ideal para cabellos más cortos.",
+                "fr": "Volume structuré discret idéal für cheveux plus courts.",
+                "it": "Volume strutturato leggero ideale per capelli più corti.",
+                "de": "Dezentes, strukturiertes Volumen, ideal für kürzeres Haar."
+              },
+              "img": "/barber/135mini-pompadour-hairstyle-men.webp"
+            },
+            {
+              "name": {
+                "en": "Layered Pompadour",
+                "de": "Gestufter Pompadour",
+                "es": "Pompadour a Capas",
+                "fr": "Pompadour Dégradé en Couches",
+                "it": "Pompadour Scalato"
+              },
+              "price": "€28",
+              "desc": {
+                "en": "Piecey layered texture with classic crown volume.",
+                "es": "Textura a capas con volumen clásico en la coronilla.",
+                "fr": "Texture dégradée par mèches avec volume classique sur le dessus.",
+                "it": "Texture scalata definita con volume classico sulla corona.",
+                "de": "Strukturierte, lagige Textur mit klassischem Volumen am Hinterkopf."
+              },
+              "img": "/barber/136layered-pompadour-hairstyle-men.webp"
+            }
+          ]
+        },
+        {
+          "id": "model-4",
+          "name": {
+            "en": "Crew Cut",
+            "es": "Corte Crew",
+            "fr": "Coupe Crew (Brosse)",
+            "it": "Taglio Crew (Spazzola)",
+            "de": "Crew Cut"
+          },
+          "styles": [
+            {
+              "name": {
+                "en": "Military Crew Cut",
+                "de": "Militär Crew Cut",
+                "es": "Corte Crew Militar",
+                "fr": "Coupe Crew Militaire",
+                "it": "Taglio Crew Militare"
+              },
+              "price": "€20",
+              "desc": {
+                "en": "Standard sharp regulatory clean short haircut.",
+                "es": "Corte de pelo corto, limpio y reglamentario estándar.",
+                "fr": "Coupe courte réglementaire standard, nette et propre.",
+                "it": "Taglio corto regolamentare standard, netto e pulito.",
+                "de": "Standardmäßiger, scharfer, vorschriftsmäßiger sauberer Kurzhaarschnitt."
+              },
+              "img": "/barber/141Military-Crew-Cut.webp"
+            },
+            {
+              "name": {
+                "en": "Crew Cut for Receding Hairline",
+                "de": "Crew Cut bei Geheimratsecken",
+                "es": "Corte Crew para Entradas",
+                "fr": "Coupe Crew pour Calvitie Naissante",
+                "it": "Taglio Crew per Stempiatura"
+              },
+              "price": "€22",
+              "desc": {
+                "en": "Optimized texture to minimize hairline gaps.",
+                "es": "Textura optimizada para minimizar los huecos en la línea del cabello.",
+                "fr": "Texture optimisée pour minimiser les zones clairsemées.",
+                "it": "Texture ottimizzata per minimizzare le stempiature.",
+                "de": "Optimierte Textur, um Geheimratsecken zu minimieren."
+              },
+              "img": "/barber/142crew-cut-for-receding-hairline.webp"
+            },
+            {
+              "name": {
+                "en": "Crew Cut Faux Hawk Haircut Men",
+                "de": "Crew Cut Faux Hawk für Männer",
+                "es": "Corte Crew Estilo Faux Hawk",
+                "fr": "Coupe Crew Faux Hawk pour Hommes",
+                "it": "Taglio Crew Faux Hawk da Uomo"
+              },
+              "price": "€24",
+              "desc": {
+                "en": "Crew cut modernly styled towards a central point.",
+                "es": "Corte crew peinado de forma moderna hacia un punto central.",
+                "fr": "Coupe crew coiffée de manière moderne vers un point central.",
+                "it": "Taglio crew modellato in modo moderno verso un punto centrale.",
+                "de": "Crew Cut, modern auf einen zentralen Punkt hin gestylt."
+              },
+              "img": "/barber/143crew-cut-faux-hawk-haircut-men.webp"
+            },
+            {
+              "name": {
+                "en": "Crew Cut with Fringe Haircut Men",
+                "de": "Crew Cut mit Pony für Männer",
+                "es": "Corte Crew con Flequillo",
+                "fr": "Coupe Crew avec Frange pour Hommes",
+                "it": "Taglio Crew con Frangia da Uomo"
+              },
+              "price": "€23",
+              "desc": {
+                "en": "Short clean crew with a tiny forward fringe.",
+                "es": "Corte crew corto y limpio con un pequeño flequillo delantero.",
+                "fr": "Coupe crew courte et propre avec une petite frange avant.",
+                "it": "Taglio crew corto e pulito con una piccola frangia anteriore.",
+                "de": "Kurzer, sauberer Crew Cut mit einem winzigen Vorderpony."
+              },
+              "img": "/barber/144crew-cut-with-fringe-haircut-men.webp"
+            },
+            {
+             "name": {
+                "en": "Textured Crew Cut",
+                "de": "Texturierter Crew Cut",
+                "es": "Corte Crew Texturizado",
+                "fr": "Coupe Crew Texturée",
+                "it": "Taglio Crew Texturizzato"
+              },
+              "price": "€22",
+              "desc": {
+                "en": "Messy, choppy top layer for casual look.",
+                "es": "Capa superior desordenada para un look casual.",
+                "fr": "Coupe texturée et ébouriffée sur le dessus pour un look décontracté.",
+                "it": "Strato superiore spettinato e scalato per un look casual.",
+                "de": "Unordentliches, struwweliges Deckhaar für einen lässigen Look."
+              },
+              "img": "/barber/145Textured-Crew-Cut.webp"
+            },
+            {
+             "name": {
+                "en": "Crew Cut Low Fade",
+                "de": "Crew Cut mit Low Fade",
+                "es": "Corte Crew con Desvanecimiento Bajo",
+                "fr": "Coupe Crew Dégradé Bas",
+                "it": "Taglio Crew Sfumatura Bassa"
+              },
+              "price": "€24",
+              "desc": {
+                "en": "Clean structured top transitioning into a low fade.",
+                "es": "Parte superior estructurada limpia que pasa a un desvanecimiento bajo.",
+                "fr": "Dessus structuré propre passant à un dégradé bas.",
+                "it": "Parte superiore strutturata pulita che sfuma in una sfumatura bassa.",
+                "de": "Sauber strukturiertes Deckhaar, das in einen niedrigen Fade übergeht."
+              },
+              "img": "/barber/crew-cut-low-fade.jpg"
+            },
+            {
+              "name": {
+                "en": "Short Crew Cut",
+                "de": "Kurzer Crew Cut",
+                "es": "Corte Crew Corto",
+                "fr": "Coupe Crew Courte",
+                "it": "Taglio Crew Corto"
+              },
+              "price": "€20",
+              "desc": {
+                "en": "Minimal maintenance compact everyday haircut.",
+                "es": "Corte de pelo diario compacto y de mínimo mantenimiento.",
+                "fr": "Coupe quotidienne compacte nécessitant un minimum d'entretien.",
+                "it": "Taglio compatto quotidiano a bassissima manutenzione.",
+                "de": "Kompakter Alltags-Haarschnitt mit minimalem Pflegeaufwand."
+              },
+              "img": "/barber/147Short-Crew-Cut.webp"
+            },
+            {
+             "name": {
+                "en": "Crew Cut Buzz Cut",
+                "de": "Crew Cut Buzz Cut",
+                "es": "Corte Crew Estilo Buzz",
+                "fr": "Coupe Crew Buzz Cut",
+                "it": "Taglio Crew Buzz Cut"
+              },
+              "price": "€21",
+              "desc": {
+                "en": "The perfect sharp hybrid between buzz and crew.",
+                "es": "El híbrido afilado perfecto entre rapado y corte crew.",
+                "fr": "L'hybride net parfait entre la coupe rasée et la brosse.",
+                "it": "Il perfetto ibrido definito tra taglio rasato e crew cut.",
+                "de": "Der perfekte, scharfe Hybrid aus Buzz und Crew Cut."
+              },
+              "img": "/barber/148Crew-Cut-Buzz-Cut.webp"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "modern-trendy",
+      "emoji": "⚡",
+      "name": {
+        "en": "Modern & Trendy",
+        "es": "Moderno y Tendencia",
+        "fr": "Moderne & Branché",
+        "it": "Moderno e di Tendenza",
+        "de": "Modern & Trendy"
+      },
+      "models": [
+        {
+          "id": "model-5",
+          "name": {
+            "en": "High Skin Fade",
+            "es": "Desvanecimiento Alto de Piel",
+            "fr": "Dégradé à Blanc Haut",
+            "it": "Sfumatura Alta a Pelle",
+            "de": "High Skin Fade"
+          },
+          "styles": [
+            {
+             "name": {
+                "en": "High Taper Fade",
+                "de": "High Taper Fade",
+                "es": "Desvanecimiento Taper Alto",
+                "fr": "Dégradé Taper Haut",
+                "it": "Sfumatura Taper Alta"
+              },
+              "price": "€25",
+              "desc": {
+                "en": "Aggressive taper blend starting high on sides.",
+                "es": "Mezcla de disminución agresiva que comienza alta en los laterales.",
+                "fr": "Dégradé progressif agressif commençant haut sur les côtés.",
+                "it": "Sfumatura progressiva decisa che inizia alta sui lati.",
+                "de": "Aggressiver Taper-Blend, der hoch an den Seiten beginnt."
+              },
+              "img": "/barber/211High-Taper-Fade_600x600.webp"
+            },
+            {
+              "name": {
+                "en": "High Fade Haircut",
+                "de": "High Fade Haarschnitt",
+                "es": "Corte con Desvanecimiento Alto",
+                "fr": "Coupe Dégradé Haut",
+                "it": "Taglio Sfumatura Alta"
+              },
+              "price": "€24",
+              "desc": {
+                "en": "Sides completely blended from the upper crown down.",
+                "es": "Laterales completamente mezclados desde la coronilla superior hacia abajo.",
+                "fr": "Côtés complètement dégradés depuis le sommet du crâne vers le bas.",
+                "it": "Lati completamente sfumati dalla parte superiore della corona in giù.",
+                "de": "Seiten komplett von der oberen Kronenpartie nach unten ausgeblendet."
+              },
+              "img": "/barber/212High-Fade-Haircut_600x600.webp"
+            },
+            {
+              "name": {
+                "en": "High Fade Quiff Haircut Men",
+                "de": "High Fade Quiff für Männer",
+                "es": "Corte Tupé con Desvanecimiento Alto",
+                "fr": "Coupe Quiff Dégradé Haut pour Hommes",
+                "it": "Taglio Ciuffo Sfumatura Alta da Uomo"
+              },
+              "price": "€28",
+              "desc": {
+                "en": "Sharp high fade paired with a bold quiff top.",
+                "es": "Desvanecimiento alto y nítido combinado con un tupé atrevido.",
+                "fr": "Dégradé haut net associé à une banane (quiff) audacieuse.",
+                "it": "Sfumatura alta netta abbinata a un ciuffo (quiff) audace.",
+                "de": "Scharfer High Fade kombiniert mit einer markanten Quiff-Frisur."
+              },
+              "img": "/barber/213high-fade-quiff-haircut-men.webp"
+            },
+            {
+              "name": {
+                "en": "High Fade Textured Crop Haircut Men",
+                "de": "High Fade Textured Crop für Männer",
+                "es": "Corte Crop Texturizado con Desvanecimiento Alto",
+                "fr": "Coupe Textured Crop Dégradé Haut pour Hommes",
+                "it": "Taglio Crop Texturizzato Sfumatura Alta da Uomo"
+              },
+              "price": "€27",
+              "desc": {
+                "en": "High skin fade with a structured blunt crop.",
+                "es": "Desvanecimiento alto de piel con un corte romo estructurado.",
+                "fr": "Dégradé à blanc haut avec une coupe texturée droite et structurée.",
+                "it": "Sfumatura alta a pelle con un taglio corto strutturato netto.",
+                "de": "High Skin Fade mit einem strukturierten, stumpfen Crop."
+              },
+              "img": "/barber/214high-fade-textured-crop-haircut-men.webp"
+            },
+            {
+              "name": {
+                "en": "High Top Fade",
+                "de": "High Top Fade",
+                "es": "Desvanecimiento High Top",
+                "fr": "Dégradé High Top",
+                "it": "Sfumatura High Top"
+              },
+              "price": "€28",
+              "desc": {
+                "en": "Retro volume top with modern skin shaved sides.",
+                "es": "Parte superior de volumen retro con laterales modernos afeitados al ras.",
+                "fr": "Volume rétro sur le dessus avec côtés modernes rasés de près.",
+                "it": "Volume rétro sulla parte superiore con lati moderni rasati a pelle.",
+                "de": "Retro-Volumen oben mit modernen, glattrasierten Seiten."
+              },
+              "img": "/barber/215High-Top-Fade_600x600.webp"
+            },
+            {
+              "name": {
+                "en": "High and Tight Fade",
+                "de": "High and Tight Fade",
+                "es": "Desvanecimiento Alto y Ajustado",
+                "fr": "Dégradé Haut et Serré",
+                "it": "Sfumatura Alta e Stretta"
+              },
+              "price": "€23",
+              "desc": {
+                "en": "Clean and neat military style high fade blend.",
+                "es": "Mezcla de desvanecimiento alto limpia y ordenada de estilo militar.",
+                "fr": "Dégradé haut propre et net de style militaire.",
+                "it": "Sfumatura alta pulita e ordinata in stile militare.",
+                "de": "Sauberer und gepflegter High Fade im Militärstil."
+              },
+              "img": "/barber/216High-and-Tight-Fade_600x600.webp"
+            }
+          ]
+        },
+        {
+          "id": "model-6",
+          "name": {
+            "en": "Textured Crop Top",
+            "es": "Crop Top Texturizado",
+            "fr": "Crop Top Texturé",
+            "it": "Crop Top Texturizzato",
+            "de": "Textured Crop Top"
+          },
+          "styles": [
+            {
+              "name": {
+                "en": "Short Textured Crop Haircut Men",
+                "de": "Kurzer texturierter Crop für Männer",
+                "es": "Corte Crop Corto Texturizado para Hombres",
+                "fr": "Coupe Short Textured Crop pour Hommes",
+                "it": "Taglio Crop Corto Texturizzato da Uomo"
+              },
+              "price": "€24",
+              "desc": {
+                "en": "Minimal sharp crop top with maximum piecey texture.",
+                "es": "Crop top corto y nítido mínimo con máxima textura fragmentada.",
+                "fr": "Coupe courte et nette avec un maximum de texture mèche par mèche.",
+                "it": "Crop top corto minimale e nitido mit massima texture definita.",
+                "de": "Minimaler scharfer Crop Top mit maximaler, strukturierter Textur."
+              },
+              "img": "/barber/221short-textured-crop-haircut-men.webp"
+            },
+            {
+             "name": {
+                "en": "Textured Crop Fade Hairstyle Men",
+                "de": "Texturierter Crop mit Fade für Männer",
+                "es": "Peinado Crop Texturizado con Desvanecimiento",
+                "fr": "Coiffure Textured Crop Dégradé pour Hommes",
+                "it": "Taglio Crop Texturizzato Sfumato da Uomo"
+              },
+              "price": "€26",
+              "desc": {
+                "en": "Blunt crop top blending into a blurry side fade.",
+                "es": "Crop top romo que se mezcla con un desvanecimiento lateral borroso.",
+                "fr": "Coupe droite sur le dessus se fondant dans un dégradé latéral progressif.",
+                "it": "Crop top netto che si sfuma in una sfumatura lateral sfocata.",
+                "de": "Stumpfer Crop Top, der in einen verschwommenen Seitenfade übergeht."
+              },
+              "img": "/barber/222textured-crop-fade-hairstyle-men.webp"
+            },
+            {
+              "name": {
+                "en": "Messy Textured Crop Haircut",
+                "de": "Messy texturierter Crop Haarschnitt",
+                "es": "Corte Crop Texturizado Despeinado",
+                "fr": "Coupe Textured Crop Ébouriffée",
+                "it": "Taglio Crop Texturizzato Spettinato"
+              },
+              "price": "€25",
+              "desc": {
+                "en": "Casual, out-of-bed messy texturized crop style.",
+                "es": "Estilo crop texturizado desordenado casual, estilo recién levantado.",
+                "fr": "Style crop texturé effet décoiffé saut du lit décontracté.",
+                "it": "Stile crop texturizzato spettinato casual effetto spettinato.",
+                "de": "Lässiger, unordentlicher texturierter Crop-Stil im Out-of-Bed-Look."
+              },
+              "img": "/barber/223messy-textured-crop-haircut.webp"
+            },
+            {
+              "name": {
+                "en": "Textured Crop with Beard",
+                "de": "Texturierter Crop mit Bart",
+                "es": "Corte Crop Texturizado con Barba",
+                "fr": "Coupe Textured Crop avec Barbe",
+                "it": "Taglio Crop Texturizzato con Barba"
+              },
+              "price": "€32",
+              "desc": {
+                "en": "Crop top sharp lines balanced with a sharp beard.",
+                "es": "Líneas afiladas de crop top equilibradas con una barba definida.",
+                "fr": "Lignes nettes du crop top équilibrées par une barbe bien taillée.",
+                "it": "Linee nette del crop top bilanciate con una barba definita.",
+                "de": "Scharfe Linien des Crop Tops, ausgeglichen durch einen scharfen Bart."
+              },
+              "img": "/barber/224textured-crop-with-beard.webp"
+            },
+            {
+              "name": {
+                "en": "Textured Crop Mid Fade Hairstyles Men",
+                "de": "Texturierter Crop mit Mid Fade für Männer",
+                "es": "Peinado Crop Texturizado con Desvanecimiento Medio",
+                "fr": "Coiffure Textured Crop Dégradé Moyen pour Hommes",
+                "it": "Taglio Crop Texturizzato Sfumatura Media da Uomo"
+              },
+              "price": "€26",
+              "desc": {
+                "en": "Crop top sitting neatly above a clean mid fade.",
+                "es": "Crop top situado limpiamente sobre un desvanecimiento medio limpio.",
+                "fr": "Crop top posé proprement au-dessus d'un dégradé moyen net.",
+                "it": "Crop top che si posiziona ordinatamente sopra una sfumatura media pulita.",
+                "de": "Crop Top, der ordentlich über einem sauberen Mid Fade sitzt."
+              },
+              "img": "/barber/225textured-crop-mid-fade-hairstyles-men.webp"
+            },
+            {
+              "name": {
+                "en": "Textured Crop Drop Fade Hairstyle Men",
+                "de": "Texturierter Crop mit Drop Fade für Männer",
+                "es": "Peinado Crop Texturizado con Drop Fade",
+                "fr": "Coiffure Textured Crop Drop Fade pour Hommes",
+                "it": "Taglio Crop Texturizzato Drop Fade da Uomo"
+              },
+              "price": "€27",
+              "desc": {
+                "en": "Crop top paired with a curved low drop fade.",
+                "es": "Crop top combinado con un desvanecimiento de gota bajo curvado.",
+                "fr": "Crop top associé à un dégradé tombant bas et courbé (drop fade).",
+                "it": "Crop top abbinato a una sfumatura drop bassa e curva.",
+                "de": "Crop Top kombiniert mit einem geschwungenen Low Drop Fade."
+              },
+              "img": "/barber/226textured-crop-drop-fade-hairstyle-men.jfif"
+            },
+            {
+              "name": {
+                "en": "Textured Crop Low Fade Hairstyles Men",
+                "de": "Texturierter Crop mit Low Fade für Männer",
+                "es": "Peinado Crop Texturizado con Desvanecimiento Bajo",
+                "fr": "Coiffure Textured Crop Dégradé Bas pour Hommes",
+                "it": "Taglio Crop Texturizzato Sfumatura Bassa da Uomo"
+              },
+              "price": "€25",
+              "desc": {
+                "en": "Crop top with a subtle clean low skin fade.",
+                "es": "Crop top con un sutil y limpio desvanecimiento bajo de piel.",
+                "fr": "Crop top avec un dégradé à blanc bas, discret et propre.",
+                "it": "Crop top con una leggera e pulita sfumatura bassa a pelle.",
+                "de": "Crop Top mit einem dezenten, sauberen Low Skin Fade."
+              },
+              "img": "/barber/227textured-crop-low-fade-hairstyles-men.webp"
+            }
+          ]
+        },
+        {
+          "id": "model-7",
+          "name": {
+            "en": "Modern Quiff",
+            "es": "Tupé Moderno",
+            "fr": "Quiff Moderne (Banane)",
+            "it": "Ciuffo Moderno (Quiff)",
+            "de": "Modern Quiff"
+          },
+          "styles": [
+            {
+              "name": {
+                "en": "Messy Quiff",
+                "de": "Messy Quiff",
+                "es": "Tupé Despeinado",
+                "fr": "Quiff Ébouriffé",
+                "it": "Ciuffo Spettinato"
+              },
+              "price": "€25",
+              "desc": {
+                "en": "Relaxed and textured casual everyday quiff setup.",
+                "es": "Configuración de tupé casual diario, relajado y texturizado.",
+                "fr": "Coiffure quiff décontractée et texturée idéale pour le quotidien.",
+                "it": "Pettinatura con ciuffo casual, rilassata e texturizzata per tutti i giorni.",
+                "de": "Entspanntes und texturiertes, lässiges Alltags-Quiff-Styling."
+              },
+              "img": "/barber/231Messy-Quiff.webp"
+            },
+            {
+              "name": {
+                "en": "Short Quiff",
+                "de": "Kurzer Quiff",
+                "es": "Tupé Corto",
+                "fr": "Quiff Court",
+                "it": "Ciuffo Corto"
+              },
+              "price": "€24",
+              "desc": {
+                "en": "Low maintenance smart short forward volume.",
+                "es": "Volumen delantero corto e inteligente de bajo mantenimiento.",
+                "fr": "Volume avant court et élégant nécessitant peu d'entretien.",
+                "it": "Volume anteriore corto ed elegante a bassa manutenzione.",
+                "de": "Pflegeleichtes, smartes kurzes Vorwärtsvolumen."
+              },
+              "img": "/barber/232Short-Quiff.jfif"
+            },
+            {
+             "name": {
+                "en": "Medium Length Quiff Haircut Men",
+                "de": "Mittellanger Quiff für Männer",
+                "es": "Corte Tupé de Longitud Media para Hombres",
+                "fr": "Coupe Quiff Longueur Moyenne pour Hommes",
+                "it": "Taglio Ciuffo Media Lunghezza da Uomo"
+              },
+              "price": "€28",
+              "desc": {
+                "en": "Rich texture with substantial flowing hair volume.",
+                "es": "Rica textura con un volumen sustancial de cabello suelto.",
+                "fr": "Texture riche avec un volume de cheveux fluide et important.",
+                "it": "Texture ricca con un volume di capelli fluido e consistente.",
+                "de": "Reiche Textur mit erheblichem, fließendem Haarvolumen."
+              },
+              "img": "/barber/233medium-length-quiff-haircut-men.webp"
+            },
+            {
+              "name": {
+                "en": "Soft Quiff Haircut Men",
+                "de": "Sanfter Quiff für Männer",
+                "es": "Corte Tupé Suave para Hombres",
+                "fr": "Coupe Quiff Doux pour Hommes",
+                "it": "Taglio Ciuffo Morbido da Uomo"
+              },
+              "price": "€26",
+              "desc": {
+                "en": "Natural flowing lines styled without harsh gel.",
+                "es": "Líneas fluidas naturales peinadas sin gel espeso.",
+                "fr": "Lignes fluides naturelles coiffées ohne gel fixant fort.",
+                "it": "Linee fluide naturali modellate senza l'uso di gel forte.",
+                "de": "Natürlich fließende Linien, gestylt ohne hartes Gel."
+              },
+              "img": "/barber/234soft-quiff-haircut-men.webp"
+            },
+            {
+              "name": {
+                "en": "Quiff Cut",
+                "de": "Quiff Haarschnitt",
+                "es": "Corte Tupé",
+                "fr": "Coupe Quiff",
+                "it": "Taglio Ciuffo"
+              },
+              "price": "€25",
+              "desc": {
+                "en": "Standard professional clean barbershop quiff style.",
+                "es": "Estilo de tupé limpio profesional estándar de barbería.",
+                "fr": "Style quiff propre de salon de coiffure professionnel standard.",
+                "it": "Stile ciuffo pulito professionale standard da barberia.",
+                "de": "Standardmäßiger, professioneller, sauberer Barbershop-Quiff-Stil."
+              },
+              "img": "/barber/235Quiff-Cut.webp"
+            },
+            {
+              "name": {
+                "en": "Quiff Undercut",
+                "de": "Quiff Undercut",
+                "es": "Tupé Con Undercut",
+                "fr": "Quiff Undercut",
+                "it": "Ciuffo con Undercut"
+              },
+              "price": "€28",
+              "desc": {
+                "en": "Disconnected sides emphasizing the long quiff top.",
+                "es": "Laterales desconectados que enfatizan la parte superior larga del tupé.",
+                "fr": "Côtés déconnectés mettant en valeur le long quiff sur le dessus.",
+                "it": "Lati staccati che mettono in risalto il lungo ciuffo superiore.",
+                "de": "Getrennte Seiten, die das lange Quiff-Deckhaar betonen."
+              },
+              "img": "/barber/236Quiff-Undercut.webp"
+            }, 
+            {
+              "name": {
+                "en": "Mid Taper Quiff Hairstyle Men",
+                "de": "Mid Taper Quiff für Männer",
+                "es": "Peinado Tupé con Taper Medio para Hombres",
+                "fr": "Coiffure Quiff Mid Taper pour Hommes",
+                "it": "Taglio Ciuffo Taper Medio da Uomo"
+              },
+              "price": "€26",
+              "desc": {
+                "en": "Clean taper fade blending into a textured quiff.",
+                "es": "Desvanecimiento cónico limpio que se mezcla con un tupé texturizado.",
+                "fr": "Dégradé progressif propre se fondant dans un quiff texturé.",
+                "it": "Sfumatura progressiva pulita que si unisce a un ciuffo texturizzato.",
+                "de": "Sauberer Taper Fade, der in ein texturiertes Quiff übergeht."
+              },
+              "img": "/barber/237mid-taper-quiff-hairstyle-men.webp"
+            }
+          ]
+        },
+        {
+          "id": "model-8",
+          "name": {
+            "en": "Top Mid Taper Fade",
+            "es": "Desvanecimiento Medio Cónico Superior",
+            "fr": "Dégradé Moyen Cónico Supérieur",
+            "it": "Sfumatura Media Progressiva Superiore",
+            "de": "Top Mid Taper Fade"
+          },
+          "styles": [
+            {
+              "name": {
+                "en": "Mid Taper Fade Blonde Hair Style Men",
+                "de": "Mid Taper Fade für blondes Haar",
+                "es": "Estilo de Pelo Rubio con Desvanecimiento Taper Medio",
+                "fr": "Style Cheveux Blonds Dégradé Taper Moyen",
+                "it": "Sfumatura Taper Media Capelli Biondi da Uomo"
+              },
+              "price": "€27",
+              "desc": {
+                "en": "High contrast blend optimized for highlighted tones.",
+                "es": "Mezcla de alto contraste optimizada para tonos con reflejos.",
+                "fr": "Dégradé à fort contraste optimisé pour les tons méchés.",
+                "it": "Sfumatura ad alto contrasto ottimizzata per i capelli biondi o colpi de sole.",
+                "de": "Kontrastreicher Blend, optimiert für gesträhnte Töne."
+              },
+              "img": "/barber/241mid-taper-fade-blonde-hair-style-men.webp"
+            },
+            {
+             "name": {
+                "en": "Mid Taper Fade Side Part Haircut Men",
+                "de": "Mid Taper Fade Seitenscheitel für Männer",
+                "es": "Corte Raya Lateral con Desvanecimiento Taper Medio",
+                "fr": "Coupe Raie sur le Côté Dégradé Taper Moyen",
+                "it": "Taglio Riga Laterale Sfumatura Taper Media"
+              },
+              "price": "€26",
+              "desc": {
+                "en": "Smart elegant side part integrated with mid taper.",
+                "es": "Raya lateral elegante e inteligente integrada con disminución media.",
+                "fr": "Raie sur le côté élégante intégrée à un dégradé moyen.",
+                "it": "Riga lateral elegante integrata con una sfumatura media.",
+                "de": "Smarter, eleganter Seitenscheitel, integriert mit Mid Taper."
+              },
+              "img": "/barber/242mid-taper-fade-side-part-haircut-men.webp"
+            },
+            {
+              "name": {
+                "en": "Mid Taper Fade French Crop Haircut Men",
+                "de": "Mid Taper Fade French Crop für Männer",
+                "es": "Corte French Crop con Desvanecimiento Taper Medio",
+                "fr": "Coupe French Crop Dégradé Taper Moyen pour Hommes",
+                "it": "Taglio French Crop Sfumatura Taper Media"
+              },
+              "price": "€26",
+              "desc": {
+                "en": "Modern French crop with a smooth mid taper line.",
+                "es": "Corte de pelo French crop moderno con una línea de disminución media suave.",
+                "fr": "French crop moderne avec une ligne de dégradé moyen fluide.",
+                "it": "French crop moderno con una linea di sfumatura media fluida.",
+                "de": "Moderner French Crop mit einer glatten Mid-Taper-Linie."
+              },
+              "img": "/barber/243mid-taper-fade-french-crop-haircut-men.webp"
+            },
+            {
+              "name": {
+                "en": "Mid Taper Fade Quiff Haircut Men",
+                "de": "Mid Taper Fade Quiff für Männer",
+                "es": "Corte Tupé con Desvanecimiento Taper Medio",
+                "fr": "Coupe Quiff Dégradé Taper Moyen pour Hommes",
+                "it": "Taglio Ciuffo Sfumatura Taper Media"
+              },
+              "price": "€27",
+              "desc": {
+                "en": "Classic quiff balanced with a mid-level taper blur.",
+                "es": "Tupé clásico equilibrado con un desvanecimiento cónico de nivel medio.",
+                "fr": "Quiff classique équilibré par un dégradé moyen progressif.",
+                "it": "Ciuffo classico bilanciato da una sfumatura sfocata di medio livello.",
+                "de": "Klassisches Quiff, ausgeglichen mit einem mittelhohen Taper-Blur."
+              },
+              "img": "/barber/244mid-taper-fade-quiff-haircut-men.webp"
+            },
+            {
+             "name": {
+                "en": "Mid Taper Fade Haircut",
+                "de": "Mid Taper Fade Haarschnitt",
+                "es": "Corte con Desvanecimiento Taper Medio",
+                "fr": "Coupe Dégradé Taper Moyen",
+                "it": "Taglio Sfumatura Taper Media"
+              },
+              "price": "€24",
+              "desc": {
+                "en": "Standard clean symmetrical mid taper execution.",
+                "es": "Ejecución estándar limpia y simétrica de disminución media.",
+                "fr": "Exécution de dégradé moyen symétrique, propre et standard.",
+                "it": "Esecuzione standard pulita e simmetrica della sfumatura media.",
+                "de": "Standardmäßige, saubere und symmetrische Mid-Taper-Ausführung."
+              },
+              "img": "/barber/245Mid-Taper-Fade-Haircut_600x600.webp"
+            },
+            {
+              "name": {
+                "en": "Mid Taper Fade Fluffy Hair",
+                "de": "Mid Taper Fade mit fluffigem Haar",
+                "es": "Pelo Fluffy con Desvanecimiento Taper Medio",
+                "fr": "Cheveux Fluffy Dégradé Taper Moyen",
+                "it": "Sfumatura Taper Media Capelli Spumosi"
+              },
+              "price": "€27",
+              "desc": {
+                "en": "Mid taper optimized for high volume fluffy hair textures.",
+                "es": "Disminución media optimizada para texturas de cabello esponjoso de alto volumen.",
+                "fr": "Dégradé moyen optimisé pour les textures de cheveux volumineuses et souples.",
+                "it": "Sfumatura media ottimizzata per trame di capelli morbidi e voluminosi.",
+                "de": "Mid Taper, optimiert für flauschige Haarstrukturen mit hohem Volumen."
+              },
+              "img": "/barber/246Mid-Taper-Fade-Fluffy-Hair_600x600.webp"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "casual-textured",
+      "emoji": "🌊",
+      "name": {
+        "en": "Casual & Textured",
+        "es": "Casual y Texturizado",
+        "fr": "Décontracté & Texturé",
+        "it": "Casual e Texturizzato",
+        "de": "Lässig & Texturiert"
+      },
+      "models": [
+        {
+          "id": "model-9",
+          "name": {
+            "en": "Textured Fringe",
+            "es": "Flequillo Texturizado",
+            "fr": "Frange Texturée",
+            "it": "Frangia Texturizzata",
+            "de": "Textured Fringe"
+          },
+          "styles": [
+            {
+              "name": {
+                "en": "Messy Textured Fringe",
+                "de": "Messy texturierter Pony",
+                "es": "Flequillo Texturizado Despeinado",
+                "fr": "Frange Texturée Ébouriffée",
+                "it": "Frangia Texturizzata Spettinata"
+              },
+              "price": "€24",
+              "desc": {
+                "en": "Effortless casual messy forward fringe look.",
+                "es": "Look casual y desordenado de flequillo hacia adelante sin esfuerzo.",
+                "fr": "Look frange avant ébouriffée, décontracté et sans effort.",
+                "it": "Look con frangia anteriore spettinata casual e naturale.",
+                "de": "Müheloser, lässiger, unordentlicher Vorderpony-Look."
+              },
+              "img": "/barber/311Messy_Textured_Fringe.webp"
+            },
+            {
+              "name": {
+                "en": "Wavy Fringe with Skin Fade",
+                "de": "Welliger Pony mit Skin Fade",
+                "es": "Flequillo Ondulado con Desvanecimiento a la Piel",
+                "fr": "Frange Ondulée avec Dégradé à Blanc",
+                "it": "Frangia Mossa con Sfumatura a Pelle"
+              },
+              "price": "€28",
+              "desc": {
+                "en": "Natural wavy top sharply contrasting skin side fade.",
+                "es": "Parte superior ondulada natural que contrasta fuertemente con el desvanecimiento lateral.",
+                "fr": "Dessus ondulé naturel contrastant fortement avec le dégradé à blanc sur los côtés.",
+                "it": "Parte superiore ondulata naturale in netto contrasto con la sfumatura laterale a pelle.",
+                "de": "Natürliche, wellige Oberkopfpartie im starken Kontrast zum Skin Fade an den Seiten."
+              },
+              "img": "/barber/312Wavy_Fringe_with_Skin_Fade.webp"
+            },
+            {
+              "name": {
+                "en": "Textured Fringe Low Taper Haircut Men",
+                "de": "Texturierter Pony mit Low Taper für Männer",
+                "es": "Corte Flequillo Texturizado Taper Bajo para Hombres",
+                "fr": "Coupe Frange Texturée Taper Bas pour Hommes",
+                "it": "Taglio Frangia Texturizzata Taper Bassa"
+              },
+              "price": "€25",
+              "desc": {
+                "en": "Textured forward look with a subtle low taper edge.",
+                "es": "Look hacia adelante texturizado con un borde cónico bajo sutil.",
+                "fr": "Style texturé vers l'avant avec une bordure en dégradé bas subtile.",
+                "it": "Look texturizzato in avanti con una leggera sfumatura bassa sui bordi.",
+                "de": "Texturierter Vorwärts-Look mit einer dezenten niedrigen Taper-Kante."
+              },
+              "img": "/barber/313textured-fringe-low-taper-haircut-men.webp"
+            },
+            {
+              "name": {
+                "en": "Low Fade Textured Fringe Haircut Men",
+                "de": "Low Fade texturierter Pony für Männer",
+                "es": "Corte Flequillo Texturizado con Desvanecimiento Bajo",
+                "fr": "Coupe Frange Texturée Dégradé Bas pour Hommes",
+                "it": "Taglio Frangia Texturizzata Sfumatura Bassa"
+              },
+              "price": "€26",
+              "desc": {
+                "en": "Fringe setup transitioning into a clean low fade.",
+                "es": "Configuración de flequillo que pasa a un desvanecimiento bajo limpio.",
+                "fr": "Style avec frange passant à un dégradé bas propre.",
+                "it": "Impostazione della frangia che sfuma in una sfumatura bassa e pulita.",
+                "de": "Pony-Styling, das in einen sauberen Low Fade übergeht."
+              },
+              "img": "/barber/314low-fade-textured-fringe-haircut-men.webp"
+            },
+            {
+              "name": {
+                "en": "Mid Fade Textured Fringe Haircut Men",
+                "de": "Mid Fade texturierter Pony für Männer",
+                "es": "Corte Flequillo Texturizado con Desvanecimiento Medio",
+                "fr": "Coupe Frange Texturée Dégradé Moyen pour Hommes",
+                "it": "Taglio Frangia Texturizzata Sfumatura Media"
+              },
+              "price": "€26",
+              "desc": {
+                "en": "Fringe balanced neatly with a mid skin fade blur.",
+                "es": "Flequillo equilibrado limpiamente con un desvanecimiento medio borroso de piel.",
+                "fr": "Frange équilibrée proprement avec un dégradé moyen progressif.",
+                "it": "Frangia bilanciata ordinatamente con una sfumatura media sfocata.",
+                "de": "Pony, ordentlich ausgeglichen mit einem Mid Skin Fade Blur."
+              },
+              "img": "/barber/315mid-fade-textured-fringe-haircut-men.webp"
+            },
+            {
+              "name": {
+                "en": "Cropped Fringe with a Skin Fade",
+                "de": "Cropped Fringe mit Skin Fade",
+                "es": "Flequillo Corto Recortado con Desvanecimiento a la Piel",
+                "fr": "Frange Courte avec Dégradé à Blanc",
+                "it": "Frangia Corta con Sfumatura a Pelle"
+              },
+              "price": "€27",
+              "desc": {
+                "en": "Blunt short forward fringe combined with high skin fade.",
+                "es": "Flequillo delantero corto y romo combinado con desvanecimiento alto de piel.",
+                "fr": "Frange avant courte et droite combinée à un dégradé à blanc haut.",
+                "it": "Frangia anteriore corta e netta combinata con una sfumatura alta a pelle.",
+                "de": "Stumpfer, kurzer Vorderpony kombiniert mit einem High Skin Fade."
+              },
+              "img": "/barber/316Cropped_Fringe_with_a_Skin_Fade.webp"
+            }
+          ]
+        },
+        {
+          "id": "model-10",
+          "name": {
+            "en": "Low Fade Taper",
+            "es": "Desvanecimiento Bajo Cónico",
+            "fr": "Dégradé Bas Progressif",
+            "it": "Sfumatura Bassa Sfumata (Taper)",
+            "de": "Low Fade Taper"
+          },
+          "styles": [
+            {
+              "name": {
+                "en": "Low Fade Taper",
+                "de": "Low Fade Taper",
+                "es": "Desvanecimiento Taper Bajo",
+                "fr": "Dégradé Taper Bas",
+                "it": "Sfumatura Taper Bassa"
+              },
+              "price": "€23",
+              "desc": {
+                "en": "Subtle hair cleanup around neckline and sharp sideburns.",
+                "es": "Limpieza sutil del cabello alrededor del cuello y patillas marcadas.",
+                "fr": "Nettoyage subtil des cheveux autour de la nuque et favoris nets.",
+                "it": "Leggera rifinitura dei capelli intorno alla nuca e basette nitide.",
+                "de": "Dezente Haarreinigung um den Nacken und scharfe Koteletten."
+              },
+              "img": "/barber/321Low-Fade-Taper.webp"
+            },
+            {
+              "name": {
+                "en": "Low Fade Crew Cut Men",
+                "de": "Low Fade Crew Cut für Männer",
+                "es": "Corte Crew con Desvanecimiento Bajo para Hombres",
+                "fr": "Coupe Crew Dégradé Bas pour Hommes",
+                "it": "Taglio Crew Sfumatura Bassa da Uomo"
+              },
+              "price": "€22",
+              "desc": {
+                "en": "Classic crew cut with soft clean low fade edges.",
+                "es": "Corte crew clásico con bordes suaves y limpios de desvanecimiento bajo.",
+                "fr": "Coupe crew classique avec des contours en dégradé bas doux et propres.",
+                "it": "Crew cut classico con bordi sfumati bassi morbidi e puliti.",
+                "de": "Klassischer Crew Cut mit weichen, sauberen Low-Fade-Kanten."
+              },
+              "img": "/barber/322low-fade-crew-cut-men.webp"
+            },
+            {
+              "name": {
+                "en": "Low Fade Long on Top Hairstyle Men",
+                "de": "Low Fade Oben Lang für Männer",
+                "es": "Largo Arriba con Desvanecimiento Bajo para Hombres",
+                "fr": "Coiffure Long au-dessus Dégradé Bas pour Hommes",
+                "it": "Taglio Lungo Sopra Sfumatura Bassa"
+              },
+              "price": "€28",
+              "desc": {
+                "en": "Long messy top balanced with low clean taper lines.",
+                "es": "Parte superior larga y desordenada equilibrada con líneas limpias de disminución baja.",
+                "fr": "Dessus long et ébouriffé équilibré par des lignes de dégradé bas propres.",
+                "it": "Parte superiore lunga e spettinata bilanciata con linee di sfumatura bassa pulite.",
+                "de": "Langes, unordentliches Deckhaar balanced mit niedrigen, sauberen Taper-Linien."
+              },
+              "img": "/barber/323low-fade-long-on-top-hairstyle-men.webp"
+            },
+            {
+              "name": {
+                "en": "Low Fade Textured Crop Haircut Men",
+                "de": "Low Fade Textured Crop für Männer",
+                "es": "Corte Crop Texturizado con Desvanecimiento Bajo",
+                "fr": "Coupe Textured Crop Dégradé Bas pour Hommes",
+                "it": "Taglio Crop Texturizzato Sfumatura Bassa"
+              },
+              "price": "€25",
+              "desc": {
+                "en": "Textured crop top with subtle clean neck taper blur.",
+                "es": "Crop top texturizado con sutil y limpio desvanecimiento cónico en el cuello.",
+                "fr": "Crop top texturé avec un dégradé de nuque discret et propre.",
+                "it": "Crop top texturizzato con una leggera e pulita sfumatura sulla nuca.",
+                "de": "Textured Crop Top mit dezentem, sauberem Nacken-Taper-Blur."
+              },
+              "img": "/barber/324low-fade-textured-crop-haircut-men.webp"
+            },
+            {
+              "name": {
+                "en": "Low Fade Comma Hair Style Men",
+                "de": "Low Fade Komma-Frisur für Männer",
+                "es": "Estilo de Pelo Coma con Desvanecimiento Bajo",
+                "fr": "Style de Cheveux Virgule Dégradé Bas",
+                "it": "Taglio a Virgola Sfumatura Bassa da Uomo"
+              },
+              "price": "€28",
+              "desc": {
+                "en": "Trending modern comma shape top with soft low fade.",
+                "es": "Parte superior moderna en tendencia con forma de coma y desvanecimiento bajo suave.",
+                "fr": "Dessus tendance en forme de virgule avec dégradé bas doux.",
+                "it": "Parte superiore di tendenza a forma di virgola con sfumatura bassa morbida.",
+                "de": "Angesagtes modernes Deckhaar in Komma-Form mit weichem Low Fade."
+              },
+              "img": "/barber/325low-fade-comma-hair-style-men.webp"
+            },
+            {
+              "name": {
+                "en": "Low Fade Faux Hawk Haircut Men",
+                "de": "Low Fade Faux Hawk für Männer",
+                "es": "Corte Faux Hawk con Desvanecimiento Bajo para Hombres",
+                "fr": "Coupe Faux Hawk Dégradé Bas pour Hommes",
+                "it": "Taglio Faux Hawk Sfumatura Bassa da Uomo"
+              },
+              "price": "€26",
+              "desc": {
+                "en": "Subtle clean mini faux hawk with low taper baseline.",
+                "es": "Mini faux hawk limpio y sutil con línea de base cónica baja.",
+                "fr": "Mini faux hawk discret et propre avec une base en dégradé bas.",
+                "it": "Mini faux hawk leggero e pulito con linea di base sfumata bassa.",
+                "de": "Dezenter, sauberer Mini-Faux-Hawk mit niedriger Taper-Basislinie."
+              },
+              "img": "/barber/326low-fade-faux-hawk-haircut-men.webp"
+            }
+          ]
+        },
+        {
+          "id": "model-11",
+          "name": {
+            "en": "Shaggy Layers",
+            "es": "Capas Shaggy",
+            "fr": "Dégradé Effet Shag (Ébouriffé)",
+            "it": "Taglio Scalato Shaggy",
+            "de": "Shaggy Layers"
+          },
+          "styles": [
+            {
+              "name": {
+                "en": "Short Shaggy Cut Men",
+                "de": "Kurzer Shaggy Cut für Männer",
+                "es": "Corte Shaggy Corto para Hombres",
+                "fr": "Coupe Shaggy Courte pour Hommes",
+                "it": "Taglio Shaggy Corto da Uomo"
+              },
+              "price": "€25",
+              "desc": {
+                "en": "Compact casual layered messy texture aesthetic.",
+                "es": "Estética compacta y casual de textura desordenada a capas.",
+                "fr": "Esthétique compacte et décontractée à texture dégradée ébouriffée.",
+                "it": "Estetica compatta e casual con texture scalata e spettinata.",
+                "de": "Kompakte, lässige, gestufte Ästhetik mit unordentlicher Textur."
+              },
+              "img": "/barber/331short-shaggy-cut-men.webp"
+            },
+            {
+              "name": {
+                "en": "Long Shaggy Hairstyle",
+                "de": "Lange Shaggy-Frisur",
+                "es": "Peinado Shaggy Largo",
+                "fr": "Coiffure Shaggy Longue",
+                "it": "Pettinatura Shaggy Lunga"
+              },
+              "price": "€32",
+              "desc": {
+                "en": "Rockstar retro layered flow volume look for long hair.",
+                "es": "Look de volumen fluido a capas retro de estrella de rock para cabello largo.",
+                "fr": "Look volume fluide dégradé rétro style rockstar pour cheveux longs.",
+                "it": "Look voluminoso e scalato rétro da rockstar per capelli lunghi.",
+                "de": "Rockstar-Retro-Stufenschnitt mit fließendem Volumen für langes Haar."
+              },
+              "img": "/barber/332long-shaggy-hairstyle.webp"
+            },
+            {
+             "name": {
+                "en": "Shaggy Side Part Haircut Men",
+                "de": "Shaggy Seitenscheitel für Männer",
+                "es": "Corte Raya Lateral Estilo Shaggy para Hombres",
+                "fr": "Coupe Raie sur le Côté Shaggy pour Hommes",
+                "it": "Taglio Shaggy con Riga Laterale"
+              },
+              "price": "€27",
+              "desc": {
+                "en": "Parted hair setup with messy layered fluid texture.",
+                "es": "Configuración de cabello con raya con textura fluida desordenada a capas.",
+                "fr": "Coiffure avec raie et texture fluide dégradée et ébouriffée.",
+                "it": "Pettinatura con riga e texture fluida scalata e spettinata.",
+                "de": "Scheitel-Haarstyling mit unordentlicher, gestufter, fließender Textur."
+              },
+              "img": "/barber/333shaggy-side-part-haircut-men.webp"
+            },
+            {
+              "name": {
+                "en": "Shag Haircut Straight Hair Men",
+                "de": "Shag Haarschnitt für glattes Haar",
+                "es": "Corte Shag para Pelo Liso en Hombres",
+                "fr": "Coupe Shag Cheveux Raides pour Hommes",
+                "it": "Taglio Shag per Capelli Lisci da Uomo"
+              },
+              "price": "€25",
+              "desc": {
+                "en": "Shaggy layer flow optimized for straight hair types.",
+                "es": "Flujo de capas shaggy optimizado para tipos de cabello liso.",
+                "fr": "Mouvement dégradé ébouriffé optimisé pour les cheveux raides.",
+                "it": "Flusso scalato shaggy ottimizzato per tipi di capelli lisci.",
+                "de": "Shaggy-Stufenfluss, optimiert für glatte Haartypen."
+              },
+              "img": "/barber/334shag-haircut-straight-hair-men.webp"
+            },
+            {
+              "name": {
+                "en": "Shaggy Faux Hawk Haircut Men",
+                "de": "Shaggy Faux Hawk für Männer",
+                "es": "Corte Faux Hawk Estilo Shaggy para Hombres",
+                "fr": "Coupe Faux Hawk Shaggy pour Hommes",
+                "it": "Taglio Faux Hawk Shaggy da Uomo"
+              },
+              "price": "€28",
+              "desc": {
+                "en": "Wild layered texture styled towards the center top line.",
+                "es": "Textura a capas salvaje peinada hacia la línea central superior.",
+                "fr": "Texture dégradée sauvage coiffée vers la ligne centrale supérieure.",
+                "it": "Texture scalata selvaggia modellata verso la linea centrale superiore.",
+                "de": "Wilde, gestufte Textur, gestylt zur Mitte der oberen Linie."
+              },
+              "img": "/barber/335shaggy-faux-hawk-haircut-men.webp"
+            }
+          ]
+        },
+        {
+          "id": "model-12",
+          "name": {
+            "en": "Top Slick Back Style",
+            "es": "Estilo Slick Back Superior",
+            "fr": "Style Slick Back (Plaqué en Arrière)",
+            "it": "Stile Slick Back (Pettinato all'Indietro)",
+            "de": "Top Slick Back Style"
+          },
+          "styles": [
+            {
+              "name": {
+                "en": "Slick Back Bun Haircut Men",
+                "de": "Slick Back Dutt für Männer",
+                "es": "Moño Hacia Atrás para Hombres",
+                "fr": "Chignon Slick Back pour Hommes",
+                "it": "ChignonSlick Back da Uomo"
+              },
+              "price": "€30",
+              "desc": {
+                "en": "Slicked back long top length tied into a clean bun.",
+                "es": "Cabello largo superior peinado hacia atrás y atado en un moño limpio.",
+                "fr": "Longueur du dessus plaquée en arrière et attachée en un chignon propre.",
+                "it": "Lunghezza superiore pettinata all'indietro e legata in uno chignon pulito.",
+                "de": "Nach hinten gegeltes langes Deckhaar, zu einem sauberen Dutt gebunden."
+              },
+              "img": "/barber/341slick-back-bun-haircut-men.webp"
+            },
+            {
+              "name": {
+                "en": "Slick Back Taper Haircut Men",
+                "de": "Slick Back Taper für Männer",
+                "es": "Corte Hacia Atrás con Taper para Hombres",
+                "fr": "Coupe Slick Back Taper pour Hommes",
+                "it": "Taglio Slick Back Taper da Uomo"
+              },
+              "price": "€26",
+              "desc": {
+                "en": "Classic clean wet-look back-brush with side taper blend.",
+                "es": "Peinado hacia atrás clásico y limpio de aspecto húmedo con mezcla cónica lateral.",
+                "fr": "Brossage arrière classique effet mouillé avec dégradé latéral.",
+                "it": "Pettinatura all'indietro classica effetto bagnato con sfumatura laterale.",
+                "de": "Klassischer, sauberer Wet-Look-Back-Brush mit seitlichem Taper-Blend."
+              },
+              "img": "/barber/342slick-back-taper-haircut-men.webp"
+            },
+            {
+              "name": {
+                "en": "Slick Back Wet Look Haircut",
+                "de": "Slick Back Wet Look Haarschnitt",
+                "es": "Corte Hacia Atrás Efecto Mojado",
+                "fr": "Coupe Slick Back Effet Mouillé",
+                "it": "Taglio Slick Back Effetto Bagnato"
+              },
+              "price": "€25",
+              "desc": {
+                "en": "High shine heavy pomade classic slick back execution.",
+                "es": "Ejecución clásica de slick back con pomada fuerte de alto brillo.",
+                "fr": "Slick back classique avec de la pommade forte à haute brillance.",
+                "it": "Slick back classico con pomata forte ad alta brillantezza.",
+                "de": "Klassische Slick-Back-Ausführung mit stark glänzender, fester Pomade."
+              },
+              "img": "/barber/343slick-back-wet-look-haircut.webp"
+            },
+            {
+              "name": {
+                "en": "Slick Back Comb Over Haircut Men",
+                "de": "Slick Back Comb Over für Männer",
+                "es": "Corte Peinado Hacia Atrás Combinado",
+                "fr": "Coupe Slick Back Comb Over pour Hommes",
+                "it": "Taglio Slick Back Comb Over da Uomo"
+              },
+              "price": "€25",
+              "desc": {
+                "en": "Back-brushed top hair slightly angled to one smart side.",
+                "es": "Cabello superior peinado hacia atrás ligeramente inclinado hacia un lado elegante.",
+                "fr": "Cheveux du dessus brossés vers l'arrière et légèrement orientés sur le côté.",
+                "it": "Capelli superiori pettinati all'indietro e leggermente inclinati di lato.",
+                "de": "Nach hinten gebürstetes Deckhaar, leicht zu einer smarten Seite angewinkelt."
+              },
+              "img": "/barber/344slick-back-comb-over-haircut-men.webp"
+            },
+            {
+              "name": {
+                "en": "Slick Back Low Fade Haircut Men",
+                "de": "Slick Back mit Low Fade für Männer",
+                "es": "Corte Hacia Atrás con Desvanecimiento Bajo",
+                "fr": "Coupe Slick Back Dégradé Bas pour Hommes",
+                "it": "Taglio Slick Back Sfumatura Bassa"
+              },
+              "price": "€27",
+              "desc": {
+                "en": "Slick back style combined with a low skin fade baseline.",
+                "es": "Estilo slick back combinado con una línea de base de desvanecimiento bajo de piel.",
+                "fr": "Style slick back combiné avec un dégradé à blanc bas.",
+                "it": "Stile slick back combinato con una sfumatura bassa a pelle.",
+                "de": "Slick-Back-Stil kombiniert mit einer Low-Skin-Fade-Basislinie."
+              },
+              "img": "/barber/345slick-back-low-fade-haircut-men.webp"
+            },
+            {
+              "name": {
+                "en": "Slick Back High Fade Haircut Men",
+                "de": "Slick Back mit High Fade für Männer",
+                "es": "Corte Hacia Atrás con Desvanecimiento Alto",
+                "fr": "Coupe Slick Back Dégradé Haut pour Hommes",
+                "it": "Taglio Slick Back Sfumatura Alta"
+              },
+              "price": "€28",
+              "desc": {
+                "en": "Bold long slicked back hair with aggressive high skin fade.",
+                "es": "Cabello largo atrevido peinado hacia atrás con desvanecimiento alto y agresivo.",
+                "fr": "Cheveux longs plaqués en arrière avec dégradé à blanc haut et prononcé.",
+                "it": "Capelli lunghi pettinati all'indietro con sfumatura alta a pelle decisa.",
+                "de": "Markantes, langes, nach hinten gegeltes Haar mit aggressivem High Skin Fade."
+              },
+              "img": "/barber/346slick-back-high-fade-haircut-men.webp"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bold-edgier",
+      "emoji": "🔥",
+      "name": {
+        "en": "Bold & Edgier",
+        "es": "Atrevido y Seductor",
+        "fr": "Audacieux & Rebelle",
+        "it": "Audace e Aggressivo",
+        "de": "Bold & Edgier"
+      },
+      "models": [
+        {
+          "id": "model-13",
+          "name": {
+            "en": "Faux Hawk",
+            "es": "Faux Hawk",
+            "fr": "Faux Hawk (Crête Moderne)",
+            "it": "Faux Hawk (Finta Cresta)",
+            "de": "Faux Hawk"
+          },
+          "styles": [
+            {
+              "name": {
+                "en": "Faux Hawk Fade",
+                "de": "Faux Hawk mit Fade",
+                "es": "Faux Hawk con Desvanecimiento",
+                "fr": "Faux Hawk Dégradé",
+                "it": "Faux Hawk Sfumato"
+              },
+              "price": "€27",
+              "desc": {
+                "en": "Sharp spikes center ridge fading smoothly on sides.",
+                "es": "Cresta central de puntas afiladas que se desvanece suavemente en los laterales.",
+                "fr": "Crête centrale à pointes nettes se dégradant doucement sur les côtés.",
+                "it": "Cresta centrale definita che si sfuma dolcemente sui lati.",
+                "de": "Scharfe Spikes auf dem Mittelkamm, die an den Seiten sanft ausblenden."
+              },
+              "img": "/barber/411Faux-Hawk-Fade.webp"
+            },
+            {
+              "name": {
+                "en": "Faux Hawk Mullet",
+                "de": "Faux Hawk Mullet",
+                "es": "Faux Hawk Estilo Mullet",
+                "fr": "Faux Hawk Mullet",
+                "it": "Faux Hawk Mullet"
+              },
+              "price": "€30",
+              "desc": {
+                "en": "Aggressive hybrid combining faux hawk top and mullet back.",
+                "es": "Híbrido agresivo que combina la parte superior de faux hawk y la parte trasera de mullet.",
+                "fr": "Hybride prononcé combinant un dessus faux hawk et un arrière mulet.",
+                "it": "Ibrido deciso che combina faux hawk superiore e mullet posteriore.",
+                "de": "Aggressiver Hybrid, der Faux-Hawk-Oberkopf und Mullet-Rückseite kombiniert."
+              },
+              "img": "/barber/412Faux-Hawk-Mullet.webp"
+            },
+            {
+             "name": {
+                "en": "Faux Hawk Haircut for Receding Hairline",
+                "de": "Faux Hawk bei Geheimratsecken",
+                "es": "Corte Faux Hawk para Entradas",
+                "fr": "Coupe Faux Hawk pour Calvitie Naissante",
+                "it": "Taglio Faux Hawk per Stempiatura"
+              },
+              "price": "€26",
+              "desc": {
+                "en": "Textured center-focus style masking hairline recession.",
+                "es": "Estilo texturizado centrado que oculta la recesión de la línea del cabello.",
+                "fr": "Style texturé centré masquant le recul de la ligne des cheveux.",
+                "it": "Stile texturizzato centrato che maschera la stempiatura.",
+                "de": "Texturierter, zentrierter Stil, der Geheimratsecken kaschiert."
+              },
+              "img": "/barber/413faux-hawk-haircut-for-receding-hairline.webp"
+            },
+               { "name": {
+                "en": "Mini Faux Hawk Haircut Men",
+                "de": "Mini Faux Hawk für Männer",
+                "es": "Corte Mini Faux Hawk para Hombres",
+                "fr": "Coupe Mini Faux Hawk pour Hommes",
+                "it": "Taglio Mini Faux Hawk da Uomo"
+              },
+              "price": "€24",
+              "desc": {
+                "en": "Subtle low-profile clean center-swept everyday style.",
+                "es": "Estilo diario sutil de perfil bajo peinado hacia el centro.",
+                "fr": "Style quotidien discret et propre coiffé vers le centre.",
+                "it": "Stile quotidiano pulito e a basso profilo modellato verso il centro.",
+                "de": "Dezenter, unauffälliger, sauber zur Mitte gestylter Alltagsstil."
+              },
+              "img": "/barber/414mini-faux-hawk-haircut-men.webp"
+            },
+            {
+              "name": {
+                "en": "Short Faux Hawk",
+                "de": "Kurzer Faux Hawk",
+                "es": "Faux Hawk Corto",
+                "fr": "Faux Hawk Court",
+                "it": "Faux Hawk Corto"
+              },
+              "price": "€24",
+              "desc": {
+                "en": "Short sharp spiky center ridge with clean taper lines.",
+                "es": "Cresta central corta, afilada y con puntas con líneas limpias de disminución.",
+                "fr": "Crête centrale courte et pointue avec des lignes de dégradé nettes.",
+                "it": "Cresta centrale corta e appuntita con linee di sfumatura pulite.",
+                "de": "Kurzer, scharfer, spitz zulaufender Mittelkamm mit sauberen Taper-Linien."
+              },
+              "img": "/barber/415Short-Faux-Hawk.webp"
+            },
+            {
+              "name": {
+                "en": "Medium Fade Faux Hawk",
+                "de": "Faux Hawk mit Medium Fade",
+                "es": "Faux Hawk con Desvanecimiento Medio",
+                "fr": "Faux Hawk Dégradé Moyen",
+                "it": "Faux Hawk Sfumatura Media"
+              },
+              "price": "€27",
+              "desc": {
+                "en": "Faux hawk setup balanced nicely with a clean mid fade.",
+                "es": "Configuración de faux hawk equilibrada muy bien con un desvanecimiento medio limpio.",
+                "fr": "Coiffure faux hawk joliment équilibrée avec un dégradé moyen net.",
+                "it": "Faux hawk ben bilanciato con una sfumatura media pulita.",
+                "de": "Faux-Hawk-Styling, schön ausgeglichen mit einem sauberen Mid Fade."
+              },
+              "img": "/barber/416Medium-Fade-Faux-Hawk.jfif"
+            },
+            {
+             "name": {
+                "en": "Euro Hawk",
+                "de": "Euro Hawk",
+                "es": "Estilo Euro Hawk",
+                "fr": "Euro Hawk",
+                "it": "Euro Hawk"
+              },
+              "price": "€28",
+              "desc": {
+                "en": "Trending wide center hawk popular across European leagues.",
+                "es": "Halcón de centro ancho en tendencia popular en las ligas europeas.",
+                "fr": "Crête large centrale tendance populaire dans les championnats européens.",
+                "it": "Cresta centrale larga di tendenza molto popolare in Europa.",
+                "de": "Angesagter breiter Mittel-Hawk, beliebt in europäischen Ligen."
+              },
+              "img": "/barber/417Euro-Hawk.webp"
+            }
+          ]
+        },
+        {
+          "id": "model-14",
+          "name": {
+            "en": "Mohawk",
+            "es": "Mohawk",
+            "fr": "Mohawk (Crête Iroquoise)",
+            "it": "Mohawk (Cresta Irochese)",
+            "de": "Mohawk"
+          },
+          "styles": [
+            {
+             "name": {
+                "en": "Mohawk Buzz",
+                "de": "Mohawk Buzz",
+                "es": "Mohawk Estilo Buzz",
+                "fr": "Mohawk Buzz Cut",
+                "it": "Mohawk Buzz"
+              },
+              "price": "€24",
+              "desc": {
+                "en": "Short sharp buzz cut base structured into a mini mohawk.",
+                "es": "Base de corte rapado corto y afilado estructurado en un mini mohawk.",
+                "fr": "Base de coupe rasée courte et nette structurée en un mini mohawk.",
+                "it": "Base di taglio rasato corto strutturato in una mini cresta.",
+                "de": "Kurzer, scharfer Buzz Cut als Basis, strukturiert zu einem Mini-Mohawk."
+              },
+              "img": "/barber/421Mohawk-Buzz.jpg"
+            },
+            {
+              "name": {
+                "en": "Spiky Mohawk",
+                "de": "Spiky Mohawk",
+                "es": "Mohawk de Puntas Pincho",
+                "fr": "Mohawk Crête à Pointes",
+                "it": "Mohawk Cresta a Spilli"
+              },
+              "price": "€28",
+              "desc": {
+                "en": "High spiky center strip with clean shaved smooth sides.",
+                "es": "Franja central alta con puntas y laterales lisos bien afeitados.",
+                "fr": "Bande centrale haute et pointue avec côtés lisses et rasés de près.",
+                "it": "Striscia centrale alta e appuntita con lati rasati lisci e puliti.",
+                "de": "Hoher, stacheliger Mittelstreifen mit glatt rasierten, sauberen Seiten."
+              },
+              "img": "/barber/422Spiky-Mohawk.jpg"
+            },
+            {
+              "name": {
+                "en": "Twist Out Mohawk Cornrows Men",
+                "de": "Twist Out Mohawk Cornrows für Männer",
+                "es": "Mohawk Twist Out con Trenzas Cornrows",
+                "fr": "Mohawk Twist Out avec Tresses Cornrows",
+                "it": "Mohawk Twist Out con Trecce Cornrows"
+              },
+              "price": "€35",
+              "desc": {
+                "en": "Premium braided clean side lines with textured center mohawk.",
+                "es": "Líneas laterales trenzadas limpias premium con mohawk central texturizado.",
+                "fr": "Tresses plates haut de gamme sur les côtés avec mohawk central texturé.",
+                "it": "Treccine laterali pulite premium con mohawk centrale texturizzato.",
+                "de": "Premium geflochtene, saubere Seitenlinien mit texturiertem Mittel-Mohawk."
+              },
+              "img": "/barber/423Twist-Out-Mohawk-Cornrows-Men.jpg"
+            },
+            {
+              "name": {
+                "en": "Mohawk Fade Men",
+                "de": "Mohawk mit Fade für Männer",
+                "es": "Mohawk con Desvanecimiento para Hombres",
+                "fr": "Mohawk Dégradé pour Hommes",
+                "it": "Mohawk Sfumato da Uomo"
+              },
+              "price": "€28",
+              "desc": {
+                "en": "Traditional mohawk strip fading smoothly into skin edges.",
+                "es": "Franja tradicional de mohawk que se desvanece suavemente en los bordes de la piel.",
+                "fr": "Bande mohawk traditionnelle se dégradant doucement vers la peau.",
+                "it": "Cresta mohawk tradizionale che si sfuma dolcemente verso la pelle.",
+                "de": "Traditioneller Mohawk-Streifen, der sanft in die Hautkanten übergeht."
+              },
+              "img": "/barber/424Mohawk-Fade-Men.jpg"
+            },
+            {
+             "name": {
+                "en": "Fan Mohawk",
+                "de": "Fan Mohawk",
+                "es": "Mohawk Estilo Abanico",
+                "fr": "Mohawk en Éventail",
+                "it": "Mohawk Cresta a Ventaglio"
+              },
+              "price": "€30",
+              "desc": {
+                "en": "Wide spread vertical fan shape classic punk rock execution.",
+                "es": "Forma de abanico vertical de amplia difusión, ejecución clásica de punk rock.",
+                "fr": "Forme d'éventail vertical large, exécution punk rock classique.",
+                "it": "Forma a ventaglio verticale ampia, classica esecuzione punk rock.",
+                "de": "Breit gefächerte vertikale Fächerform, klassische Punkrock-Ausführung."
+              },
+              "img": "/barber/425Fan-Mohawk.jpg"
+            },
+            {
+              "name": {
+                "en": "Curly Mohawk Black Men",
+                "de": "Lockiger Mohawk für schwarze Männer",
+                "es": "Mohawk Rizado para Hombres Negros",
+                "fr": "Mohawk Bouclé pour Hommes Noirs",
+                "it": "Mohawk Riccio per Uomini Neri"
+              },
+              "price": "€30",
+              "desc": {
+                "en": "Burst fade baseline optimized for heavy volume curly textures.",
+                "es": "Línea de base de desvanecimiento de ráfaga optimizada para texturas rizadas de gran volumen.",
+                "fr": "Dégradé éclaté (burst fade) optimisé pour les textures bouclées à fort volume.",
+                "it": "Sfumatura burst ottimizzata per trame ricce ad alto volume.",
+                "de": "Burst-Fade-Basislinie, optimiert für lockige Texturen mit hohem Volumen."
+              },
+              "img": "/barber/426Curly-Mohawk-Black-Men.jpg"
+            }
+          ]
+        },
+        {
+          "id": "model-15",
+          "name": {
+            "en": "Modern Mullet",
+            "es": "Mullet Moderno",
+            "fr": "Mulet Moderne",
+            "it": "Mullet Moderno",
+            "de": "Modern Mullet"
+          },
+          "styles": [
+            {
+              "name": {
+                "en": "Low Taper Mullet Haircut Men",
+                "de": "Low Taper Mullet für Männer",
+                "es": "Corte Mullet con Taper Bajo para Hombres",
+                "fr": "Coupe Mullet Taper Bas pour Hommes",
+                "it": "Taglio Mullet Taper Bassa da Uomo"
+              },
+              "price": "€28",
+              "desc": {
+                "en": "Modern clean look with a subtle low clean side taper.",
+                "es": "Look limpio moderno con una disminución lateral limpia, sutil y baja.",
+                "fr": "Look moderne et propre avec un dégradé latéral bas et discret.",
+                "it": "Look moderno e pulito con una leggera sfumatura laterale bassa.",
+                "de": "Moderner, sauberer Look mit einem dezenten niedrigen, sauberen Seiten-Taper."
+              },
+              "img": "/barber/431low-taper-mullet-haircut-men.webp"
+            },
+            {
+              "name": {
+                "en": "Comma Hair Mullet Haircut Men",
+                "de": "Komma-Frisur Mullet für Männer",
+                "es": "Corte Mullet Estilo Pelo Coma para Hombres",
+                "fr": "Coupe Mullet Style Virgule pour Hommes",
+                "it": "Taglio Mullet a Virgola da Uomo"
+              },
+              "price": "€32",
+              "desc": {
+                "en": "Trending forward comma shape fringe with long mullet back.",
+                "es": "Flequillo en forma de coma hacia adelante en tendencia con parte trasera de mullet larga.",
+                "fr": "Frange tendance en forme de virgule à l'avant avec un long mulet à l'arrière.",
+                "it": "Frangia di tendenza a forma di virgola sul davanti con mullet lungo sul retro.",
+                "de": "Angesagter Pony in Komma-Form nach vorne mit langer Mullet-Rückseite."
+              },
+              "img": "/barber/432comma-hair-mullet-haircut-men.webp"
+            },
+            {
+              "name": {
+                "en": "Flow Mullet Haircut Men",
+                "de": "Flow Mullet für Männer",
+                "es": "Corte Mullet Estilo Flow para Hombres",
+                "fr": "Coupe Mullet Flow pour Hommes",
+                "it": "Taglio Mullet Fluido da Uomo"
+              },
+              "price": "€30",
+              "desc": {
+                "en": "Natural long texture flowing back over the neck seamlessly.",
+                "es": "Textura larga natural que fluye hacia atrás sobre el cuello a la perfección.",
+                "fr": "Texture longue naturelle retombant harmonieusement sur la nuque.",
+                "it": "Texture lunga naturale che scorre all'indietro sul collo in modo fluido.",
+                "de": "Natürliche lange Textur, die nahtlos über den Nacken nach hinten fließt."
+              },
+              "img": "/barber/433flow-mullet-haircut-men.webp"
+            },
+            {
+              "name": {
+                "en": "Messy Modern Mullet Haircut Men",
+                "de": "Messy moderner Mullet für Männer",
+                "es": "Corte Mullet Moderno Despeinado para Hombres",
+                "fr": "Coupe Mullet Moderne Ébouriffée pour Hommes",
+                "it": "Taglio Mullet Moderno Spettinato"
+              },
+              "price": "€28",
+              "desc": {
+                "en": "Casual choppy texturing throughout the modern mullet silhouette.",
+                "es": "Texturizado picado informal en toda la silueta del mullet moderno.",
+                "fr": "Texture ébouriffée décontractée sur toute la silhouette du mulet moderne.",
+                "it": "Texture spettinata casual su tutta la forma del mullet moderno.",
+                "de": "Lässige, struwwelige Texturierung in der gesamten modernen Mullet-Silhouette."
+              },
+              "img": "/barber/434messy-modern-mullet-haircut-men.webp"
+            },
+            {
+              "name": {
+                "en": "Quiff Mullet Haircut Style Men",
+                "de": "Quiff Mullet für Männer",
+                "es": "Corte Mullet Estilo Tupé para Hombres",
+                "fr": "Style Coupe Mullet Quiff pour Hommes",
+                "it": "Taglio Mullet con Ciuffo da Uomo"
+              },
+              "price": "€32",
+              "desc": {
+                "en": "Front volume quiff setup paired with long rockstar mullet back.",
+                "es": "Configuración de tupé de volumen delantero combinada con parte trasera larga de mullet estilo rockstar.",
+                "fr": "Volume quiff à l'avant associé à un long mulet style rockstar à l'arrière.",
+                "it": "Ciuffo voluminoso sul davanti abbinato a un lungo mullet da rockstar sul retro.",
+                "de": "Quiff-Styling mit vorderem Volumen gepaart mit langer Rockstar-Mullet-Rückseite."
+              },
+              "img": "/barber/435quiff-mullet-haircut-style-men.webp"
+            },
+            {
+              "name": {
+                "en": "Curly Mullet",
+                "de": "Lockiger Mullet",
+                "es": "Mullet Rizado",
+                "fr": "Mullet Bouclé",
+                "it": "Mullet Riccio"
+              },
+              "price": "€30",
+              "desc": {
+                "en": "Drop fade baseline optimized for heavy curly hair volume flow.",
+                "es": "Línea de base de desvanecimiento por caída optimizada para el flujo de volumen de cabello muy rizado.",
+                "fr": "Dégradé tombant (drop fade) optimisé pour le mouvement des cheveux très bouclés.",
+                "it": "Sfumatura drop ottimizzata per il flusso di capelli molto ricci e voluminosi.",
+                "de": "Drop-Fade-Basislinie, optimiert für den Volumenfluss von stark lockigem Haar."
+              },
+              "img": "/barber/436curly_mullet.jpg"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

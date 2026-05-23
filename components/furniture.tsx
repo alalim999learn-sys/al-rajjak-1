@@ -1,7 +1,7 @@
 //C:\Users\Shanon\al-rajjak-1\components\furniture.tsx
 
 
-
+ 
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 
