@@ -1,14 +1,13 @@
 //C:\Users\Shanon\al-rajjak-1\app\barber\page.tsx
+ 
 
-
-
+ 
 'use client';
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import barberData from '../../data/barbar.json';
 
-// 🎯 টাইপ ডেфিনিশনসমূহ (JSON অনুযায়ী ৫টি ফিক্সড ভাষা)
 type Lang = 'en' | 'es' | 'fr' | 'it' | 'de';
 
 interface TranslatableText {
@@ -45,38 +44,23 @@ interface BarberDataStructure {
 
 const typedBarberData = barberData as BarberDataStructure;
 
-// 🌐 ডাইনামিক ইন্টারফেস ডিকশনারি (Mostrar al Barbero ফিচারের টেক্সট সহ)
-const translations: Record<Lang, { subtitle: string; noStyles: string; selectModel: string; showBarber: string; close: string; selectedStyle: string }> = {
-  en: { subtitle: "Elevate your look with premium styling", noStyles: "No styles found.", selectModel: "Choose a Collection", showBarber: "Show to Barber", close: "Close", selectedStyle: "SELECTED STYLE" },
-  es: { subtitle: "Eleva tu estilo con un corte premium", noStyles: "No se encontraron estilos.", selectModel: "Elige una Colección", showBarber: "Mostrar al Barbero", close: "Cerrar", selectedStyle: "ESTILO SELECCIONADO" },
-  fr: { subtitle: "Sublimez votre style avec nos coupes premium", noStyles: "Aucun style trouvé.", selectModel: "Choisir une Collection", showBarber: "Montrer au Barbier", close: "Fermer", selectedStyle: "STYLE SÉLECTIONNÉ" },
-  it: { subtitle: "Eleva il tuo look con uno stile premium", noStyles: "Nessuno stile trovato.", selectModel: "Scegli una Collezione", showBarber: "Mostra al Barbiere", close: "Chiudi", selectedStyle: "STILE SELEZIONATO" },
-  de: { subtitle: "Veredeln Sie Ihren Look mit Premium-Styling", noStyles: "Keine Stile gefunden.", selectModel: "Kollektion Wählen", showBarber: "Dem Friseur zeigen", close: "Schließen", selectedStyle: "GEWÄHLTER STIL" },
+const translations: Record<Lang, { subtitle: string; noStyles: string; selectModel: string; close: string; details: string }> = {
+  en: { subtitle: "Elevate your look with premium styling", noStyles: "No styles found.", selectModel: "Choose a Collection", close: "Close", details: "STYLE DETAILS" },
+  es: { subtitle: "Eleva tu estilo con un corte premium", noStyles: "No se encontraron estilos.", selectModel: "Elige una Colección", close: "Cerrar", details: "DETALLES DEL ESTILO" },
+  fr: { subtitle: "Sublimez votre style avec nos coupes premium", noStyles: "Aucun style trouvé.", selectModel: "Choisir une Collection", close: "Fermer", details: "DÉTAILS DU STYLE" },
+  it: { subtitle: "Eleva il tuo look con uno stile premium", noStyles: "Nessuno stile trovato.", selectModel: "Scegli una Collezione", close: "Chiudi", details: "DETTAGLI DELLO STILE" },
+  de: { subtitle: "Veredeln Sie Ihren Look mit Premium-Styling", noStyles: "Keine Stile gefunden.", selectModel: "Kollektion Wählen", close: "Schließen", details: "STIL-DETAILS" },
 };
 
 export default function BarberCatalog() {
-  // ⚡ Hydration ফিক্স করার জন্য মাуন্টেড স্টেট
   const [mounted, setMounted] = useState(false);
-
-  // 🌐 ভাষা সিলেকশন ট্র্যাক করার স্টেট
   const [isLangSelected, setIsLangSelected] = useState(false);
-
-  // ১. ভাষা স্টেট
   const [currentLang, setCurrentLang] = useState<Lang>('es');
-  
-  // ২. ক্যাটাগরি স্টেট
-  const [activeCategoryId, setActiveCategoryId] = useState<string>(
-    typedBarberData.categories?.[0]?.id || ''
-  );
-  
-  // ৩. মডেল স্টেট
+  const [activeCategoryId, setActiveCategoryId] = useState<string>(typedBarberData.categories?.[0]?.id || '');
   const [activeModelId, setActiveModelId] = useState<string>('');
   
-  // ৪. লাইটবক্স ইমেজ স্টেট
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
-  // 🪒 ৫. বারবারের জন্য স্পেশাল পপ-আপ স্টেট (Mostrar al Barbero)
-  const [barberInstructionItem, setBarberInstructionItem] = useState<StyleItem | null>(null);
+  // 👑 ফুল-স্ক্রিন মোডাল স্টেট
+  const [selectedStyle, setSelectedStyle] = useState<StyleItem | null>(null);
 
   const languages = [
     { code: 'es', flag: '🇪🇸', name: 'Español' },
@@ -85,11 +69,6 @@ export default function BarberCatalog() {
     { code: 'it', flag: '🇮🇹', name: 'Italiano' },
     { code: 'de', flag: '🇩🇪', name: 'Deutsch' },
   ];
-
-  const handleLangSelect = (langCode: Lang) => {
-    setCurrentLang(langCode);
-    setIsLangSelected(true);
-  };
 
   useEffect(() => {
     setMounted(true);
@@ -107,97 +86,115 @@ export default function BarberCatalog() {
 
   const activeModel = activeCategory?.models.find(mod => mod.id === activeModelId);
 
+  const closeDetailsModal = () => {
+    setSelectedStyle(null);
+  };
+
   if (!mounted) {
-    return <div className="min-h-screen bg-neutral-950 text-neutral-100 font-sans" />;
+    return <div className="min-h-screen bg-black text-zinc-100 font-sans" />;
   }
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 font-sans antialiased selection:bg-amber-500 selection:text-black pb-24">
+    <div className="min-h-screen bg-black text-zinc-100 font-sans antialiased pb-12">
       
+      {/* ✨ কালার চেঞ্জিং অ্যানিমেশনের জন্য ইনলাইন গ্লোবাল CSS (Tailwind ফ্রেমওয়ার্ক ফ্রেন্ডলি) */}
+      <style jsx global>{`
+        @keyframes rgbFlow {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .animate-rgb {
+          background: linear-gradient(to right, #ff3333, #33ff33, #ffff33, #33ffff, #ff33ff, #ff3333);
+          background-size: 300% auto;
+          animation: rgbFlow 6s linear infinite;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+      `}</style>
+
       {/* 🛑 ল্যাঙ্গুয়েজ সিলেকশন মোডাল */}
       {!isLangSelected && (
-        <div className="fixed inset-0 z-50 bg-neutral-950/80 backdrop-blur-xl flex items-center justify-center p-4">
-          <div className="w-full max-w-sm bg-neutral-900/90 border border-neutral-800/80 rounded-3xl p-6 text-center shadow-2xl space-y-6 animate-in fade-in zoom-in-95 duration-300">
-            <div className="space-y-2">
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/10 text-amber-500 text-2xl border border-amber-500/20 shadow-inner">
+        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 transition-opacity duration-300">
+          <div className="w-full max-w-xs bg-zinc-900 border border-zinc-800 rounded-2xl p-5 text-center shadow-2xl space-y-5">
+            <div className="space-y-1">
+              <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-zinc-800 text-zinc-300 text-lg border border-zinc-700/60 mb-2">
                 ✂️
               </div>
-              <h2 className="text-xl font-black tracking-wider uppercase bg-gradient-to-r from-amber-400 via-amber-200 to-amber-500 bg-clip-text text-transparent">
-                Al-Rajjak Barber
+              <h2 className="text-xl font-black tracking-tight uppercase animate-rgb">
+                 Barna Barbería
               </h2>
-              <p className="text-xs text-neutral-400">
-                Selecciona tu idioma / Select your language
+              <p className="text-[11px] text-zinc-400">
+                Selecciona tu idioma / Select language
               </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-2">
+            <div className="grid grid-cols-1 gap-1.5">
               {languages.map((lang) => (
                 <button
                   key={lang.code}
                   type="button"
-                  onClick={() => handleLangSelect(lang.code as Lang)}
-                  className="flex items-center justify-between px-5 py-3.5 bg-neutral-950/50 hover:bg-neutral-800/70 border border-neutral-800 hover:border-amber-500/40 rounded-2xl transition-all duration-300 text-left group"
+                  onClick={() => {
+                    setCurrentLang(lang.code as Lang);
+                    setIsLangSelected(true);
+                  }}
+                  className="flex items-center justify-between px-4 py-3 bg-zinc-950 hover:bg-zinc-800 border border-zinc-850 rounded-xl transition-all active:scale-98 text-left"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-xl group-hover:scale-110 transition-transform duration-300">{lang.flag}</span>
-                    <span className="text-xs font-bold text-neutral-200 group-hover:text-amber-400 transition-colors">
+                    <span className="text-lg">{lang.flag}</span>
+                    <span className="text-xs font-medium text-zinc-200">
                       {lang.name}
                     </span>
                   </div>
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-500 group-hover:text-amber-500/60">
-                    [{lang.code}]
+                  <span className="text-[10px] font-mono text-zinc-500">
+                    [{lang.code.toUpperCase()}]
                   </span>
                 </button>
               ))}
             </div>
-            
-            <p className="text-[10px] text-neutral-600 font-bold uppercase tracking-widest pt-2">
-              Premium Grooming Experience
-            </p>
           </div>
         </div>
       )}
 
-      {/* 👑 ফিক্সড হেডার সেকশন */}
-      <header className="sticky top-0 z-40 backdrop-blur-md bg-neutral-950/90 border-b border-neutral-900/80 px-4 py-4 max-w-md mx-auto w-full space-y-4">
-        <div className="flex flex-col gap-3">
+      {/* 👑 মোবাইল অপ্টিমাইজড ফিক্সড হেডার */}
+      <header className="sticky top-0 z-40 bg-black/95 border-b border-zinc-900 px-4 py-3 max-w-md mx-auto w-full space-y-3">
+        <div className="flex flex-col gap-2.5">
           
-          {/* 🌐 ল্যাঙ্গুয়েজ কুইক সুইচার বার */}
-          <div className="flex items-center justify-between bg-neutral-900/50 p-1.5 rounded-xl border border-neutral-900/60">
-            <span className="text-[9px] uppercase tracking-widest text-neutral-500 font-black px-1.5">
-              LANG
+          {/* 🌐 ল্যাঙ্গুয়েজ বার */}
+          <div className="flex items-center justify-between bg-zinc-900/60 p-1 rounded-xl">
+            <span className="text-[9px] tracking-wider text-zinc-500 font-bold px-1">
+              LANGUAGE
             </span>
-            <div className="flex gap-0.5 bg-neutral-950 p-0.5 rounded-lg border border-neutral-800/60">
+            <div className="flex gap-0.5 bg-zinc-950 p-0.5 rounded-lg border border-zinc-850">
               {languages.map((lang) => (
                 <button
                   key={lang.code}
                   type="button"
                   onClick={() => setCurrentLang(lang.code as Lang)}
-                  className={`px-2 py-1 rounded-md text-[10px] font-black transition-all duration-300 flex items-center gap-1 ${
+                  className={`px-2 py-1 rounded-md text-[10px] font-bold transition-all ${
                     currentLang === lang.code
-                      ? 'bg-amber-500 text-neutral-950 shadow-md shadow-amber-500/20'
-                      : 'text-neutral-400 hover:text-neutral-200'
+                      ? 'bg-zinc-100 text-black font-black shadow-sm'
+                      : 'text-zinc-400'
                   }`}
                 >
                   <span>{lang.flag}</span>
-                  <span>{lang.code.toUpperCase()}</span>
                 </button>
               ))}
             </div>
           </div>
 
-          {/* 👑 ব্র্যান্ড টাইটেল ও সাবটাইটেল */}
+          {/* ব্র্যান্ড টাইটেল */}
           <div className="space-y-0.5">
-            <h1 className="text-2xl font-black tracking-tight uppercase bg-gradient-to-r from-amber-400 via-amber-200 to-amber-500 bg-clip-text text-transparent">
-              Al-Rajjak Barber
+            <h1 className="text-2xl font-black tracking-tight uppercase animate-rgb">
+               Barna Barbería
             </h1>
-            <p className="text-[11px] text-neutral-400 font-medium tracking-wide">
+            <p className="text-[10px] text-zinc-400 font-medium">
               {translations[currentLang].subtitle}
             </p>
           </div>
 
-          {/* ✂️ মেইন ক্যাটাগরি ফিল্টার বাটন */}
-          <div className="flex flex-wrap gap-2 pt-1">
+          {/* ✂️ ক্যাটাগরি ফিল্টার */}
+          <div className="flex flex-wrap gap-1.5 pt-0.5">
             {typedBarberData.categories.map((category) => {
               const isActive = activeCategoryId === category.id;
               return (
@@ -205,26 +202,26 @@ export default function BarberCatalog() {
                   key={category.id}
                   type="button"
                   onClick={() => setActiveCategoryId(category.id)}
-                  className={`flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold transition-all duration-300 border ${
+                  className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-[11px] font-bold transition-all active:scale-95 border ${
                     isActive
-                      ? 'bg-amber-500 text-neutral-950 border-amber-400 shadow-md shadow-amber-500/10 font-black'
-                      : 'bg-neutral-900/80 text-neutral-400 border-neutral-800 hover:border-neutral-700 hover:text-neutral-200'
+                      ? 'bg-zinc-100 text-black border-white font-extrabold'
+                      : 'bg-zinc-900 text-zinc-400 border-zinc-800'
                   }`}
                 >
-                  <span className="text-sm">{category.emoji}</span>
+                  <span>{category.emoji}</span>
                   <span>{category.name[currentLang] || category.name['en']}</span>
                 </button>
               );
             })}
           </div>
 
-          {/* ⚡ সাব-মডেল ফিল্টার কালেকশন বাটন */}
+          {/* ⚡ সাব-মডেল কালেকশন */}
           {activeCategory && activeCategory.models.length > 0 && (
-            <div className="flex flex-col gap-1.5 pt-2.5 border-t border-neutral-900/80">
-              <span className="text-[9px] uppercase tracking-widest text-neutral-500 font-black px-1">
+            <div className="flex flex-col gap-1 pt-2 border-t border-zinc-900">
+              <span className="text-[9px] tracking-wider text-zinc-500 font-bold px-0.5">
                 {translations[currentLang].selectModel}
               </span>
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap gap-1">
                 {activeCategory.models.map((model) => {
                   const isActive = activeModelId === model.id;
                   return (
@@ -232,10 +229,10 @@ export default function BarberCatalog() {
                       key={model.id}
                       type="button"
                       onClick={() => setActiveModelId(model.id)}
-                      className={`px-3 py-1.5 rounded-xl text-[11px] font-bold transition-all duration-300 border ${
+                      className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all border ${
                         isActive
-                          ? 'bg-neutral-100 text-neutral-950 border-white shadow-md font-black'
-                          : 'bg-neutral-900/60 text-neutral-400 border-neutral-800/80 hover:border-neutral-700'
+                          ? 'bg-zinc-800 text-white border-zinc-700'
+                          : 'bg-zinc-900/40 text-zinc-400 border-zinc-850'
                       }`}
                     >
                       {model.name[currentLang] || model.name['en']}
@@ -248,116 +245,131 @@ export default function BarberCatalog() {
         </div>
       </header>
 
-      {/* 📦 মেইন ক্যাটালগ বডি */}
-      <main className="max-w-md mx-auto px-4 py-4">
+      {/* 📦 মেইন ক্যাটালগ গ্রিড */}
+      <main className="max-w-md mx-auto px-3 py-3">
         {activeModel ? (
-          <div className="space-y-4">
+          <div className="space-y-3">
             
-            {/* কালেকশন ইন্ডিকেটর ট্যাগ */}
-            <div className="inline-flex items-center gap-2 border-l-2 border-amber-500 pl-2.5 py-0.5">
-              <span className="text-[10px] font-black tracking-widest text-amber-500 uppercase">
+            <div className="inline-flex items-center gap-2 border-l-2 border-zinc-500 pl-2 py-0.5">
+              <span className="text-[9px] font-bold tracking-widest text-zinc-400 uppercase">
                 {activeModel.name[currentLang] || activeModel.name['en']}
               </span>
             </div>
 
-            {/* ২-কলাম লাক্সারি গ্রিড লেআউট */}
-            <div className="grid grid-cols-2 gap-3.5">
+            {/* ২-কলাম রেসপন্সিভ মোবাইল গ্রিড */}
+            <div className="grid grid-cols-2 gap-2.5">
               {activeModel.styles.map((style, idx) => (
                 <div
                   key={idx}
-                  className="group relative flex flex-col bg-gradient-to-b from-neutral-900 to-neutral-900/40 rounded-2xl overflow-hidden border border-neutral-800/70 hover:border-neutral-700/90 transition-all duration-300 shadow-xl justify-between hover:-translate-y-0.5"
+                  onClick={() => setSelectedStyle(style)}
+                  className="group relative flex flex-col bg-zinc-900 rounded-xl overflow-hidden border border-zinc-850 shadow-md justify-between active:scale-98 transition-transform cursor-pointer"
                 >
-                  {/* 📷 হেয়ারস্টাইল ইমেজ স্লট */}
-                  <div
-                    onClick={() => setSelectedImage(style.img)}
-                    className="relative w-full aspect-square bg-neutral-950 overflow-hidden cursor-zoom-in"
-                  >
+                  {/* 📷 ইমেজ স্লট */}
+                  <div className="relative w-full aspect-square bg-zinc-950 overflow-hidden">
                     <Image
                       src={style.img}
                       alt={style.name[currentLang] || style.name['en']}
                       fill
                       sizes="(max-width: 450px) 50vw, 33vw"
-                      className="object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-95 ease-out"
+                      className="object-cover object-center opacity-90"
                       priority={idx < 4}
                     />
                     
-                    {/* লাক্সারি প্রাইস ট্যাগ */}
-                    <div className="absolute bottom-2.5 left-2.5 bg-neutral-950/80 backdrop-blur-md px-2 py-1 rounded-lg border border-neutral-800/80 shadow-md">
-                      <span className="text-amber-400 font-black text-xs tracking-wider">
+                    {/* মিনিমালিস্ট প্রাইস ট্যাগ */}
+                    <div className="absolute bottom-2 left-2 bg-black/80 backdrop-blur-sm px-2 py-0.5 rounded-md border border-zinc-800">
+                      <span className="text-zinc-200 font-extrabold text-[11px]">
                         {style.price}
                       </span>
                     </div>
                   </div>
 
-                  {/* 📝 টেক্সট ডেসক্রিপশন এবং ইন্টারেকশন */}
-                  <div className="p-3 flex flex-col gap-2.5 flex-grow justify-between bg-neutral-900/20">
-                    <div className="space-y-1">
-                      <h3 className="font-bold text-xs tracking-wide text-neutral-100 group-hover:text-amber-400 transition-colors duration-300 line-clamp-1">
-                        {style.name[currentLang] || style.name['en']}
-                      </h3>
-                      <p className="text-[10px] text-neutral-400 leading-normal font-medium line-clamp-2 min-h-[30px]">
-                        {style.desc[currentLang] || style.desc['en']}
-                      </p>
-                    </div>
-
-                    {/* 🪒 'Mostrar al Barbero' বাটন (হোয়াটসঅ্যাপ রিমুভ করে স্পেশাল স্ক্রিন লজিক) */}
-                    <button
-                      type="button"
-                      onClick={() => setBarberInstructionItem(style)}
-                      className="w-full bg-neutral-950/80 hover:bg-amber-500 border border-neutral-800 hover:border-amber-400 text-center py-2 rounded-xl text-[10px] font-black text-neutral-300 hover:text-neutral-950 transition-all duration-300 flex items-center justify-center gap-1.5 shadow-inner pointer-events-auto"
-                    >
-                      ✂️ {translations[currentLang].showBarber}
-                    </button>
+                  {/* 📝 টেক্সট */}
+                  <div className="p-2 flex flex-col justify-between bg-zinc-900/50">
+                    <h3 className="font-bold text-[11px] tracking-wide text-zinc-200 line-clamp-1">
+                      {style.name[currentLang] || style.name['en']}
+                    </h3>
+                    <p className="text-[9px] text-zinc-400 line-clamp-2 mt-0.5 min-h-[26px] leading-tight">
+                      {style.desc[currentLang] || style.desc['en']}
+                    </p>
                   </div>
-
                 </div>
               ))}
             </div>
           </div>
         ) : (
-          <div className="text-center py-16 text-neutral-500 text-xs tracking-wider uppercase font-bold">
+          <div className="text-center py-12 text-zinc-600 text-xs font-bold uppercase">
             {translations[currentLang].noStyles}
           </div>
         )}
       </main>
 
-      {/* 📱 🪒 বারবারের জন্য ফুল-স্ক্রিন ল্যাঙ্গুয়েজ ফ্রি ইন্টারফেস (Mostrar al Barbero) */}
-      {barberInstructionItem && (
-        <div className="fixed inset-0 z-50 bg-black/95 flex flex-col items-center justify-center p-6 text-center animate-in fade-in duration-200">
-          <div className="w-full max-w-sm space-y-8">
-            <span className="text-xs font-black tracking-widest text-amber-500 border border-amber-500/30 px-3 py-1 rounded-full bg-amber-500/5">
-              {translations[currentLang].selectedStyle}
-            </span>
-
-            {/* হেয়ারস্টাইল বড় ইমেজ (কথা না বলে নিশ্চিত করার জন্য) */}
-            <div className="relative w-48 h-48 mx-auto rounded-3xl overflow-hidden border-2 border-amber-500 shadow-2xl shadow-amber-500/10">
-              <Image
-                src={barberInstructionItem.img}
-                alt="Barber view"
-                fill
-                className="object-cover"
-              />
-            </div>
-
-            {/* বারবার দেশের রিয়েল টেক্সট (স্পেনে স্প্যানিশ / জার্মানি হলে জার্মান অটোমেটিক যাবে) */}
-            <div className="space-y-3 bg-neutral-900/60 p-6 rounded-3xl border border-neutral-800/80">
-              <h2 className="text-2xl font-black text-white tracking-wide">
-                {/* স্পেনে থাকলে বারবারের জন্য 'es' টাইটেলটাই মেইনলি শো করবে */}
-                {barberInstructionItem.name['es']}
-              </h2>
-              <div className="inline-block bg-amber-500 text-neutral-950 font-black text-xl px-4 py-1.5 rounded-2xl shadow-lg">
-                {barberInstructionItem.price}
-              </div>
-              <p className="text-sm text-neutral-400 leading-relaxed font-medium pt-2 border-t border-neutral-800/60">
-                {/* বারবারের চেনার জন্য স্প্যানিশ ডেসক্রিপশন */}
-                {barberInstructionItem.desc['es']}
+      {/* 🌟 👑 মোবাইল ফুল-স্ক্রিন লাক্সারি মোডাল */}
+      {selectedStyle && (
+        <div className="fixed inset-0 z-50 bg-black flex flex-col items-center justify-between p-3 transition-all duration-200 overflow-y-auto">
+          
+          {/* 💈 নতুন বড়, সেন্টারড এবং অ্যানিমেটেড টপ ক্লোজ বার */}
+          <div className="w-full max-w-md grid grid-cols-5 items-center py-3 border-b border-zinc-900">
+            {/* লেফট সাইড ব্যালেন্সার (সেন্টার করার জন্য প্রয়োজনীয়) */}
+            <div className="col-span-1"></div>
+            
+            {/* মাঝখানের বড় এবং কালার চেঞ্জিং টেক্সট */}
+            <div className="col-span-3 text-center flex flex-col space-y-0.5">
+              <h3 className="text-lg font-black tracking-widest uppercase animate-rgb">
+                Barna Barbería
+              </h3>
+              <p className="text-[11px] font-bold tracking-wide animate-rgb">
+                Calle de Mallorca, 245, Barcelona
               </p>
             </div>
 
+            {/* রাইট সাইডের ক্লোজ বাটন */}
+            <div className="col-span-1 flex justify-end">
+              <button
+                type="button"
+                className="w-8 h-8 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-200 flex items-center justify-center text-xs font-bold transition-all active:scale-90"
+                onClick={closeDetailsModal}
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+
+          {/* মিডল সেকশন: ক্লিন ফিক্সড ইমেজ */}
+          <div className="w-full max-w-md flex-grow flex items-center justify-center my-3 overflow-hidden relative rounded-2xl bg-zinc-950 border border-zinc-900">
+            <div className="relative w-full aspect-square max-h-[45vh] overflow-hidden">
+              <Image
+                src={selectedStyle.img}
+                alt={selectedStyle.name[currentLang] || selectedStyle.name['en']}
+                fill
+                draggable={false}
+                className="object-cover select-none"
+              />
+            </div>
+          </div>
+
+          {/* বটম সেকশন: ডায়নামিক ল্যাঙ্গুয়েজ ডিসপ্লে */}
+          <div className="w-full max-w-md bg-zinc-900 p-4 rounded-2xl border border-zinc-800 space-y-4 shadow-xl">
+            <div className="flex justify-between items-start gap-3">
+              <div className="space-y-1 flex-grow">
+                <h2 className="text-lg font-black text-white uppercase tracking-wide">
+                  {selectedStyle.name[currentLang] || selectedStyle.name['en']}
+                </h2>
+                <p className="text-xs text-zinc-400 leading-tight">
+                  {selectedStyle.desc[currentLang] || selectedStyle.desc['en']}
+                </p>
+              </div>
+              
+              {/* মিনিমালিস্ট হোয়াইট প্রাইস BOX */}
+              <div className="bg-zinc-100 text-black font-black text-base px-3 py-1.5 rounded-xl shadow-md text-center min-w-[65px]">
+                {selectedStyle.price}
+              </div>
+            </div>
+
+            {/* ক্লোজ বাটন */}
             <button
               type="button"
-              onClick={() => setBarberInstructionItem(null)}
-              className="px-8 py-3.5 bg-neutral-100 text-neutral-950 rounded-2xl text-xs font-black uppercase tracking-wider hover:bg-amber-500 transition-all active:scale-95 shadow-xl"
+              onClick={closeDetailsModal}
+              className="w-full bg-zinc-800 active:bg-zinc-700 border border-zinc-700 text-zinc-200 text-center py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all active:scale-98 shadow-sm"
             >
               {translations[currentLang].close}
             </button>
@@ -365,44 +377,11 @@ export default function BarberCatalog() {
         </div>
       )}
 
-      {/* 🔮 প্রিমিয়াম লাইটবক্স ইমেজ ভিউ মোডাল */}
-      {selectedImage && (
-        <div
-          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex items-center justify-center p-4 cursor-zoom-out"
-          onClick={() => setSelectedImage(null)}
-        >
-          <div className="relative w-full max-w-md h-[65vh] rounded-2xl overflow-hidden border border-neutral-800/80 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
-            <Image
-              src={selectedImage}
-              alt="Expanded Premium View"
-              fill
-              className="object-contain"
-            />
-            <button
-              type="button"
-              className="absolute top-4 right-4 w-9 h-9 rounded-full bg-neutral-900/80 backdrop-blur-md border border-neutral-800 text-white flex items-center justify-center text-xs font-black transition-transform hover:scale-105 active:scale-95"
-              onClick={() => setSelectedImage(null)}
-            >
-              ✕
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* 💈 মিনিমালিস্ট লাক্সারি ফুটার */}
-      <footer className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-gradient-to-t from-neutral-950 via-neutral-950/90 to-transparent pt-12 pb-5 text-center pointer-events-none">
-        <p className="text-[9px] text-neutral-500 font-black tracking-widest pointer-events-auto uppercase opacity-60">
-          Powered by Premium Experience
-        </p>
+      {/* 💈 ফুটার */}
+      <footer className="w-full text-center py-4 text-[9px] text-zinc-600 font-bold tracking-widest uppercase opacity-40">
+        Premium Grooming Experience
       </footer>
 
     </div>
   );
 }
-
-
-
-
-
-
-
