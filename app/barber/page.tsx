@@ -1,7 +1,7 @@
 //C:\Users\Shanon\al-rajjak-1\app\barber\page.tsx
  
 
- 
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -44,12 +44,54 @@ interface BarberDataStructure {
 
 const typedBarberData = barberData as BarberDataStructure;
 
-const translations: Record<Lang, { subtitle: string; noStyles: string; selectModel: string; close: string; details: string }> = {
-  en: { subtitle: "Elevate your look with premium styling", noStyles: "No styles found.", selectModel: "Choose a Collection", close: "Close", details: "STYLE DETAILS" },
-  es: { subtitle: "Eleva tu estilo con un corte premium", noStyles: "No se encontraron estilos.", selectModel: "Elige una Colección", close: "Cerrar", details: "DETALLES DEL ESTILO" },
-  fr: { subtitle: "Sublimez votre style avec nos coupes premium", noStyles: "Aucun style trouvé.", selectModel: "Choisir une Collection", close: "Fermer", details: "DÉTAILS DU STYLE" },
-  it: { subtitle: "Eleva il tuo look con uno stile premium", noStyles: "Nessuno stile trovato.", selectModel: "Scegli una Collezione", close: "Chiudi", details: "DETTAGLI DELLO STILE" },
-  de: { subtitle: "Veredeln Sie Ihren Look mit Premium-Styling", noStyles: "Keine Stile gefunden.", selectModel: "Kollektion Wählen", close: "Schließen", details: "STIL-DETAILS" },
+const translations: Record<Lang, { 
+  subtitle: string; 
+  noStyles: string; 
+  selectCategory: string; 
+  selectModel: string;    
+  close: string; 
+  details: string 
+}> = {
+  en: { 
+    subtitle: "Elevate your look with premium styling", 
+    noStyles: "No styles found.", 
+    selectCategory: "Choose your style vibe:", 
+    selectModel: "Select your exact haircut:", 
+    close: "Close", 
+    details: "STYLE DETAILS" 
+  },
+  es: { 
+    subtitle: "Eleva tu estilo con un corte premium", 
+    noStyles: "No se encontraron estilos.", 
+    selectCategory: "Elige tu estilo o vibración:", 
+    selectModel: "Selecciona tu corte de pelo exacto:", 
+    close: "Cerrar", 
+    details: "DETALLES DEL ESTILO" 
+  },
+  fr: { 
+    subtitle: "Sublimez votre style avec nos coupes premium", 
+    noStyles: "Aucun style trouvé.", 
+    selectCategory: "Choisissez votre style de coupe:", 
+    selectModel: "Sélectionnez votre coupe exacte:", 
+    close: "Fermer", 
+    details: "DÉTAILS DU STYLE" 
+  },
+  it: { 
+    subtitle: "Eleva il tuo look con uno stile premium", 
+    noStyles: "Nessuno stile trovato.", 
+    selectCategory: "Scegli il tuo stile ideale:", 
+    selectModel: "Seleziona il tuo taglio di capelli esatto:", 
+    close: "Chiudi", 
+    details: "DETTAGLI DELLO STILE" 
+  },
+  de: { 
+    subtitle: "Veredeln Sie Ihren Look mit Premium-Styling", 
+    noStyles: "Keine Stile gefunden.", 
+    selectCategory: "Wählen Sie Ihren Stil-Vibe:", 
+    selectModel: "Wählen Sie Ihren genauen Haarschnitt:", 
+    close: "Schließen", 
+    details: "STIL-DETAILS" 
+  },
 };
 
 export default function BarberCatalog() {
@@ -59,14 +101,13 @@ export default function BarberCatalog() {
   const [activeCategoryId, setActiveCategoryId] = useState<string>(typedBarberData.categories?.[0]?.id || '');
   const [activeModelId, setActiveModelId] = useState<string>('');
   
-  // 👑 ফুল-স্ক্রিন মোডাল স্টেট
   const [selectedStyle, setSelectedStyle] = useState<StyleItem | null>(null);
 
   const languages = [
     { code: 'es', flag: '🇪🇸', name: 'Español' },
     { code: 'en', flag: '🇬🇧', name: 'English' },
     { code: 'fr', flag: '🇫🇷', name: 'Français' },
-    { code: 'it', flag: '🇮🇹', name: 'Italiano' },
+    { code: 'it', flag: '🇮🇹', name: 'Italiano' }, // 💡 ফিক্সড: 'font' পরিবর্তন করে 'flag' করা হয়েছে
     { code: 'de', flag: '🇩🇪', name: 'Deutsch' },
   ];
 
@@ -97,7 +138,6 @@ export default function BarberCatalog() {
   return (
     <div className="min-h-screen bg-black text-zinc-100 font-sans antialiased pb-12">
       
-      {/* ✨ কালার চেঞ্জিং অ্যানিমেশনের জন্য ইনলাইন গ্লোবাল CSS (Tailwind ফ্রেমওয়ার্ক ফ্রেন্ডলি) */}
       <style jsx global>{`
         @keyframes rgbFlow {
           0% { background-position: 0% 50%; }
@@ -156,22 +196,19 @@ export default function BarberCatalog() {
         </div>
       )}
 
-      {/* 👑 মোবাইল অপ্টিমাইজড ফিক্সড হেডার */}
-      <header className="sticky top-0 z-40 bg-black/95 border-b border-zinc-900 px-4 py-3 max-w-md mx-auto w-full space-y-3">
-        <div className="flex flex-col gap-2.5">
+      {/* 👑 মোবাইল অপ্টিমাইজড ফিক্সড হেডার — সর্বোচ্চ উপরে উঠানোর জন্য স্পেসিং জিরো করা হয়েছে */}
+      <header className="sticky top-0 z-40 bg-black/95 border-b border-zinc-900 px-4 pt-1 pb-2 max-w-md mx-auto w-full space-y-1">
+        <div className="flex flex-col gap-1">
           
-          {/* 🌐 ল্যাঙ্গুয়েজ বার */}
-          <div className="flex items-center justify-between bg-zinc-900/60 p-1 rounded-xl">
-            <span className="text-[9px] tracking-wider text-zinc-500 font-bold px-1">
-              LANGUAGE
-            </span>
-            <div className="flex gap-0.5 bg-zinc-950 p-0.5 rounded-lg border border-zinc-850">
+          {/* 🌐 ল্যাঙ্গুয়েজ বার (একদম ডান কোণায় সেট করা হয়েছে কোনো এক্সট্রা মার্জিন ছাড়া) */}
+          <div className="flex justify-end items-center h-5">
+            <div className="flex gap-0.5 bg-zinc-900/80 p-0.5 rounded-lg border border-zinc-850">
               {languages.map((lang) => (
                 <button
                   key={lang.code}
                   type="button"
                   onClick={() => setCurrentLang(lang.code as Lang)}
-                  className={`px-2 py-1 rounded-md text-[10px] font-bold transition-all ${
+                  className={`px-2 py-0.5 rounded-md text-[10px] font-bold transition-all ${
                     currentLang === lang.code
                       ? 'bg-zinc-100 text-black font-black shadow-sm'
                       : 'text-zinc-400'
@@ -184,41 +221,46 @@ export default function BarberCatalog() {
           </div>
 
           {/* ব্র্যান্ড টাইটেল */}
-          <div className="space-y-0.5">
-            <h1 className="text-2xl font-black tracking-tight uppercase animate-rgb">
+          <div className="space-y-0">
+            <h1 className="text-2xl font-black tracking-tight uppercase animate-rgb leading-none mt-0.5">
                Barna Barbería
             </h1>
-            <p className="text-[10px] text-zinc-400 font-medium">
+            <p className="text-[10px] text-zinc-400 font-medium leading-tight mt-0.5">
               {translations[currentLang].subtitle}
             </p>
           </div>
 
-          {/* ✂️ ক্যাটাগরি ফিল্টার */}
-          <div className="flex flex-wrap gap-1.5 pt-0.5">
-            {typedBarberData.categories.map((category) => {
-              const isActive = activeCategoryId === category.id;
-              return (
-                <button
-                  key={category.id}
-                  type="button"
-                  onClick={() => setActiveCategoryId(category.id)}
-                  className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-[11px] font-bold transition-all active:scale-95 border ${
-                    isActive
-                      ? 'bg-zinc-100 text-black border-white font-extrabold'
-                      : 'bg-zinc-900 text-zinc-400 border-zinc-800'
-                  }`}
-                >
-                  <span>{category.emoji}</span>
-                  <span>{category.name[currentLang] || category.name['en']}</span>
-                </button>
-              );
-            })}
+          {/* ✂️ ১. ক্যাটাগরি ফিল্টার */}
+          <div className="flex flex-col gap-1 pt-0.5">
+            <span className="text-[11px] font-black tracking-wider text-zinc-300 uppercase border-l-2 border-zinc-500 pl-2">
+              {translations[currentLang].selectCategory}
+            </span>
+            <div className="flex flex-wrap gap-1.5">
+              {typedBarberData.categories.map((category) => {
+                const isActive = activeCategoryId === category.id;
+                return (
+                  <button
+                    key={category.id}
+                    type="button"
+                    onClick={() => setActiveCategoryId(category.id)}
+                    className={`flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-bold transition-all active:scale-95 border ${
+                      isActive
+                        ? 'bg-zinc-100 text-black border-white font-extrabold'
+                        : 'bg-zinc-900 text-zinc-400 border-zinc-800'
+                    }`}
+                  >
+                    <span>{category.emoji}</span>
+                    <span>{category.name[currentLang] || category.name['en']}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
-          {/* ⚡ সাব-মডেল কালেকশন */}
+          {/* ⚡ ২. সাব-মডেল কালেকশন ফিল্টার */}
           {activeCategory && activeCategory.models.length > 0 && (
-            <div className="flex flex-col gap-1 pt-2 border-t border-zinc-900">
-              <span className="text-[9px] tracking-wider text-zinc-500 font-bold px-0.5">
+            <div className="flex flex-col gap-1 pt-1.5 border-t border-zinc-900">
+              <span className="text-[11px] font-black tracking-wider text-zinc-300 uppercase border-l-2 border-zinc-500 pl-2">
                 {translations[currentLang].selectModel}
               </span>
               <div className="flex flex-wrap gap-1">
@@ -246,7 +288,7 @@ export default function BarberCatalog() {
       </header>
 
       {/* 📦 মেইন ক্যাটালগ গ্রিড */}
-      <main className="max-w-md mx-auto px-3 py-3">
+      <main className="max-w-md mx-auto px-3 py-2">
         {activeModel ? (
           <div className="space-y-3">
             
@@ -264,7 +306,7 @@ export default function BarberCatalog() {
                   onClick={() => setSelectedStyle(style)}
                   className="group relative flex flex-col bg-zinc-900 rounded-xl overflow-hidden border border-zinc-850 shadow-md justify-between active:scale-98 transition-transform cursor-pointer"
                 >
-                  {/* 📷 ইমেজ স্লট */}
+                  {/* 📷 이미지 স্লট */}
                   <div className="relative w-full aspect-square bg-zinc-950 overflow-hidden">
                     <Image
                       src={style.img}
@@ -307,22 +349,18 @@ export default function BarberCatalog() {
       {selectedStyle && (
         <div className="fixed inset-0 z-50 bg-black flex flex-col items-center justify-between p-3 transition-all duration-200 overflow-y-auto">
           
-          {/* 💈 নতুন বড়, সেন্টারড এবং অ্যানিমেটেড টপ ক্লোজ বার */}
           <div className="w-full max-w-md grid grid-cols-5 items-center py-3 border-b border-zinc-900">
-            {/* লেফট সাইড ব্যালেন্সার (সেন্টার করার জন্য প্রয়োজনীয়) */}
             <div className="col-span-1"></div>
             
-            {/* মাঝখানের বড় এবং কালার চেঞ্জিং টেক্সট */}
             <div className="col-span-3 text-center flex flex-col space-y-0.5">
               <h3 className="text-lg font-black tracking-widest uppercase animate-rgb">
-                Barna Barbería
+                 Barna Barbería
               </h3>
               <p className="text-[11px] font-bold tracking-wide animate-rgb">
                 Calle de Mallorca, 245, Barcelona
               </p>
             </div>
 
-            {/* রাইট সাইডের ক্লোজ বাটন */}
             <div className="col-span-1 flex justify-end">
               <button
                 type="button"
@@ -334,7 +372,6 @@ export default function BarberCatalog() {
             </div>
           </div>
 
-          {/* মিডল সেকশন: ক্লিন ফিক্সড ইমেজ */}
           <div className="w-full max-w-md flex-grow flex items-center justify-center my-3 overflow-hidden relative rounded-2xl bg-zinc-950 border border-zinc-900">
             <div className="relative w-full aspect-square max-h-[45vh] overflow-hidden">
               <Image
@@ -347,7 +384,6 @@ export default function BarberCatalog() {
             </div>
           </div>
 
-          {/* বটম সেকশন: ডায়নামিক ল্যাঙ্গুয়েজ ডিসপ্লে */}
           <div className="w-full max-w-md bg-zinc-900 p-4 rounded-2xl border border-zinc-800 space-y-4 shadow-xl">
             <div className="flex justify-between items-start gap-3">
               <div className="space-y-1 flex-grow">
@@ -359,13 +395,11 @@ export default function BarberCatalog() {
                 </p>
               </div>
               
-              {/* মিনিমালিস্ট হোয়াইট প্রাইস BOX */}
               <div className="bg-zinc-100 text-black font-black text-base px-3 py-1.5 rounded-xl shadow-md text-center min-w-[65px]">
                 {selectedStyle.price}
               </div>
             </div>
 
-            {/* ক্লোজ বাটন */}
             <button
               type="button"
               onClick={closeDetailsModal}
@@ -377,7 +411,6 @@ export default function BarberCatalog() {
         </div>
       )}
 
-      {/* 💈 ফুটার */}
       <footer className="w-full text-center py-4 text-[9px] text-zinc-600 font-bold tracking-widest uppercase opacity-40">
         Premium Grooming Experience
       </footer>
