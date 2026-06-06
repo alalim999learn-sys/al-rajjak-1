@@ -6,7 +6,7 @@ import { FaEnvelope, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
 
 export default function GreenyPortfolio() {
   return (
-    // মোবাইলে py-0 দিয়ে ওপরের গ্যাপ সরানো হয়েছে, ডেস্কটপে py-12 থাকছে
+    // মোবাইলে py-0 দিয়ে ওপরের গ্যাপ সরানো হয়েছে, ডেস্কটপে py-12 থাকছে
     <main className="min-h-screen bg-emerald-50/50 py-0 md:py-12 px-0 md:px-6">
       {/* মোবাইলে space-y-0, ডেস্কটপে space-y-8 */}
       <div className="max-w-4xl mx-auto space-y-0 md:space-y-8">
@@ -63,7 +63,7 @@ export default function GreenyPortfolio() {
                 {[
                   { title: "VIP Hospitality Assistant", company: "Mutua Madrid Open", date: "Apr 2026 - May 2026" },
                   { title: "Junior Marketing Digital", company: "PuntoQPack", date: "Aug 2025 - Feb 2026" },
-                  { title: "Becario Marketing (Internship)", company: "Móstoles, Spain", date: "Mar 2025 - Aug 2025" }
+                  { title: "Becario Marketing (Internship)", company: "Dublin, Ireland", date: "Mar 2025 - Aug 2025" }
                 ].map((job, i) => (
                   <div key={i} className="border-l-2 border-emerald-200 pl-4">
                     <h3 className="font-bold text-slate-900">{job.title}</h3>
@@ -93,7 +93,6 @@ export default function GreenyPortfolio() {
       </div>
     </main>
   );
-
-
-  
 }
+
+
