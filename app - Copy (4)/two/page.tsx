@@ -3,22 +3,22 @@
 
 
 import { FaEnvelope, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
-
 export default function GreenyPortfolio() {
   return (
-    // মোবাইলে py-0 দিয়ে ওপরের গ্যাপ সরানো হয়েছে, ডেস্কটপে py-12 থাকছে
-    <main className="min-h-screen bg-emerald-50/50 py-0 md:py-12 px-0 md:px-6">
-      {/* মোবাইলে space-y-0, ডেস্কটপে space-y-8 */}
-      <div className="max-w-4xl mx-auto space-y-0 md:space-y-8">
+    <main className="min-h-screen bg-emerald-50/50 py-12 px-0 md:px-6">
+      <div className="max-w-4xl mx-auto space-y-8">
         
         {/* Header Section */}
-        <div className="bg-white p-8 rounded-none md:rounded-[2rem] border-b md:border border-emerald-100 shadow-sm flex flex-col-reverse md:flex-row items-center justify-between gap-8 w-full">
+        <div className="bg-white p-8 rounded-none md:rounded-[2rem] border border-emerald-100 shadow-sm flex flex-col-reverse md:flex-row items-center justify-between gap-8 w-full">
+          {/* Text on Left */}
           <div className="text-center md:text-left w-full">
+            {/* Added whitespace-nowrap to keep name on one line */}
             <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 whitespace-nowrap">Alex Rivera</h1>
             <p className="text-emerald-700 font-bold mt-1 uppercase tracking-widest text-xs md:text-sm">
               Digital Marketing & Business Analytics
             </p>
             
+            {/* Contact Buttons: flex-nowrap keeps them in one row, gap-2 saves space */}
             <div className="mt-6 flex flex-nowrap justify-center md:justify-start gap-2">
               <a href="mailto:alex.marketing@example.com" className="flex items-center gap-1.5 px-3 md:px-5 py-2 bg-emerald-600 text-white rounded-full text-[10px] md:text-sm font-medium hover:bg-emerald-700 transition whitespace-nowrap">
                 <FaEnvelope className="text-white shrink-0" /> Email
@@ -32,6 +32,7 @@ export default function GreenyPortfolio() {
             </div>
           </div>
 
+          {/* Image on Right */}
           <img 
             src="/HUUUU/pexels-denigrafias-8655333.jpg" 
             alt="Alex Rivera" 
@@ -42,11 +43,11 @@ export default function GreenyPortfolio() {
         {/* Two Column Layout */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-8">
           <div className="space-y-0 md:space-y-8">
-            <section className="bg-white p-6 border-b md:border md:rounded-3xl border-emerald-100 shadow-sm w-full">
+            <section className="bg-white p-6 rounded-none md:rounded-3xl border border-emerald-100 shadow-sm w-full">
               <h2 className="text-lg font-bold text-slate-900 mb-4">About Me</h2>
               <p className="text-slate-600 text-sm leading-relaxed">Passionate digital marketing professional with a strong background in analytics, SEO, and business communication.</p>
             </section>
-            <section className="bg-white p-6 border-b md:border md:rounded-3xl border-emerald-100 shadow-sm w-full">
+            <section className="bg-white p-6 rounded-none md:rounded-3xl border border-emerald-100 shadow-sm w-full">
               <h2 className="text-lg font-bold text-slate-900 mb-4">Skills</h2>
               <div className="flex flex-wrap gap-2">
                 {['SEO & SEM', 'Business Analytics', 'E-commerce', 'Power BI', 'Content'].map((s) => (
@@ -57,7 +58,7 @@ export default function GreenyPortfolio() {
           </div>
 
           <div className="md:col-span-2 space-y-0 md:space-y-8">
-            <section className="bg-white p-8 border-b md:border md:rounded-3xl border-emerald-100 shadow-sm w-full">
+            <section className="bg-white p-8 rounded-none md:rounded-3xl border border-emerald-100 shadow-sm w-full">
               <h2 className="text-xl font-bold text-slate-900 mb-6">Professional Experience</h2>
               <div className="space-y-6">
                 {[
@@ -73,7 +74,7 @@ export default function GreenyPortfolio() {
                 ))}
               </div>
             </section>
-            <section className="bg-white p-8 border-b md:border md:rounded-3xl border-emerald-100 shadow-sm w-full">
+            <section className="bg-white p-8 rounded-none md:rounded-3xl border border-emerald-100 shadow-sm w-full">
               <h2 className="text-xl font-bold text-slate-900 mb-4">Education & Certifications</h2>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="text-sm">
@@ -93,7 +94,4 @@ export default function GreenyPortfolio() {
       </div>
     </main>
   );
-
-
-  
 }

@@ -28,17 +28,18 @@ export default function MarketingPortfolio() {
           </div>
 
           {/* Contact Section */}
-          <div className="mt-8 flex flex-nowrap justify-center gap-1.5 md:gap-4 px-2">
-            <a href="mailto:alex.marketing@example.com" className="flex items-center gap-1 bg-slate-100 text-slate-700 px-2 py-2 rounded-lg hover:bg-red-50 hover:text-red-600 transition text-[9px] md:text-sm font-medium whitespace-nowrap">
-              <FaEnvelope className="text-red-500 shrink-0" /> Email
-            </a>
-            <a href="https://linkedin.com/in/yourprofile" target="_blank" className="flex items-center gap-1 bg-slate-100 text-slate-700 px-2 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition text-[9px] md:text-sm font-medium whitespace-nowrap">
-              <FaLinkedin className="text-blue-600 shrink-0" /> LinkedIn
-            </a>
-            <a href="https://wa.me/1234567890" target="_blank" className="flex items-center gap-1 bg-slate-100 text-slate-700 px-2 py-2 rounded-lg hover:bg-green-50 hover:text-green-700 transition text-[9px] md:text-sm font-medium whitespace-nowrap">
-              <FaWhatsapp className="text-green-500 shrink-0" /> WhatsApp
-            </a>
-          </div>
+    {/* Contact Section - Fixed for 1 row on mobile */}
+<div className="mt-8 flex flex-nowrap justify-center gap-1.5 md:gap-4 px-2">
+  <a href="mailto:alex.marketing@example.com" className="flex items-center gap-1 bg-slate-100 text-slate-700 px-2 py-2 rounded-lg hover:bg-red-50 hover:text-red-600 transition text-[9px] md:text-sm font-medium whitespace-nowrap">
+    <FaEnvelope className="text-red-500 shrink-0" /> Email
+  </a>
+  <a href="https://linkedin.com/in/yourprofile" target="_blank" className="flex items-center gap-1 bg-slate-100 text-slate-700 px-2 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition text-[9px] md:text-sm font-medium whitespace-nowrap">
+    <FaLinkedin className="text-blue-600 shrink-0" /> LinkedIn
+  </a>
+  <a href="https://wa.me/1234567890" target="_blank" className="flex items-center gap-1 bg-slate-100 text-slate-700 px-2 py-2 rounded-lg hover:bg-green-50 hover:text-green-700 transition text-[9px] md:text-sm font-medium whitespace-nowrap">
+    <FaWhatsapp className="text-green-500 shrink-0" /> WhatsApp
+  </a>
+</div>
           
 
           {/* About Me Section */}
@@ -83,7 +84,7 @@ export default function MarketingPortfolio() {
           <div className="mt-10">
             <h2 className="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Achievements</h2>
             <ul className="list-disc list-inside text-slate-600 text-sm space-y-2">
-              <li>🏅 Awarded “Best Marketing Intern” at Dublin Tech Solutions</li>
+              <li>🏅 Awarded “Best Marketing Intern” at PuntoQPack</li>
               <li>📈 Increased online sales by 30% during internship</li>
               <li>🌍 Organized international marketing workshop for students</li>
             </ul>
@@ -95,16 +96,16 @@ export default function MarketingPortfolio() {
             <div className="space-y-6">
               <div>
                 <h3 className="font-bold text-slate-900">VIP Hospitality Assistant</h3>
-                <p className="text-sm text-slate-500">Dublin Horse Show | Apr 2026 - May 2026</p>
+                <p className="text-sm text-slate-500">Mutua Madrid Open | Apr 2026 - May 2026</p>
               </div>
               <div>
-                <h3 className="font-bold text-slate-900">Junior Marketing Digital (Cork Retail Group)</h3>
+                <h3 className="font-bold text-slate-900">Junior Marketing Digital (PuntoQPack)</h3>
                 <p className="text-sm text-slate-500">Aug 2025 - Feb 2026 | Hybrid</p>
                 <p className="text-sm text-slate-600 mt-1">SEO, E-commerce, & Business Communication</p>
               </div>
               <div>
-                <h3 className="font-bold text-slate-900">Marketing Intern</h3>
-                <p className="text-sm text-slate-500">Mar 2025 - Aug 2025 | Galway, Ireland</p>
+                <h3 className="font-bold text-slate-900">Becario Marketing (Internship)</h3>
+                <p className="text-sm text-slate-500">Mar 2025 - Aug 2025 | Móstoles, Spain</p>
               </div>
             </div>
           </div>
@@ -114,15 +115,15 @@ export default function MarketingPortfolio() {
             <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
               <h2 className="text-lg font-bold text-indigo-900 mb-3">🎓 Education</h2>
               <ul className="text-slate-600 space-y-2 text-sm">
-                <li><strong>Master in Business Analytics</strong><br/>University College Dublin (2026-2027)</li>
-                <li><strong>B.B.A. + Marketing</strong><br/>University College Cork (2020-2025)</li>
+                <li><strong>Master in Business Analytics</strong><br/>Universidad CEU San Pablo (2026-2027)</li>
+                <li><strong>B.B.A. + Marketing</strong><br/>Universidad Rey Juan Carlos (2020-2025)</li>
               </ul>
             </div>
 
             <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
               <h2 className="text-lg font-bold text-indigo-900 mb-3">🏆 Certifications</h2>
               <ul className="text-slate-600 space-y-2 text-sm">
-                <li>• Excel Certification - Advanced (AIB Bank)</li>
+                <li>• Excel Certification - Advanced (Santander)</li>
                 <li>• Google Digital Garage</li>
                 <li>• HubSpot Content Marketing Pro</li>
               </ul>
@@ -133,6 +134,3 @@ export default function MarketingPortfolio() {
     </main>
   );
 }
-
-
-

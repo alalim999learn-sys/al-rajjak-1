@@ -16,7 +16,7 @@ export default function DarkPortfolio() {
             <h1 className="text-4xl font-extrabold text-white whitespace-nowrap">Alex Rivera</h1>
             <p className="text-indigo-400 font-bold mt-1 uppercase tracking-widest text-sm">Digital Marketing & Business Analytics</p>
             
-            {/* Contact Buttons */}
+            {/* Contact Buttons: flex-nowrap to keep them in one row */}
             <div className="mt-6 flex flex-nowrap justify-center md:justify-start gap-1.5 md:gap-3">
               <a href="mailto:alex.marketing@example.com" className="flex items-center gap-1.5 px-3 md:px-5 py-2 bg-indigo-600 text-white rounded-full text-[10px] md:text-sm font-medium hover:bg-indigo-700 transition whitespace-nowrap">
                 <FaEnvelope className="text-white shrink-0" /> Email
@@ -61,8 +61,8 @@ export default function DarkPortfolio() {
             <h2 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-6">Experience</h2>
             <div className="space-y-6">
               {[
-                { title: "VIP Hospitality Assistant", company: "Dublin Horse Show", date: "2026" },
-                { title: "Junior Marketing Digital", company: "Cork Retail Group", date: "2025-2026" }
+                { title: "VIP Hospitality Assistant", company: "Mutua Madrid Open", date: "2026" },
+                { title: "Junior Marketing Digital", company: "PuntoQPack", date: "2025-2026" }
               ].map((job, i) => (
                 <div key={i} className="group relative pl-6 border-l border-slate-700 hover:border-indigo-500 transition-colors">
                   <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-slate-700 group-hover:bg-indigo-500"></div>
@@ -75,24 +75,10 @@ export default function DarkPortfolio() {
 
           <div className="mt-12 bg-slate-800 p-6 rounded-2xl border border-slate-700">
             <h2 className="text-white font-bold mb-2">Education</h2>
-            <p className="text-slate-400 text-xs">Master in Business Analytics, University College Dublin</p>
+            <p className="text-slate-400 text-xs">Master in Business Analytics, Universidad CEU San Pablo</p>
           </div>
         </div>
       </div>
     </main>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
