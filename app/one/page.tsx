@@ -4,7 +4,7 @@
 
 import { FaEnvelope, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
 
-export default function MarketingPortfolio() {
+export default function StudentPortfolio() {
   return (
     <main className="min-h-screen bg-slate-50 py-0 md:py-12">
       <div className="min-h-screen md:min-h-0 md:max-w-3xl mx-auto bg-white md:shadow-2xl md:rounded-[2rem] overflow-hidden border-0 md:border border-slate-100">
@@ -15,8 +15,8 @@ export default function MarketingPortfolio() {
           {/* Profile Image */}
           <div className="flex justify-center -mt-20">
             <img 
-              src="/HUUUU/pexels-denigrafias-8655333.jpg" 
-              alt="Marketing Professional" 
+              src="/HUUUU/pexels-kadirxaltintas-25391398.jpg" 
+              alt="Student Profile" 
               className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white shadow-xl object-cover ring-4 ring-amber-400/50"
             />
           </div>
@@ -24,12 +24,12 @@ export default function MarketingPortfolio() {
           {/* Name and Identity */}
           <div className="text-center mt-6">
             <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Alex Rivera</h1>
-            <p className="text-indigo-600 font-bold text-md md:text-lg mt-2 uppercase tracking-widest">Digital Marketing & Business Analytics</p>
+            <p className="text-indigo-600 font-bold text-md md:text-lg mt-2 uppercase tracking-widest">UCC Finance Student | Class of 2028</p>
           </div>
 
           {/* Contact Section */}
           <div className="mt-8 flex flex-nowrap justify-center gap-1.5 md:gap-4 px-2">
-            <a href="mailto:alex.marketing@example.com" className="flex items-center gap-1 bg-slate-100 text-slate-700 px-2 py-2 rounded-lg hover:bg-red-50 hover:text-red-600 transition text-[9px] md:text-sm font-medium whitespace-nowrap">
+            <a href="mailto:alex.student@example.com" className="flex items-center gap-1 bg-slate-100 text-slate-700 px-2 py-2 rounded-lg hover:bg-red-50 hover:text-red-600 transition text-[9px] md:text-sm font-medium whitespace-nowrap">
               <FaEnvelope className="text-red-500 shrink-0" /> Email
             </a>
             <a href="https://linkedin.com/in/yourprofile" target="_blank" className="flex items-center gap-1 bg-slate-100 text-slate-700 px-2 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition text-[9px] md:text-sm font-medium whitespace-nowrap">
@@ -39,72 +39,57 @@ export default function MarketingPortfolio() {
               <FaWhatsapp className="text-green-500 shrink-0" /> WhatsApp
             </a>
           </div>
-          
 
           {/* About Me Section */}
           <div className="mt-10">
             <h2 className="text-xl font-bold text-slate-800 mb-4 border-b pb-2">About Me</h2>
             <p className="text-slate-600 text-sm">
-              Passionate digital marketing professional with a strong background in analytics, SEO, and business communication. 
-              My goal is to help brands grow through data-driven strategies and creative campaigns.
+              Motivated Finance student at University College Cork. Passionate about investment banking, 
+              financial modeling, and market analysis. Dedicated to applying academic knowledge 
+              to real-world financial challenges through society work and internships.
             </p>
           </div>
 
           {/* Skills Section */}
           <div className="mt-10">
-            <h2 className="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Skills</h2>
+            <h2 className="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Technical Skills</h2>
             <ul className="grid sm:grid-cols-2 gap-3 text-slate-600 text-sm">
-              <li>✔ SEO & SEM</li>
-              <li>✔ Business Analytics</li>
-              <li>✔ E-commerce Strategy</li>
-              <li>✔ Communication & Branding</li>
-              <li>✔ Data Visualization (Excel, Power BI)</li>
-              <li>✔ Content Marketing</li>
+              <li>✔ Financial Modeling (DCF, LBO)</li>
+              <li>✔ Data Analysis (Excel, SQL)</li>
+              <li>✔ Market Research & Reporting</li>
+              <li>✔ Business Communication</li>
+              <li>✔ Power BI & Data Visualization</li>
+              <li>✔ Quantitative Methods</li>
             </ul>
           </div>
 
-          {/* Projects Section */}
+          {/* Academic Projects Section */}
           <div className="mt-10">
-            <h2 className="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Projects</h2>
+            <h2 className="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Academic Projects</h2>
             <div className="space-y-4 text-sm text-slate-600">
               <div>
-                <strong>SEO Optimization Project</strong> – Improved organic traffic by 40% for an e-commerce site.
+                <strong>Rotman Market Challenge</strong> – Performed asset valuation and risk assessment using DCF models.
               </div>
               <div>
-                <strong>Marketing Dashboard</strong> – Built a Power BI dashboard to track campaign KPIs.
+                <strong>UCC Consulting Society</strong> – Analyzed firm entry strategies for emerging markets.
               </div>
               <div>
-                <strong>Social Media Campaign</strong> – Managed Instagram ads that boosted engagement by 25%.
+                <strong>Student Managed Fund</strong> – Active contributor to equity research and portfolio analysis.
               </div>
             </div>
           </div>
 
-          {/* Achievements Section */}
+          {/* Experience Section */}
           <div className="mt-10">
-            <h2 className="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Achievements</h2>
-            <ul className="list-disc list-inside text-slate-600 text-sm space-y-2">
-              <li>🏅 Awarded “Best Marketing Intern” at Dublin Tech Solutions</li>
-              <li>📈 Increased online sales by 30% during internship</li>
-              <li>🌍 Organized international marketing workshop for students</li>
-            </ul>
-          </div>
-
-          {/* Professional Experience */}
-          <div className="mt-10">
-            <h2 className="text-xl font-bold text-slate-800 mb-6 border-b pb-2">Professional Experience</h2>
+            <h2 className="text-xl font-bold text-slate-800 mb-6 border-b pb-2">Experience & Involvement</h2>
             <div className="space-y-6">
               <div>
-                <h3 className="font-bold text-slate-900">VIP Hospitality Assistant</h3>
-                <p className="text-sm text-slate-500">Dublin Horse Show | Apr 2026 - May 2026</p>
+                <h3 className="font-bold text-slate-900">Credit Analyst Intern</h3>
+                <p className="text-sm text-slate-500">Student Managed Fund | 2025 - Present</p>
               </div>
               <div>
-                <h3 className="font-bold text-slate-900">Junior Marketing Digital (Cork Retail Group)</h3>
-                <p className="text-sm text-slate-500">Aug 2025 - Feb 2026 | Hybrid</p>
-                <p className="text-sm text-slate-600 mt-1">SEO, E-commerce, & Business Communication</p>
-              </div>
-              <div>
-                <h3 className="font-bold text-slate-900">Marketing Intern</h3>
-                <p className="text-sm text-slate-500">Mar 2025 - Aug 2025 | Galway, Ireland</p>
+                <h3 className="font-bold text-slate-900">Finance Forum Member</h3>
+                <p className="text-sm text-slate-500">University College Cork | 2024 - Present</p>
               </div>
             </div>
           </div>
@@ -114,17 +99,16 @@ export default function MarketingPortfolio() {
             <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
               <h2 className="text-lg font-bold text-indigo-900 mb-3">🎓 Education</h2>
               <ul className="text-slate-600 space-y-2 text-sm">
-                <li><strong>Master in Business Analytics</strong><br/>University College Dublin (2026-2027)</li>
-                <li><strong>B.B.A. + Marketing</strong><br/>University College Cork (2020-2025)</li>
+                <li><strong>BSc Finance</strong><br/>University College Cork (2024-2028)</li>
               </ul>
             </div>
 
             <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
               <h2 className="text-lg font-bold text-indigo-900 mb-3">🏆 Certifications</h2>
               <ul className="text-slate-600 space-y-2 text-sm">
-                <li>• Excel Certification - Advanced (AIB Bank)</li>
-                <li>• Google Digital Garage</li>
-                <li>• HubSpot Content Marketing Pro</li>
+                <li>• Bloomberg Market Concepts (BMC)</li>
+                <li>• Excel for Finance (Advanced)</li>
+                <li>• Google Data Analytics</li>
               </ul>
             </div>
           </div>
@@ -133,6 +117,3 @@ export default function MarketingPortfolio() {
     </main>
   );
 }
-
-
-

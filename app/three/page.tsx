@@ -4,7 +4,7 @@
 
 import { FaEnvelope, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
 
-export default function DarkPortfolio() {
+export default function StudentPortfolio() {
   return (
     <main className="min-h-screen bg-slate-950 py-0 md:py-12">
       <div className="min-h-screen md:min-h-0 md:max-w-4xl mx-auto bg-slate-900 md:shadow-2xl md:rounded-[2rem] overflow-hidden border border-slate-800">
@@ -14,11 +14,11 @@ export default function DarkPortfolio() {
           {/* Text on Left */}
           <div className="text-center md:text-left w-full">
             <h1 className="text-4xl font-extrabold text-white whitespace-nowrap">Alex Rivera</h1>
-            <p className="text-indigo-400 font-bold mt-1 uppercase tracking-widest text-sm">Digital Marketing & Business Analytics</p>
+            <p className="text-indigo-400 font-bold mt-1 uppercase tracking-widest text-sm">Finance Student | UCC Class of 2028</p>
             
             {/* Contact Buttons */}
             <div className="mt-6 flex flex-nowrap justify-center md:justify-start gap-1.5 md:gap-3">
-              <a href="mailto:alex.marketing@example.com" className="flex items-center gap-1.5 px-3 md:px-5 py-2 bg-indigo-600 text-white rounded-full text-[10px] md:text-sm font-medium hover:bg-indigo-700 transition whitespace-nowrap">
+              <a href="mailto:alex.student@example.com" className="flex items-center gap-1.5 px-3 md:px-5 py-2 bg-indigo-600 text-white rounded-full text-[10px] md:text-sm font-medium hover:bg-indigo-700 transition whitespace-nowrap">
                 <FaEnvelope className="text-white shrink-0" /> Email
               </a>
               <a href="#" className="flex items-center gap-1.5 px-3 md:px-5 py-2 bg-slate-700 text-slate-200 rounded-full text-[10px] md:text-sm font-medium hover:bg-slate-800 hover:text-blue-400 transition whitespace-nowrap">
@@ -32,7 +32,7 @@ export default function DarkPortfolio() {
           
           {/* Image on Right */}
           <img 
-            src="/HUUUU/pexels-denigrafias-8655333.jpg" 
+            src="/HUUUU/pexels-kadirxaltintas-25391398.jpg" 
             alt="Alex Rivera" 
             className="w-36 h-36 rounded-full object-cover border-4 border-slate-700 shadow-xl shrink-0"
           />
@@ -44,13 +44,15 @@ export default function DarkPortfolio() {
             <div>
               <h2 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">About</h2>
               <p className="text-slate-400 text-sm leading-relaxed border-l-2 border-indigo-500 pl-4">
-                Passionate professional blending data analytics with creative strategy. Focused on scaling e-commerce brands through rigorous performance marketing.
+                Motivated Finance student at University College Cork. Passionate about asset valuation, 
+                investment banking, and financial analysis. Dedicated to academic excellence and active 
+                participation in the Student Managed Fund.
               </p>
             </div>
             <div>
               <h2 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">Core Skills</h2>
               <div className="flex flex-wrap gap-2">
-                {['SEO', 'Power BI', 'Analytics', 'Content', 'E-commerce'].map((s) => (
+                {['Financial Modeling', 'Data Analysis', 'Excel', 'Market Research', 'Python'].map((s) => (
                   <span key={s} className="bg-indigo-950/50 text-indigo-300 px-3 py-1 rounded text-[10px] font-bold border border-indigo-900/50 uppercase">{s}</span>
                 ))}
               </div>
@@ -58,16 +60,17 @@ export default function DarkPortfolio() {
           </div>
 
           <div className="mt-12">
-            <h2 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-6">Experience</h2>
+            <h2 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-6">Experience & Involvement</h2>
             <div className="space-y-6">
               {[
-                { title: "VIP Hospitality Assistant", company: "Dublin Horse Show", date: "2026" },
-                { title: "Junior Marketing Digital", company: "Cork Retail Group", date: "2025-2026" }
-              ].map((job, i) => (
+                { title: "Equity Research Analyst", company: "Student Managed Fund", date: "2025 - Present" },
+                { title: "Finance Forum Member", company: "University College Cork", date: "2024 - Present" },
+                { title: "Rotman Market Challenge", company: "Participant", date: "March 2026" }
+              ].map((item, i) => (
                 <div key={i} className="group relative pl-6 border-l border-slate-700 hover:border-indigo-500 transition-colors">
                   <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-slate-700 group-hover:bg-indigo-500"></div>
-                  <h3 className="text-white font-bold">{job.title}</h3>
-                  <p className="text-slate-500 text-xs">{job.company} • {job.date}</p>
+                  <h3 className="text-white font-bold">{item.title}</h3>
+                  <p className="text-slate-500 text-xs">{item.company} • {item.date}</p>
                 </div>
               ))}
             </div>
@@ -75,22 +78,13 @@ export default function DarkPortfolio() {
 
           <div className="mt-12 bg-slate-800 p-6 rounded-2xl border border-slate-700">
             <h2 className="text-white font-bold mb-2">Education</h2>
-            <p className="text-slate-400 text-xs">Master in Business Analytics, University College Dublin</p>
+            <p className="text-slate-400 text-xs">BSc Finance, University College Cork (2024-2028)</p>
           </div>
         </div>
       </div>
     </main>
   );
 }
-
-
-
-
-
-
-
-
-
 
 
 
