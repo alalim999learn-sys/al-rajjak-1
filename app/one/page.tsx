@@ -24,7 +24,7 @@ export default function StudentPortfolio() {
           {/* Name and Identity */}
           <div className="text-center mt-6">
             <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Jack Murphy</h1>
-            <p className="text-indigo-600 font-bold text-md md:text-lg mt-2 uppercase tracking-widest">UCC Finance Student | Class of 2028</p>
+            <p className="text-indigo-600 font-bold text-md md:text-lg mt-2 uppercase tracking-widest">BSc Finance Student at University College Cork | Class of 2028</p>
           </div>
 
           {/* Contact Section */}

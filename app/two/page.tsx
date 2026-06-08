@@ -14,7 +14,7 @@ export default function StudentPortfolio() {
           <div className="text-center md:text-left w-full">
             <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 whitespace-nowrap">Jack Murphy</h1>
             <p className="text-emerald-700 font-bold mt-1 uppercase tracking-widest text-xs md:text-sm">
-              Finance Student | UCC Class of 2028
+              BSc Finance Student at University College Cork | Class of 2028
             </p>
             
             <div className="mt-6 flex flex-nowrap justify-center md:justify-start gap-2">

@@ -14,7 +14,7 @@ export default function StudentPortfolio() {
           {/* Text on Left */}
           <div className="text-center md:text-left w-full">
             <h1 className="text-4xl font-extrabold text-white whitespace-nowrap">Jack Murphy</h1>
-            <p className="text-indigo-400 font-bold mt-1 uppercase tracking-widest text-sm">Finance Student | UCC Class of 2028</p>
+            <p className="text-indigo-400 font-bold mt-1 uppercase tracking-widest text-sm">BSc Finance Student at University College Cork | Class of 2028</p>
             
             {/* Contact Buttons */}
             <div className="mt-6 flex flex-nowrap justify-center md:justify-start gap-1.5 md:gap-3">
