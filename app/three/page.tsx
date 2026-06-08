@@ -13,7 +13,7 @@ export default function StudentPortfolio() {
         <div className="bg-slate-800 p-8 md:p-12 border-b border-slate-700 flex flex-col-reverse md:flex-row items-center justify-between gap-8 w-full">
           {/* Text on Left */}
           <div className="text-center md:text-left w-full">
-            <h1 className="text-4xl font-extrabold text-white whitespace-nowrap">Alex Rivera</h1>
+            <h1 className="text-4xl font-extrabold text-white whitespace-nowrap">Jack Murphy</h1>
             <p className="text-indigo-400 font-bold mt-1 uppercase tracking-widest text-sm">Finance Student | UCC Class of 2028</p>
             
             {/* Contact Buttons */}

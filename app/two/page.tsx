@@ -12,7 +12,7 @@ export default function StudentPortfolio() {
         {/* Header Section */}
         <div className="bg-white p-8 rounded-none md:rounded-[2rem] border-b md:border border-emerald-100 shadow-sm flex flex-col-reverse md:flex-row items-center justify-between gap-8 w-full">
           <div className="text-center md:text-left w-full">
-            <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 whitespace-nowrap">Alex Rivera</h1>
+            <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 whitespace-nowrap">Jack Murphy</h1>
             <p className="text-emerald-700 font-bold mt-1 uppercase tracking-widest text-xs md:text-sm">
               Finance Student | UCC Class of 2028
             </p>
