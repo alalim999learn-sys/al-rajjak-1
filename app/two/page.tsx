@@ -32,7 +32,7 @@ export default function StudentPortfolio() {
 
           <img 
             src="/HUUUU/1775143547615.jpg" 
-            alt="Diego Arangüena" 
+            
             className="w-32 h-32 md:w-36 md:h-36 rounded-full object-cover border-4 border-emerald-100 shrink-0"
           />
         </div>

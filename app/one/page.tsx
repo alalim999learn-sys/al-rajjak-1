@@ -16,7 +16,7 @@ export default function StudentPortfolio() {
           <div className="flex justify-center -mt-20">
             <img 
               src="/HUUUU/1775143547615.jpg" 
-              alt="Perfil del estudiante" 
+             
               className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white shadow-xl object-cover ring-4 ring-amber-400/50"
             />
           </div>
