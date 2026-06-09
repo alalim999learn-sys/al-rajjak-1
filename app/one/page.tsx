@@ -15,7 +15,7 @@ export default function StudentPortfolio() {
           {/* Profile Image */}
           <div className="flex justify-center -mt-20">
             <img 
-              src="/HUUUU/pexels-kadirxaltintas-25391398.jpg" 
+              src="/HUUUU/1775143547615.jpg" 
               alt="Perfil del estudiante" 
               className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white shadow-xl object-cover ring-4 ring-amber-400/50"
             />
@@ -23,7 +23,7 @@ export default function StudentPortfolio() {
 
           {/* Name and Identity */}
           <div className="text-center mt-6">
-            <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Alvaro Gonzalez</h1>
+            <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Martina Rodríguez</h1>
             <p className="text-indigo-600 font-bold text-md md:text-lg mt-2 uppercase tracking-widest">Estudiante de Finanzas en la Universidad de Valladolid | Clase de 2028</p>
           </div>
 

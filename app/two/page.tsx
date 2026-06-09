@@ -12,7 +12,7 @@ export default function StudentPortfolio() {
         {/* Header Section */}
         <div className="bg-white p-8 rounded-none md:rounded-[2rem] border-b md:border border-emerald-100 shadow-sm flex flex-col-reverse md:flex-row items-center justify-between gap-8 w-full">
           <div className="text-center md:text-left w-full">
-            <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 whitespace-nowrap">Alvaro Gonzalez</h1>
+            <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 whitespace-nowrap">Martina Rodríguez</h1>
             <p className="text-emerald-700 font-bold mt-1 uppercase tracking-widest text-xs md:text-sm">
               Estudiante del Grado en Finanzas en la Universidad de Valladolid | Clase de 2028
             </p>
@@ -31,7 +31,7 @@ export default function StudentPortfolio() {
           </div>
 
           <img 
-            src="/HUUUU/pexels-kadirxaltintas-25391398.jpg" 
+            src="/HUUUU/1775143547615.jpg" 
             alt="Diego Arangüena" 
             className="w-32 h-32 md:w-36 md:h-36 rounded-full object-cover border-4 border-emerald-100 shrink-0"
           />
