@@ -16,20 +16,20 @@ export default function StudentPortfolio() {
           <div className="flex justify-center -mt-20">
             <img 
               src="/HUUUU/pexels-kadirxaltintas-25391398.jpg" 
-              alt="Perfil del estudiante" 
+              alt="Student Profile" 
               className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white shadow-xl object-cover ring-4 ring-amber-400/50"
             />
           </div>
 
           {/* Name and Identity */}
           <div className="text-center mt-6">
-            <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Alvaro Gonzalez</h1>
-            <p className="text-indigo-600 font-bold text-md md:text-lg mt-2 uppercase tracking-widest">Estudiante de Finanzas en la Universidad de Valladolid | Clase de 2028</p>
+            <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Jack Murphy</h1>
+            <p className="text-indigo-600 font-bold text-md md:text-lg mt-2 uppercase tracking-widest">BSc Finance Student at University College Cork | Class of 2028</p>
           </div>
 
           {/* Contact Section */}
           <div className="mt-8 flex flex-nowrap justify-center gap-1.5 md:gap-4 px-2">
-            <a href="mailto:diego.estudiante@example.com" className="flex items-center gap-1 bg-slate-100 text-slate-700 px-2 py-2 rounded-lg hover:bg-red-50 hover:text-red-600 transition text-[9px] md:text-sm font-medium whitespace-nowrap">
+            <a href="mailto:alex.student@example.com" className="flex items-center gap-1 bg-slate-100 text-slate-700 px-2 py-2 rounded-lg hover:bg-red-50 hover:text-red-600 transition text-[9px] md:text-sm font-medium whitespace-nowrap">
               <FaEnvelope className="text-red-500 shrink-0" /> Email
             </a>
             <a href="https://linkedin.com/in/yourprofile" target="_blank" className="flex items-center gap-1 bg-slate-100 text-slate-700 px-2 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition text-[9px] md:text-sm font-medium whitespace-nowrap">
@@ -42,54 +42,54 @@ export default function StudentPortfolio() {
 
           {/* About Me Section */}
           <div className="mt-10">
-            <h2 className="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Sobre mí</h2>
+            <h2 className="text-xl font-bold text-slate-800 mb-4 border-b pb-2">About Me</h2>
             <p className="text-slate-600 text-sm">
-              Estudiante de Finanzas motivado en la Universidad de Valladolid. Apasionado por la banca de inversión, 
-              modelado financiero y análisis de mercado. Dedicado a aplicar conocimientos académicos 
-              en desafíos financieros reales a través de proyectos universitarios y pasantías.
+              Motivated Finance student at University College Cork. Passionate about investment banking, 
+              financial modeling, and market analysis. Dedicated to applying academic knowledge 
+              to real-world financial challenges through society work and internships.
             </p>
           </div>
 
           {/* Skills Section */}
           <div className="mt-10">
-            <h2 className="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Habilidades Técnicas</h2>
+            <h2 className="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Technical Skills</h2>
             <ul className="grid sm:grid-cols-2 gap-3 text-slate-600 text-sm">
-              <li>✔ Modelado Financiero (DCF, LBO)</li>
-              <li>✔ Análisis de Datos (Excel, SQL)</li>
-              <li>✔ Investigación de Mercados y Reportes</li>
-              <li>✔ Comunicación Empresarial</li>
-              <li>✔ Power BI y Visualización de Datos</li>
-              <li>✔ Métodos Cuantitativos</li>
+              <li>✔ Financial Modeling (DCF, LBO)</li>
+              <li>✔ Data Analysis (Excel, SQL)</li>
+              <li>✔ Market Research & Reporting</li>
+              <li>✔ Business Communication</li>
+              <li>✔ Power BI & Data Visualization</li>
+              <li>✔ Quantitative Methods</li>
             </ul>
           </div>
 
           {/* Academic Projects Section */}
           <div className="mt-10">
-            <h2 className="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Proyectos Académicos</h2>
+            <h2 className="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Academic Projects</h2>
             <div className="space-y-4 text-sm text-slate-600">
               <div>
-                <strong>Desafío de Mercado Rotman</strong> – Valuación de activos y evaluación de riesgos utilizando modelos DCF.
+                <strong>Rotman Market Challenge</strong> – Performed asset valuation and risk assessment using DCF models.
               </div>
               <div>
-                <strong>Sociedad de Consultoría UVa</strong> – Análisis de estrategias de entrada para mercados emergentes.
+                <strong>UCC Consulting Society</strong> – Analyzed firm entry strategies for emerging markets.
               </div>
               <div>
-                <strong>Fondo Gestionado por Estudiantes</strong> – Contribución activa en investigación de capital y análisis de cartera.
+                <strong>Student Managed Fund</strong> – Active contributor to equity research and portfolio analysis.
               </div>
             </div>
           </div>
 
           {/* Experience Section */}
           <div className="mt-10">
-            <h2 className="text-xl font-bold text-slate-800 mb-6 border-b pb-2">Experiencia</h2>
+            <h2 className="text-xl font-bold text-slate-800 mb-6 border-b pb-2">Experience & Involvement</h2>
             <div className="space-y-6">
               <div>
-                <h3 className="font-bold text-slate-900">Pasante de Analista de Crédito</h3>
-                <p className="text-sm text-slate-500">Fondo Gestionado por Estudiantes | 2025 - Presente</p>
+                <h3 className="font-bold text-slate-900">Credit Analyst Intern</h3>
+                <p className="text-sm text-slate-500">Student Managed Fund | 2025 - Present</p>
               </div>
               <div>
-                <h3 className="font-bold text-slate-900">Miembro del Foro de Finanzas</h3>
-                <p className="text-sm text-slate-500">Universidad de Valladolid | 2024 - Presente</p>
+                <h3 className="font-bold text-slate-900">Finance Forum Member</h3>
+                <p className="text-sm text-slate-500">University College Cork | 2024 - Present</p>
               </div>
             </div>
           </div>
@@ -97,17 +97,17 @@ export default function StudentPortfolio() {
           {/* Education & Certifications */}
           <div className="mt-10 grid sm:grid-cols-2 gap-6">
             <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
-              <h2 className="text-lg font-bold text-indigo-900 mb-3">🎓 Educación</h2>
+              <h2 className="text-lg font-bold text-indigo-900 mb-3">🎓 Education</h2>
               <ul className="text-slate-600 space-y-2 text-sm">
-                <li><strong>Grado en Finanzas</strong><br/>Universidad de Valladolid (2024-2028)</li>
+                <li><strong>BSc Finance</strong><br/>University College Cork (2024-2028)</li>
               </ul>
             </div>
 
             <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
-              <h2 className="text-lg font-bold text-indigo-900 mb-3">🏆 Certificaciones</h2>
+              <h2 className="text-lg font-bold text-indigo-900 mb-3">🏆 Certifications</h2>
               <ul className="text-slate-600 space-y-2 text-sm">
                 <li>• Bloomberg Market Concepts (BMC)</li>
-                <li>• Excel para Finanzas (Avanzado)</li>
+                <li>• Excel for Finance (Advanced)</li>
                 <li>• Google Data Analytics</li>
               </ul>
             </div>
@@ -118,6 +118,3 @@ export default function StudentPortfolio() {
   );
 }
 
-npm add . 
-git commit -m 'one and two and three changed'
-git push origin main 
