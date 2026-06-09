@@ -118,6 +118,4 @@ export default function StudentPortfolio() {
   );
 }
 
-npm add . 
-git commit -m 'one and two and three changed'
-git push origin main 
+ 
