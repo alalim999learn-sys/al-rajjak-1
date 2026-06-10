@@ -23,7 +23,7 @@ export default function StudentPortfolio() {
 
           {/* Name and Identity */}
           <div className="text-center mt-6">
-            <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Martina Rodríguez</h1>
+            <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Sara López</h1>
             <p className="text-indigo-600 font-bold text-md md:text-lg mt-2 uppercase tracking-widest">Estudiante de Finanzas en la Universidad de Valladolid | Clase de 2028</p>
           </div>
 
