@@ -15,7 +15,7 @@ export default function StudentPortfolio() {
           <div className="text-center md:text-left w-full">
             <h1 className="text-4xl font-extrabold text-white whitespace-nowrap">Sara López</h1>
             <p className="text-indigo-400 font-bold mt-1 uppercase tracking-widest text-sm">
-              Estudiante del Grado en Finanzas en la Universidad de Valladolid | Clase de 2028
+              Finance Student at the University of Valladolid | Class of 2028
             </p>
             
             {/* Contact Buttons */}
@@ -35,7 +35,7 @@ export default function StudentPortfolio() {
           {/* Image on Right */}
           <img 
             src="/HUUUU/1775143547615.jpg" 
-            
+            alt="Sara López"
             className="w-36 h-36 rounded-full object-cover border-4 border-slate-700 shadow-xl shrink-0"
           />
         </div>
@@ -44,17 +44,17 @@ export default function StudentPortfolio() {
         <div className="px-6 md:px-12 pb-12 mt-8">
           <div className="grid md:grid-cols-2 gap-8">
             <div>
-              <h2 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">Sobre mí</h2>
+              <h2 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">About Me</h2>
               <p className="text-slate-400 text-sm leading-relaxed border-l-2 border-indigo-500 pl-4">
-                Estudiante de Finanzas motivado en la Universidad de Valladolid. Apasionado por la valoración de activos, 
-                banca de inversión y análisis financiero. Dedicado a la excelencia académica y a la 
-                participación activa en el Fondo Gestionado por Estudiantes.
+                Motivated Finance student at the University of Valladolid. Passionate about asset valuation, 
+                investment banking, and financial analysis. Dedicated to academic excellence and 
+                active participation in the Student-Managed Fund.
               </p>
             </div>
             <div>
-              <h2 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">Habilidades</h2>
+              <h2 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">Skills</h2>
               <div className="flex flex-wrap gap-2">
-                {['Modelado Financiero', 'Análisis de Datos', 'Excel', 'Investigación de Mercados', 'Python'].map((s) => (
+                {['Financial Modeling', 'Data Analysis', 'Excel', 'Market Research', 'Python'].map((s) => (
                   <span key={s} className="bg-indigo-950/50 text-indigo-300 px-3 py-1 rounded text-[10px] font-bold border border-indigo-900/50 uppercase">{s}</span>
                 ))}
               </div>
@@ -62,12 +62,12 @@ export default function StudentPortfolio() {
           </div>
 
           <div className="mt-12">
-            <h2 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-6">Experiencia y Actividades</h2>
+            <h2 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-6">Experience & Activities</h2>
             <div className="space-y-6">
               {[
-                { title: "Analista de Renta Variable", company: "Fondo Gestionado por Estudiantes", date: "2025 - Presente" },
-                { title: "Miembro del Foro de Finanzas", company: "Universidad de Valladolid", date: "2024 - Presente" },
-                { title: "Desafío de Mercado Rotman", company: "Participante", date: "Marzo 2026" }
+                { title: "Equity Research Analyst", company: "Student-Managed Fund", date: "2025 - Present" },
+                { title: "Finance Forum Member", company: "University of Valladolid", date: "2024 - Present" },
+                { title: "Rotman Market Challenge", company: "Participant", date: "March 2026" }
               ].map((item, i) => (
                 <div key={i} className="group relative pl-6 border-l border-slate-700 hover:border-indigo-500 transition-colors">
                   <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-slate-700 group-hover:bg-indigo-500"></div>
@@ -79,8 +79,8 @@ export default function StudentPortfolio() {
           </div>
 
           <div className="mt-12 bg-slate-800 p-6 rounded-2xl border border-slate-700">
-            <h2 className="text-white font-bold mb-2">Educación</h2>
-            <p className="text-slate-400 text-xs">Grado en Finanzas, Universidad de Valladolid (2024-2028)</p>
+            <h2 className="text-white font-bold mb-2">Education</h2>
+            <p className="text-slate-400 text-xs">BSc in Finance, University of Valladolid (2024-2028)</p>
           </div>
         </div>
       </div>

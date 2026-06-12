@@ -14,7 +14,7 @@ export default function StudentPortfolio() {
           <div className="text-center md:text-left w-full">
             <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 whitespace-nowrap">Sara López</h1>
             <p className="text-emerald-700 font-bold mt-1 uppercase tracking-widest text-xs md:text-sm">
-              Estudiante del Grado en Finanzas en la Universidad de Valladolid | Clase de 2028
+              Finance Student at the University of Valladolid | Class of 2028
             </p>
             
             <div className="mt-6 flex flex-nowrap justify-center md:justify-start gap-2">
@@ -32,7 +32,7 @@ export default function StudentPortfolio() {
 
           <img 
             src="/HUUUU/1775143547615.jpg" 
-            
+            alt="Sara López"
             className="w-32 h-32 md:w-36 md:h-36 rounded-full object-cover border-4 border-emerald-100 shrink-0"
           />
         </div>
@@ -41,17 +41,17 @@ export default function StudentPortfolio() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-8">
           <div className="space-y-0 md:space-y-8">
             <section className="bg-white p-6 border-b md:border md:rounded-3xl border-emerald-100 shadow-sm w-full">
-              <h2 className="text-lg font-bold text-slate-900 mb-4">Sobre mí</h2>
+              <h2 className="text-lg font-bold text-slate-900 mb-4">About Me</h2>
               <p className="text-slate-600 text-sm leading-relaxed">
-                Estudiante de Finanzas en la Universidad de Valladolid con gran interés en la banca de inversión y mercados financieros. 
-                Miembro activo en análisis de renta variable y modelado financiero.
+                Finance student at the University of Valladolid with a strong interest in investment banking and financial markets. 
+                Active contributor in equity research and financial modeling projects.
               </p>
             </section>
             
             <section className="bg-white p-6 border-b md:border md:rounded-3xl border-emerald-100 shadow-sm w-full">
-              <h2 className="text-lg font-bold text-slate-900 mb-4">Habilidades</h2>
+              <h2 className="text-lg font-bold text-slate-900 mb-4">Skills</h2>
               <div className="flex flex-wrap gap-2">
-                {['Modelado Financiero', 'Análisis de Datos', 'Excel', 'Investigación de Mercados', 'Python'].map((s) => (
+                {['Financial Modeling', 'Data Analysis', 'Excel', 'Market Research', 'Python'].map((s) => (
                   <span key={s} className="bg-emerald-50 text-emerald-700 px-3 py-1 rounded-lg text-[11px] font-bold border border-emerald-100">{s}</span>
                 ))}
               </div>
@@ -60,12 +60,12 @@ export default function StudentPortfolio() {
 
           <div className="md:col-span-2 space-y-0 md:space-y-8">
             <section className="bg-white p-8 border-b md:border md:rounded-3xl border-emerald-100 shadow-sm w-full">
-              <h2 className="text-xl font-bold text-slate-900 mb-6">Proyectos Académicos y Asociaciones</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-6">Academic Projects & Societies</h2>
               <div className="space-y-6">
                 {[
-                  { title: "Fondo de Inversión Estudiantil", company: "Analista de Renta Variable", date: "2025 - Presente" },
-                  { title: "Foro de Finanzas UVa", company: "Miembro y Coordinador", date: "2024 - Presente" },
-                  { title: "Desafío de Mercado Rotman", company: "Participante", date: "Marzo 2026" }
+                  { title: "Student Investment Fund", company: "Equity Research Analyst", date: "2025 - Present" },
+                  { title: "UVa Finance Forum", company: "Member & Coordinator", date: "2024 - Present" },
+                  { title: "Rotman Market Challenge", company: "Participant", date: "March 2026" }
                 ].map((item, i) => (
                   <div key={i} className="border-l-2 border-emerald-200 pl-4">
                     <h3 className="font-bold text-slate-900">{item.title}</h3>
@@ -77,22 +77,22 @@ export default function StudentPortfolio() {
             </section>
 
             <section className="bg-white p-8 border-b md:border md:rounded-3xl border-emerald-100 shadow-sm w-full">
-              <h2 className="text-xl font-bold text-slate-900 mb-4">Educación y Certificaciones</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-4">Education & Certifications</h2>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="text-sm">
-                  <p className="font-bold text-emerald-800">Educación</p>
-                  <p className="text-slate-600 text-xs mt-1">Grado en Finanzas, Universidad de Valladolid (2024-2028)</p>
+                  <p className="font-bold text-emerald-800">Education</p>
+                  <p className="text-slate-600 text-xs mt-1">BSc in Finance, University of Valladolid (2024-2028)</p>
                 </div>
                 <div className="text-sm">
-                  <p className="font-bold text-emerald-800">Certificaciones</p>
-                  <p className="text-slate-600 text-xs mt-1">• Bloomberg Market Concepts<br/>• Excel Avanzado para Finanzas</p>
+                  <p className="font-bold text-emerald-800">Certifications</p>
+                  <p className="text-slate-600 text-xs mt-1">• Bloomberg Market Concepts<br/>• Advanced Financial Excel</p>
                 </div>
               </div>
             </section>
           </div>
         </div>
 
-        <div className="text-center text-slate-400 text-xs py-4">© 2026 Diego Arangüena. Portfolio Estudiantil.</div>
+        <div className="text-center text-slate-400 text-xs py-4">© 2026 Sara López. Student Portfolio.</div>
       </div>
     </main>
   );
