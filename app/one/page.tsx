@@ -21,7 +21,7 @@ export default function StudentPortfolio() {
           <div className="flex justify-center -mt-24">
             <div className="relative">
                 <img 
-                src="/HUUUU/sejdah.png" 
+                src="/HUUUU/pexels-kadirxaltintas-25391398.jpg" 
                 alt="Ciara Murphy"
                 className="w-40 h-40 md:w-48 md:h-48 rounded-full border-[6px] border-white shadow-2xl object-cover"
                 />
@@ -30,7 +30,7 @@ export default function StudentPortfolio() {
 
           {/* Header Info */}
           <div className="text-center mt-8">
-            <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">Ciara Murphy</h1>
+            <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">Liam Cole</h1>
             <div className="flex items-center justify-center gap-2 mt-3">
                 <span className="h-[1px] w-8 bg-indigo-200"></span>
                 <p className="text-indigo-600 font-bold text-sm md:text-base uppercase tracking-[0.2em]">
