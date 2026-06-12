@@ -59,7 +59,7 @@ export default function StudentPortfolio() {
             </a>
           </div>
 
-          {/* Content Grid */}
+         
           <div className="grid md:grid-cols-12 gap-10 mt-16">
             
             <div className="md:col-span-7 space-y-12">
