@@ -11,7 +11,7 @@ export default function Footer() {
   const pathname = usePathname(); // ২. বর্তমান URL ট্র্যাক করার জন্য
 
   // ৩. যে যে পেজে ফুটার গায়েব করতে চান, সেগুলো এখানে দিন
-  const isShopPage = pathname === '/one' || pathname === '/two' || pathname === '/three' ||  pathname === '/watches' || pathname === '/admin/watches' || pathname === '/agent' || pathname === '/barber';
+  const isShopPage = pathname === '/one' || pathname === '/two' || pathname === '/three' ||  pathname === '/four' || pathname === '/watches' || pathname === '/admin/watches' || pathname === '/agent' || pathname === '/barber';
 
   // ৪. যদি শপ পেজ হয়, তবে কিছুই রিটার্ন করবে না (Footer গায়েব হয়ে যাবে)
   if (isShopPage) return null;

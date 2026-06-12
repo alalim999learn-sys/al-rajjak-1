@@ -12,7 +12,7 @@ export default function Navbar() {
 
   // --- স্মার্ট শপ পেইজে নেভিবার বন্ধ করার লজিক ---
   // আপনার শপ পেইজের ইউআরএল যদি অন্য কিছু হয় তবে এখানে সেটা দিন
-  const isShopPage = pathname === '/one' || pathname === '/two' || pathname === '/three' ||  pathname === '/watches' || pathname === '/admin/watches' || pathname === '/agent' || pathname === '/barber';
+  const isShopPage = pathname === '/one' || pathname === '/two' || pathname === '/three' || pathname === '/four' || pathname === '/watches' || pathname === '/admin/watches' || pathname === '/agent' || pathname === '/barber';
 
   useEffect(() => {
     const handleScroll = () => {
