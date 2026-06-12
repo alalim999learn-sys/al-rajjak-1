@@ -31,7 +31,7 @@ export default function StudentPortfolio() {
           </div>
 
           <img 
-            src="/HUUUU/1775143547615.jpg" 
+            src="/HUUUU/pexels-kadirxaltintas-25391398.jpg" 
             alt="Sara López"
             className="w-32 h-32 md:w-36 md:h-36 rounded-full object-cover border-4 border-emerald-100 shrink-0"
           />
