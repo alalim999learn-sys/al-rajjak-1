@@ -1,18 +1,34 @@
 //C:\Users\Shanon\al-rajjak-1\app\Navbar.tsx
 
+
+
 "use client";
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Shield, ArrowRight } from 'lucide-react';
-import { usePathname } from 'next/navigation'; // এটি নতুন যোগ করা হয়েছে
+import { usePathname } from 'next/navigation';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname(); // বর্তমান ইউআরএল চেক করার জন্য
+  const pathname = usePathname();
 
   // --- স্মার্ট শপ পেইজে নেভিবার বন্ধ করার লজিক ---
-  // আপনার শপ পেইজের ইউআরএল যদি অন্য কিছু হয় তবে এখানে সেটা দিন
-  const isShopPage = pathname === '/one' || pathname === '/two' || pathname === '/three' ||  pathname === '/watches' || pathname === '/admin/watches' || pathname === '/agent' || pathname === '/barber';
+  // এখানে /one থেকে /six পর্যন্ত রাখা হয়েছে, কিন্তু /yt-one সরিয়ে ফেলা হয়েছে
+  const hiddenPages = [
+    '/one', 
+    '/two', 
+    '/three', 
+    '/four', 
+    '/five', 
+    '/six', 
+    '/watches', 
+    '/admin/watches', 
+    '/agent', 
+    '/barber',
+    '/yt-one'
+  ];
+
+  const isShopPage = hiddenPages.includes(pathname);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,10 +38,9 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // যদি শপ পেইজ হয়, তবে কিছুই রিটার্ন করবে না (Navbar গায়েব হয়ে যাবে)
+  // যদি শপ পেইজ হয় (এবং যা yt-one নয়), তবে কিছুই রিটার্ন করবে না
   if (isShopPage) return null;
 
-  // জার্মান ভাষায় আপডেট করা ন্যাভিগেশন লিঙ্কস
   const navLinks = [
     { name: 'Startseite', href: '/' },
     { name: 'Leistungen', href: '/#services' },
@@ -70,7 +85,6 @@ export default function Navbar() {
               ))}
             </div>
             
-            {/* CTA Button in German */}
             <a href="/kontakt" className="bg-white text-black px-6 py-2.5 rounded-xl text-xs font-black hover:bg-blue-600 hover:text-white transition-all flex items-center gap-2 group shrink-0">
               JETZT STARTEN <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
             </a>
@@ -121,3 +135,5 @@ export default function Navbar() {
     </>
   );
 }
+
+ 

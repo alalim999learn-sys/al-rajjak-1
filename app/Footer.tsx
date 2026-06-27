@@ -5,16 +5,28 @@
 "use client";
 import React from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation'; // ১. এটি নতুন যোগ করা হয়েছে
+import { usePathname } from 'next/navigation';
 
 export default function Footer() {
-  const pathname = usePathname(); // ২. বর্তমান URL ট্র্যাক করার জন্য
+  const pathname = usePathname();
 
-  // ৩. যে যে পেজে ফুটার গায়েব করতে চান, সেগুলো এখানে দিন
-  const isShopPage = pathname === '/one' || pathname === '/two' || pathname === '/three' ||  pathname === '/watches' || pathname === '/admin/watches' || pathname === '/agent' || pathname === '/barber';
+  // যে যে পেজে ফুটার দেখাতে চান না, সেগুলো এই অ্যারেতে রাখুন
+  const hiddenPages = [
+    '/one', 
+    '/two', 
+    '/three', 
+    '/four', 
+    '/five', 
+    '/six', 
+    '/yt-one', 
+    '/watches', 
+    '/admin/watches', 
+    '/agent', 
+    '/barber'
+  ];
 
-  // ৪. যদি শপ পেজ হয়, তবে কিছুই রিটার্ন করবে না (Footer গায়েব হয়ে যাবে)
-  if (isShopPage) return null;
+  // যদি বর্তমান পাথটি hiddenPages এর মধ্যে থাকে, তবে ফুটার রিটার্ন করবে না
+  if (hiddenPages.includes(pathname)) return null;
 
   return (
     <footer className="bg-slate-900 text-white pt-20 pb-10 px-6 border-t border-slate-800 w-full relative z-10 font-sans">
@@ -59,11 +71,9 @@ export default function Footer() {
             <div className="space-y-6">
               <p className="text-blue-500 font-black italic tracking-tighter text-sm underline underline-offset-4">shanon@shanon-alam.de</p>
               <div className="flex justify-center md:justify-start gap-3">
-                {/* LinkedIn Icon SVG */}
                 <a href="https://www.linkedin.com/in/shanon-khan-52852a283/" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-800 rounded-xl hover:bg-blue-700 transition-all group">
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:scale-110 transition"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
                 </a>
-                {/* Email Icon SVG */}
                 <a href="mailto:shanon@shanon-alam.de" className="p-3 bg-slate-800 rounded-xl hover:bg-blue-700 transition-all group">
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:scale-110 transition"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
                 </a>
@@ -73,9 +83,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Area */}
-        <div className="pt-8 border-t border-slate-800 text-center text-slate-600 text-[9px] font-black uppercase tracking-[0.5em]">
-          <p>© 2026 SHANON KHAN | ALL RIGHTS RESERVED</p>
-        </div>
+        
       </div>
     </footer>
   );
