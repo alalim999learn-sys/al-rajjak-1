@@ -1,136 +1,115 @@
 //C:\Users\Shanon\al-rajjak-1\app\one\page.tsx
 
 
-import { FaEnvelope, FaLinkedin, FaWhatsapp, FaGlobe, FaPlane, FaBriefcase, FaGraduationCap, FaAward } from 'react-icons/fa';
+// app/six/page.tsx
+import { FaEnvelope, FaLinkedin, FaWhatsapp, FaGraduationCap } from 'react-icons/fa';
 
-export default function MarketingPortfolio() {
+export default function StudentPortfolioIreland() {
   return (
-    <main className="min-h-screen bg-slate-50 py-0 md:py-12">
-      <div className="min-h-screen md:min-h-0 md:max-w-3xl mx-auto bg-white md:shadow-2xl md:rounded-[2rem] overflow-hidden border-0 md:border border-slate-100">
+    <main className="min-h-screen bg-[#f8f7ff] py-0 md:py-16 px-0 md:px-4">
+      {/* Main Container */}
+      <div className="max-w-5xl mx-auto bg-white md:shadow-[0_20px_50px_rgba(67,0,138,0.15)] md:rounded-[3rem] overflow-hidden border border-[#e0d7ff]">
         
-        {/* Header Background */}
-        <div className="h-40 bg-gradient-to-r from-blue-900 via-indigo-800 to-emerald-900"></div>
+        {/* Banner - Deep Purple Gradient */}
+        <div className="h-64 bg-gradient-to-r from-[#43008a] via-[#5e17a3] to-[#7b2cbf] relative flex items-end justify-center pb-12">
+           <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        </div>
 
-        <div className="px-6 md:px-8 pb-10">
-          {/* Profile Image */}
-          <div className="flex justify-center -mt-20">
+        <div className="px-6 md:px-16 pb-16 relative">
+          
+          {/* Profile Image & Info */}
+          <div className="-mt-20 mb-8 flex flex-col items-center">
             <img 
-              src="/HUUUU/pexels-denigrafias-8655333.jpg" 
-              alt="Alex Rivera" 
-              className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white shadow-xl object-cover ring-4 ring-emerald-400/50"
+              src="/HUUUU/try1.png" 
+              alt="Lucía Valero"
+              className="w-40 h-40 rounded-3xl border-[8px] border-white shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500"
             />
+            <div className="text-center mt-6">
+              <h1 className="text-5xl font-extrabold text-slate-900 tracking-tight">Lucía Valero</h1>
+              <p className="text-[#43008a] font-bold mt-2 text-lg uppercase tracking-wider">Business & Finance • Class of 2027</p>
+              {/* Added University Name Here */}
+              <p className="text-slate-600 font-semibold mt-1">Trinity College Dublin</p>
+            </div>
           </div>
 
-          {/* Name and Identity */}
-          <div className="text-center mt-6">
-            <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Alex Rivera</h1>
-            <p className="text-emerald-700 font-bold text-sm md:text-lg mt-2 uppercase tracking-widest flex items-center justify-center gap-2">
-              <FaGlobe /> International Business Strategy
-            </p>
-          </div>
-
-          {/* Contact Section */}
-          <div className="mt-8 flex flex-nowrap justify-center gap-2 md:gap-4 px-2">
-            <a href="mailto:alex.marketing@example.com" className="flex items-center gap-1 bg-slate-100 text-slate-700 px-3 py-2 rounded-lg hover:bg-red-50 hover:text-red-600 transition text-xs font-medium">
-              <FaEnvelope className="text-red-500" /> Email
+          {/* Social Pills with Purple Icons */}
+          <div className="flex justify-center flex-wrap gap-3 mb-16">
+            <a href="mailto:email@example.com" className="flex items-center gap-2 px-6 py-2 bg-slate-100 text-[#43008a] rounded-full font-bold hover:bg-[#43008a] hover:text-white transition-all text-sm border border-[#43008a]">
+              <FaEnvelope className="text-[#43008a] hover:text-white" /> Email
             </a>
-            <a href="https://linkedin.com/in/yourprofile" target="_blank" className="flex items-center gap-1 bg-slate-100 text-slate-700 px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition text-xs font-medium">
-              <FaLinkedin className="text-blue-600" /> LinkedIn
+            <a href="#" className="flex items-center gap-2 px-6 py-2 bg-slate-100 text-[#43008a] rounded-full font-bold hover:bg-[#43008a] hover:text-white transition-all text-sm border border-[#43008a]">
+              <FaLinkedin className="text-[#43008a] hover:text-white" /> LinkedIn
             </a>
-            <a href="https://wa.me/1234567890" target="_blank" className="flex items-center gap-1 bg-slate-100 text-slate-700 px-3 py-2 rounded-lg hover:bg-green-50 hover:text-green-700 transition text-xs font-medium">
-              <FaWhatsapp className="text-green-500" /> WhatsApp
+            <a href="#" className="flex items-center gap-2 px-6 py-2 bg-slate-100 text-[#43008a] rounded-full font-bold hover:bg-[#43008a] hover:text-white transition-all text-sm border border-[#43008a]">
+              <FaWhatsapp className="text-[#43008a] hover:text-white" /> WhatsApp
             </a>
           </div>
 
-          {/* About Me Section */}
-          <div className="mt-10">
-            <h2 className="text-xl font-bold text-slate-800 mb-4 border-b pb-2 flex items-center gap-2">
-              <FaPlane className="text-indigo-600" /> Professional Summary
-            </h2>
-            <p className="text-slate-600 text-sm leading-relaxed">
-              Results-oriented professional with a solid foundation in the Spanish market, currently expanding expertise into the <strong>Irish business landscape</strong>. 
-              Specializing in cross-border digital strategies, business analytics, and market expansion, I focus on bridging the gap between data insights and sustainable commercial growth.
-            </p>
-          </div>
+          {/* Two Column Layout */}
+          <div className="grid md:grid-cols-2 gap-12">
+            
+            <div className="space-y-12">
+              <section>
+                <h2 className="text-xl font-black text-slate-900 mb-4 flex items-center gap-2">
+                  <div className="w-2 h-8 bg-[#43008a] rounded-full"></div> About Me
+                </h2>
+                <p className="text-slate-600 leading-relaxed bg-[#f8f7ff] p-8 rounded-2xl border border-[#e0d7ff]">
+                  Ambitious Business & Finance student at Trinity College Dublin. Passionate about leveraging financial modeling and market strategies to drive corporate growth in the Irish landscape.
+                </p>
+              </section>
 
-          {/* Skills Section */}
-          <div className="mt-10">
-            <h2 className="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Core Competencies</h2>
-            <ul className="grid sm:grid-cols-2 gap-3 text-slate-600 text-sm">
-              <li>✔ International Market Strategy</li>
-              <li>✔ Business Analytics (Power BI, Excel)</li>
-              <li>✔ SEO/SEM & Digital Growth</li>
-              <li>✔ Cross-Cultural Communication</li>
-              <li>✔ E-commerce Management</li>
-              <li>✔ Data-Driven Decision Making</li>
-            </ul>
-          </div>
+              <section>
+                <h2 className="text-xl font-black text-slate-900 mb-6 flex items-center gap-2">
+                  <div className="w-2 h-8 bg-[#43008a] rounded-full"></div> Experience
+                </h2>
+                <div className="space-y-6">
+                  <div className="p-4 border border-slate-100 rounded-2xl hover:border-[#43008a] transition-all">
+                    <h3 className="font-bold text-slate-900">Finance Analyst Intern</h3>
+                    <p className="text-xs text-[#43008a] font-bold mt-1">Dublin Fintech Hub • 2026</p>
+                  </div>
+                  <div className="p-4 border border-slate-100 rounded-2xl hover:border-[#43008a] transition-all">
+                    <h3 className="font-bold text-slate-900">Junior Strategist</h3>
+                    <p className="text-xs text-[#43008a] font-bold mt-1">TCD Business Society • 2025</p>
+                  </div>
+                </div>
+              </section>
+            </div>
 
-          {/* Projects Section */}
-          <div className="mt-10">
-            <h2 className="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Key Projects</h2>
-            <div className="space-y-4 text-sm text-slate-600">
-              <div>
-                <strong>Cross-Border Strategy</strong> – Developed market entry frameworks for European digital expansion.
-              </div>
-              <div>
-                <strong>Analytics Dashboard</strong> – Built KPIs tracking system to monitor multi-regional campaign performance.
-              </div>
-              <div>
-                <strong>Growth Campaign</strong> – Managed end-to-end digital marketing cycles boosting engagement by 25%.
-              </div>
+            <div className="space-y-12">
+              <section className="bg-[#43008a] text-white p-8 rounded-3xl shadow-xl">
+                <h2 className="text-xl font-black mb-4 flex items-center gap-3">
+                  <FaGraduationCap className="text-2xl" /> Education
+                </h2>
+                <div className="space-y-1">
+                  <p className="font-bold text-lg">BSc in Business & Finance</p>
+                  <p className="text-[#d8b4fe] font-medium">Trinity College Dublin</p>
+                  <p className="text-purple-200 pt-2 text-sm">2023 - 2027</p>
+                </div>
+              </section>
+
+              <section>
+                <h2 className="text-xl font-black text-slate-900 mb-6">Technical Skills</h2>
+                <div className="flex flex-wrap gap-3">
+                  {['Financial Modeling', 'Data Analytics', 'Risk Management', 'Excel', 'Python'].map((s) => (
+                    <span key={s} className="px-4 py-2 bg-[#f8f7ff] text-[#43008a] rounded-lg font-bold text-sm border border-[#e0d7ff]">
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              </section>
             </div>
           </div>
 
-          {/* Experience Section */}
-          <div className="mt-10">
-            <h2 className="text-xl font-bold text-slate-800 mb-6 border-b pb-2 flex items-center gap-2">
-              <FaBriefcase className="text-indigo-600" /> Professional Experience
-            </h2>
-            <div className="space-y-6">
-              <div>
-                <h3 className="font-bold text-slate-900">VIP Hospitality Assistant</h3>
-                <p className="text-sm text-slate-500">Mutua Madrid Open | Apr 2026 - May 2026</p>
-              </div>
-              <div>
-                <h3 className="font-bold text-slate-900">Junior Digital Strategist (PuntoQPack)</h3>
-                <p className="text-sm text-slate-500">Aug 2025 - Feb 2026 | Spain</p>
-                <p className="text-sm text-slate-600 mt-1">Driving SEO and Business Communication across regional digital platforms.</p>
-              </div>
-              <div>
-                <h3 className="font-bold text-slate-900">Marketing Intern (Becario)</h3>
-                <p className="text-sm text-slate-500">Mar 2025 - Aug 2025 | Móstoles, Spain</p>
-              </div>
+          <div className="mt-16 bg-white border-2 border-slate-100 p-8 rounded-[2rem]">
+            <h2 className="text-xl font-black mb-6 text-center text-[#43008a]">Academic Highlights</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+               {[1,2,3].map((i) => (
+                 <div key={i} className="bg-[#f8f7ff] p-5 rounded-2xl border-b-4 border-[#43008a]">
+                    <h3 className="font-bold text-slate-900">Project {i}</h3>
+                    <p className="text-sm text-slate-600 mt-2">Strategic analysis for the Irish market.</p>
+                 </div>
+               ))}
             </div>
-          </div>
-
-          {/* Education & Achievements */}
-          <div className="mt-10 grid sm:grid-cols-2 gap-6">
-            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
-              <h2 className="text-lg font-bold text-indigo-900 mb-3 flex items-center gap-2">
-                <FaGraduationCap /> Education
-              </h2>
-              <ul className="text-slate-600 space-y-2 text-sm">
-                <li><strong>MSc in Business Analytics</strong><br/>Univ. CEU San Pablo (2026-2027)</li>
-                <li><strong>B.B.A. + Marketing</strong><br/>Univ. Rey Juan Carlos (2020-2025)</li>
-              </ul>
-            </div>
-
-            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
-              <h2 className="text-lg font-bold text-indigo-900 mb-3 flex items-center gap-2">
-                <FaAward /> Highlights
-              </h2>
-              <ul className="text-slate-600 space-y-2 text-sm">
-                <li>• Best Marketing Intern Award</li>
-                <li>• 30% Sales growth project</li>
-                <li>• International workshop leadership</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Footer */}
-          <div className="mt-12 text-center text-slate-400 text-xs">
-            <p>Global Mindset • Data-Driven Approach • Based in Ireland</p>
           </div>
         </div>
       </div>
