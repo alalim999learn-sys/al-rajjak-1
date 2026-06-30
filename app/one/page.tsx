@@ -1,7 +1,7 @@
 //C:\Users\Shanon\al-rajjak-1\app\one\page.tsx
 
 
-// app/six/page.tsx
+ 
 import { FaEnvelope, FaLinkedin, FaWhatsapp, FaGraduationCap } from 'react-icons/fa';
 
 export default function StudentPortfolioIreland() {
