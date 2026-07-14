@@ -1,6 +1,6 @@
 //C:\Users\Shanon\al-rajjak-1\app\seven\page.tsx
 
-
+ 
 // app/seven/page.tsx
 import { FaEnvelope, FaLinkedin, FaWhatsapp, FaUser, FaBriefcase, FaDownload, FaAward, FaSearch } from 'react-icons/fa';
 
