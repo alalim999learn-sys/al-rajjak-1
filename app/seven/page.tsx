@@ -116,7 +116,6 @@ export default function MarketingStudentPortfolio() {
               <FaDownload /> Download Full CV
             </a>
           </div>
-
         </div>
       </div>
     </main>
