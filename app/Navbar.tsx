@@ -21,6 +21,7 @@ export default function Navbar() {
     '/four', 
     '/five', 
     '/six', 
+    '/seven',
     '/watches', 
     '/admin/watches', 
     '/agent', 
