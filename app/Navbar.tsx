@@ -26,7 +26,12 @@ export default function Navbar() {
     '/admin/watches', 
     '/agent', 
     '/barber',
+    '/ireland/garden',
+    '/ireland/grocery',
+    '/reland/cafe',
+    '/ireland/barber',
     '/yt-one'
+
   ];
 
   const isShopPage = hiddenPages.includes(pathname);
