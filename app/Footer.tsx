@@ -21,7 +21,7 @@ export default function Footer() {
     '/seven' ,    '/yt-one',     '/watches', 
     '/ireland/garden',
     '/ireland/grocery',
-    '/reland/cafe',
+    '/ireland/cafe',
     '/ireland/barber',
     '/admin/watches', 
     '/agent', 

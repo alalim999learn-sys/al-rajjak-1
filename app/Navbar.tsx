@@ -28,7 +28,7 @@ export default function Navbar() {
     '/barber',
     '/ireland/garden',
     '/ireland/grocery',
-    '/reland/cafe',
+    '/ireland/cafe',
     '/ireland/barber',
     '/yt-one'
 
