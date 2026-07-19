@@ -20,10 +20,12 @@ export default function Footer() {
     '/six',
     '/seven' ,    '/yt-one',     '/watches', 
     '/ireland/garden',
+    '/ireland/laundry',
     '/ireland/grocery',
     '/ireland/cafe',
     '/ireland/barber',
     '/admin/watches', 
+    
     '/agent', 
     '/barber'
   ];

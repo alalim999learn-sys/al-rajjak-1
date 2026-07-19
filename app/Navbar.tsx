@@ -27,6 +27,7 @@ export default function Navbar() {
     '/agent', 
     '/barber',
     '/ireland/garden',
+    '/ireland/laundry',
     '/ireland/grocery',
     '/ireland/cafe',
     '/ireland/barber',

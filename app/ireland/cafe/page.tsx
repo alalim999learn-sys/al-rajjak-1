@@ -138,7 +138,7 @@ export default function CafeLanding() {
           <div className="flex space-x-4">
             <a href="#" className="hover:opacity-80 transition"><Image src="/i/insta.jpg" alt="Instagram" width={40} height={40} className="rounded-full" /></a>
             <a href="#" className="hover:opacity-80 transition"><Image src="/i/fb.jpg" alt="Facebook" width={40} height={40} className="rounded-full" /></a>
-            <a href="#" className="hover:opacity-80 transition"><Image src="/i/x.png" alt="Twitter/X" width={40} height={40} className="rounded-full" /></a>
+            <a href="#" className="hover:opacity-80 transition"><Image src="/i/wa.jpg" alt="wa/X" width={40} height={40} className="rounded-full" /></a>
           </div>
         </div>
         <p>&copy; 2026 Emerald Irish Cafe. All rights reserved.</p>
