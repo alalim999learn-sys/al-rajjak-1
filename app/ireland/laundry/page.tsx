@@ -14,7 +14,7 @@ export default function LaundryLanding() {
    <nav className="flex justify-between items-center p-4 md:p-6 bg-white shadow-sm sticky top-0 z-50">
         <h1 className="text-lg md:text-2xl font-bold text-blue-600 tracking-tight">Long Lane Launderette</h1>
         <a href="#contact" className="bg-blue-600 text-white px-4 py-2 md:px-5 md:py-2 rounded-full text-xs md:text-sm font-semibold hover:bg-blue-700 shadow-md transition-all flex items-center gap-1.5">
-          📞 Contact
+          📞 +353 1 234 5678
         </a>
       </nav>
 
