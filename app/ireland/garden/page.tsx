@@ -37,20 +37,23 @@ export default function FenelonGardenPage() {
       </nav>
 
       {/* Hero Section - Fixed Zoom Issue */}
-      <section id="home" className="relative h-[60vh] flex items-center justify-center text-white text-center"
-               style={{ 
-                 backgroundImage: "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/i/garden-1.jpg')", 
-                 backgroundSize: 'contain', // জুম আউট করার জন্য contain ব্যবহার করা হয়েছে
-                 backgroundPosition: 'center center',
-                 backgroundRepeat: 'no-repeat',
-                 backgroundColor: '#1a3c1a' // যদি ইমেজ ছোট হয় তবে ব্যাকগ্রাউন্ডে যেন গ্রিন থাকে
-               }}>
-        <div className="px-4">
-          <h2 className="text-5xl font-bold mb-6">The Best Care For Your Beautiful Garden</h2>
-          <button className="bg-green-600 text-white px-8 py-3 rounded-full font-bold hover:bg-green-700 transition">Request a Callback</button>
-        </div>
-      </section>
+{/* Hero Section - Fixed with aspect-video */}
+<section 
+  id="home" 
+  className="relative w-full min-h-[60vh] bg-cover bg-center bg-no-repeat flex items-center justify-center text-white text-center py-40"
+  style={{ backgroundImage: "url('/i/88.png')" }}
+>
+  {/* ডার্ক ওভারলে */}
+  <div className="absolute inset-0 bg-black/50 z-10"></div>
 
+  {/* কন্টেন্ট */}
+  <div className="relative z-20 px-4">
+    <h2 className="text-4xl md:text-5xl font-bold mb-6">The Best Care For Your Beautiful Garden</h2>
+    <button className="bg-green-600 text-white px-8 py-3 rounded-full font-bold hover:bg-green-700 transition">
+      Request a Callback
+    </button>
+  </div>
+</section>
       {/* Services */}
       <section id="services" className="py-16 max-w-6xl mx-auto px-6">
         <h2 className="text-3xl font-bold text-center mb-12">Our Services</h2>
