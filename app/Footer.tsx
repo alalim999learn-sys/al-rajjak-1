@@ -27,7 +27,10 @@ export default function Footer() {
     '/admin/watches', 
     
     '/agent', 
-    '/barber'
+    '/barber',
+    '/b',
+    '/c'
+
   ];
 
   // যদি বর্তমান পাথটি hiddenPages এর মধ্যে থাকে, তবে ফুটার রিটার্ন করবে না

@@ -31,7 +31,9 @@ export default function Navbar() {
     '/ireland/grocery',
     '/ireland/cafe',
     '/ireland/barber',
-    '/yt-one'
+    '/yt-one',
+    '/b',
+    '/c'
 
   ];
 
