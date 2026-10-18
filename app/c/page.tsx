@@ -6,294 +6,292 @@
 
 
 
-"use client";
+'use client';
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-// Types for cafe menu items
 interface MenuItem {
-  id: number;
-  category: "coffee" | "drinks" | "food";
+  id: string;
   name: string;
-  price: string;
   description: string;
-  icon: string;
+  price: string;
+  image: string;
+  badge?: string;
 }
 
-export default function CafeDemo(): React.JSX.Element {
-  // Active category filter state
-  const [activeCategory, setActiveCategory] = useState<string>("all");
-  // Selected item highlight
-  const [selectedItem, setSelectedItem] = useState<number | null>(null);
+interface Category {
+  id: string;
+  title: string;
+  subtitle: string;
+  items: MenuItem[];
+}
 
-  // Menu items list tailored for a typical UK local cafe/snack bar
-  const menuItems: MenuItem[] = [
-    // Coffee & Hot Drinks
-    {
-      id: 1,
-      category: "coffee",
-      name: "Flat White",
-      price: "£3.20",
-      description: "Double shot espresso with silky micro-foamed milk",
-      icon: "☕",
-    },
-    {
-      id: 2,
-      category: "coffee",
-      name: "Espresso / Americano",
-      price: "£2.50",
-      description: "Rich roasted blend served hot or over ice",
-      icon: "☕",
-    },
-    {
-      id: 3,
-      category: "coffee",
-      name: "Hot Chocolate & Cream",
-      price: "£3.50",
-      description: "Belgian chocolate topped with whipped cream & marshmallows",
-      icon: "🍫",
-    },
+const CAFE_MENU_DATA: Category[] = [
+  {
+    id: 'hot-drinks',
+    title: 'Hot Drinks',
+    subtitle: 'Artisan specialty coffee and warming brews.',
+    items: [
+      {
+        id: 'flat-white',
+        name: 'Flat White',
+        description: 'Rich espresso with micro-foamed velvety milk.',
+        price: '£3.50',
+        image: '/30/white.jpg',
+        badge: 'Popular'
+      },
+      {
+        id: 'latte',
+        name: 'Latte / Cappuccino',
+        description: 'Classic espresso balanced with steamed milk and foam.',
+        price: '£3.80',
+        image: '/30/latte.jpg',
 
-    // Fresh Juices & Cold Drinks
-    {
-      id: 4,
-      category: "drinks",
-      name: "Fresh Orange Juice",
-      price: "£3.50",
-      description: "100% freshly squeezed Valencia oranges",
-      icon: "🍊",
-    },
-    {
-      id: 5,
-      category: "drinks",
-      name: "Berry Boost Smoothie",
-      price: "£3.90",
-      description: "Blended strawberries, blueberries, banana & apple juice",
-      icon: "🍓",
-    },
-    {
-      id: 6,
-      category: "drinks",
-      name: "Iced English Milk Tea",
-      price: "£2.80",
-      description: "Classic brew served over ice with your choice of milk",
-      icon: "🧋",
-    },
 
-    // Breads, Toasties & Snacks
-    {
-      id: 7,
-      category: "food",
-      name: "Bacon & Egg Roll",
-      price: "£4.50",
-      description: "Smoked Sussex bacon in a freshly toasted brioche bun",
-      icon: "🥓",
-    },
-    {
-      id: 8,
-      category: "food",
-      name: "Cheddar & Ham Toastie",
-      price: "£4.80",
-      description: "Melted mature cheddar with sliced ham on sourdough bread",
-      icon: "🥪",
-    },
-    {
-      id: 9,
-      category: "food",
-      name: "Artisan Bread & Butter",
-      price: "£3.00",
-      description: "Warm crusty loaf slices served with salted English butter",
-      icon: "🥖",
-    },
-    {
-      id: 10,
-      category: "food",
-      name: "Butter Croissant / Pastry",
-      price: "£2.80",
-      description: "Freshly baked daily in-house",
-      icon: "🥐",
-    },
-  ];
+      },
+      {
+        id: 'americano',
+        name: 'Americano',
+        description: 'Espresso shots topped with hot water for a clean, bold taste.',
+        price: '£3.00',
+        image: '/30/ameriano.jpg'
+      },
+      {
+        id: 'espresso',
+        name: 'Espresso',
+        description: 'Short, strong, and intensely aromatic single or double shot.',
+        price: '£2.50',
+        image: '/30/epress.jpg',
+      },
+      {
+        id: 'hot-choco',
+        name: 'Hot Chocolate',
+        description: 'Decadent Belgian chocolate topped with marshmallows.',
+        price: '£4.00',
+        image: '/30/mars.jpg',
+        badge: 'Comfort'
+      }
+    ]
+  },
+  {
+    id: 'bakery',
+    title: 'Bakery & Pastries',
+    subtitle: 'Freshly baked goods and sweet treats daily.',
+    items: [
+      {
+        id: 'butter-croissant',
+        name: 'Butter Croissant',
+        description: 'Flaky, golden, and freshly baked French style pastry.',
+        price: '£2.80',
+        image: '/30/cr.jpg',
+        badge: 'Fresh'
+      },
+      {
+        id: 'almond-croissant',
+        name: 'Almond Croissant',
+        description: 'Filled with rich almond frangipane and topped with flakes.',
+        price: '£3.50',
+        image: '/30/almond.jpg'
+      },
+      {
+        id: 'muffin',
+        name: 'Blueberry Muffin',
+        description: 'Soft sponge packed with juicy blueberries and a crumb topping.',
+        price: '£3.00',
+        image: '/30/muffin.jpg'
+      },
+      {
+        id: 'brownie',
+        name: 'Chocolate Brownie',
+        description: 'Fudgy, rich dark chocolate square with a crispy crust.',
+        price: '£3.20',
+        image: '/30/brownie.jpg'
+      }
+    ]
+  },
+  {
+    id: 'breakfast-lunch',
+    title: 'Breakfast & Lunch',
+    subtitle: 'Hearty toasties, paninis, and light bites.',
+    items: [
+      {
+        id: 'avocado-toast',
+        name: 'Avocado & Poached Egg Toast',
+        description: 'Smashed avocado, chilli flakes, and free-range egg on sourdough.',
+        price: '£7.50',
+        image: '/30/3-1.jpg',
+        badge: 'Chef Choice'
+      },
+    
+{
+  id: 'smoked-salmon-bagel',
+  name: 'Smoked Salmon & Cream Cheese Bagel',
+  description: 'Fresh bagel layered with creamy cheese, smoked salmon, and dill.',
+  price: '£7.20',
+  image: '/30/3-2.jpg',
+  badge: 'Popular'
+},
 
-  // Filter items based on selected tab
-  const filteredItems =
-    activeCategory === "all"
-      ? menuItems
-      : menuItems.filter((item) => item.category === activeCategory);
 
-  // Placeholder Google Review link for Bognor Regis target
-  const googleReviewUrl: string =
-    "https://search.google.com/local/writereview?placeid=ChIJ31s_DEMODUgRvI3k0eH8YgM";
 
-  // Phone number for Bognor Regis local area
-  const phoneNumber: string = "01243 821111";
+      {
+        id: 'chicken-panini',
+        name: 'Chicken & Pesto Panini',
+        description: 'Grilled chicken breast, basil pesto, and mozzarella.',
+        price: '£6.80',
+        image: '/30/3-3.jpg'
+      }
+    ]
+  },
+  {
+    id: 'cold-drinks',
+    title: 'Cold Drinks',
+    subtitle: 'Refreshing iced coffees and fresh juices.',
+    items: [
+      {
+        id: 'iced-latte',
+        name: 'Iced Latte',
+        description: 'Double shot espresso poured over cold milk and ice cubes.',
+        price: '£4.20',
+        image: '/30/401.jpg',
+        badge: 'Refreshing'
+      },
+      {
+        id: 'iced-matcha',
+        name: 'Iced Matcha Green Tea',
+        description: 'Premium ceremonial grade Japanese matcha over ice and milk.',
+        price: '£4.50',
+        image: '/30/403.jpg'
+      },
+      {
+        id: 'orange-juice',
+        name: 'Fresh Orange Juice',
+        description: '100% freshly squeezed sweet oranges, chilled to perfection.',
+        price: '£3.50',
+        image: '/30/404.jpg'
+      }
+    ]
+  }
+];
+
+export default function CafeMenuPage() {
+  const [activeCategory, setActiveCategory] = useState<string>('hot-drinks');
+  const currentCategoryData = CAFE_MENU_DATA.find((cat) => cat.id === activeCategory) || CAFE_MENU_DATA[0];
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 font-sans max-w-md mx-auto relative pb-24 border-x border-neutral-800/80 shadow-2xl antialiased">
+    <div className="min-h-screen bg-neutral-950 flex items-center justify-center p-0 sm:py-6 selection:bg-white selection:text-black">
       
-      {/* 1. TOP NAVBAR */}
-      <nav className="sticky top-0 z-30 bg-neutral-950/95 backdrop-blur-md px-4 py-3.5 border-b border-neutral-800/80 flex items-center justify-between">
-        {/* Left Side Logo */}
-        <div className="flex items-center gap-2">
-          <span className="text-xl">☕</span>
-          <div className="flex flex-col">
-            <span className="font-extrabold text-sm tracking-tight text-amber-400 uppercase">
-              Bognor Bites
-            </span>
-            <span className="text-[10px] text-neutral-400 font-medium">
-              High Street Cafe
-            </span>
-          </div>
-        </div>
-
-        {/* Right Side Call Button */}
-        <a
-          href={`tel:${phoneNumber.replace(/\s+/g, "")}`}
-          className="inline-flex items-center gap-1.5 bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-amber-400 font-semibold px-3 py-1.5 rounded-lg text-xs transition duration-150 active:scale-95"
-        >
-          <svg
-            className="w-3.5 h-3.5 fill-current"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1.003 1.003 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
-          </svg>
-          <span>Call: {phoneNumber}</span>
-        </a>
-      </nav>
-
-      {/* 2. MIDDLE CONTENT SECTION */}
-      <main className="p-4 space-y-5">
+      {/* MOBILE APP CONTAINER */}
+      <div className="w-full max-w-sm sm:max-w-md h-screen sm:h-[880px] bg-white text-neutral-900 flex flex-col sm:rounded-[36px] sm:border-[8px] sm:border-neutral-900 shadow-2xl overflow-hidden relative">
         
-        {/* Welcome Banner */}
-        <div className="bg-gradient-to-r from-neutral-900 via-neutral-900 to-amber-950/40 p-4 rounded-2xl border border-neutral-800 relative overflow-hidden">
-          <div className="relative z-10">
-            <span className="bg-amber-500/10 text-amber-400 text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-amber-500/20 uppercase tracking-wider">
-              Fresh Daily • High Street
-            </span>
-            <h1 className="text-xl font-bold text-white mt-2">
-              Coffee, Juices & Fresh Breads
-            </h1>
-            <p className="text-xs text-neutral-400 mt-1">
-              Tap a category below to filter menu prices or rate your visit.
-            </p>
-          </div>
-        </div>
-
-        {/* Category Tabs */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar text-xs">
-          {[
-            { id: "all", label: "All Items", icon: "✨" },
-            { id: "coffee", label: "Coffee & Hot", icon: "☕" },
-            { id: "drinks", label: "Juices & Cold", icon: "🍊" },
-            { id: "food", label: "Bread & Toasties", icon: "🥪" },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveCategory(tab.id)}
-              className={`px-3 py-2 rounded-xl font-semibold flex items-center gap-1.5 whitespace-nowrap transition-all duration-150 ${
-                activeCategory === tab.id
-                  ? "bg-amber-500 text-neutral-950 shadow-md shadow-amber-500/10 font-bold"
-                  : "bg-neutral-900 text-neutral-300 border border-neutral-800 hover:border-neutral-700"
-              }`}
+        {/* TOP HEADER */}
+        <header className="bg-black/95 backdrop-blur-md text-white px-5 py-4 flex-shrink-0 border-b border-neutral-800 z-20">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center font-black text-sm tracking-tighter">
+                B&B
+              </div>
+              <div>
+                <h1 className="text-sm font-bold tracking-tight uppercase leading-none">Bean & Brew</h1>
+                <p className="text-[10px] text-neutral-400 mt-0.5">Artisan Coffee & Bakery</p>
+              </div>
+            </div>
+            <a
+              href="tel:+447000000000"
+              className="bg-neutral-900 hover:bg-neutral-800 text-white border border-neutral-700/80 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all flex items-center gap-1.5 active:scale-95"
             >
-              <span>{tab.icon}</span>
-              <span>{tab.label}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* Menu Items List */}
-        <section className="space-y-2.5">
-          <div className="flex items-center justify-between px-0.5">
-            <h2 className="text-xs font-bold text-neutral-400 uppercase tracking-wider">
-              Menu & Price List ({filteredItems.length})
-            </h2>
-            <span className="text-[11px] text-neutral-500">Includes VAT</span>
+              <svg className="w-3 h-3 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              Call
+            </a>
           </div>
+        </header>
 
-          <div className="space-y-2.5">
-            {filteredItems.map((item: MenuItem) => {
-              const isSelected = selectedItem === item.id;
+        {/* MIDDLE SCROLLABLE CONTENT */}
+        <main className="flex-1 overflow-y-auto px-4 py-4 space-y-4 scrollbar-none">
+          
+          {/* Category Tabs */}
+          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none sticky top-0 bg-white/90 backdrop-blur-sm z-10 py-1">
+            {CAFE_MENU_DATA.map((cat) => {
+              const isActive = cat.id === activeCategory;
               return (
-                <div
-                  key={item.id}
-                  onClick={() => setSelectedItem(item.id)}
-                  className={`p-3.5 rounded-xl border transition-all duration-200 cursor-pointer select-none ${
-                    isSelected
-                      ? "bg-neutral-900 border-amber-500/80 shadow-md shadow-amber-500/5"
-                      : "bg-neutral-900/60 border-neutral-800/80 hover:border-neutral-700"
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`whitespace-nowrap px-4 py-2 rounded-full text-xs font-bold tracking-wide transition-all flex-shrink-0 ${
+                    isActive
+                      ? 'bg-black text-white shadow-md shadow-neutral-900/20 scale-105'
+                      : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
                   }`}
                 >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <span className="text-2xl p-2 bg-neutral-950 rounded-lg border border-neutral-800">
-                        {item.icon}
-                      </span>
-                      <div>
-                        <h3 className="font-semibold text-sm text-neutral-100">
-                          {item.name}
-                        </h3>
-                        <p className="text-xs text-neutral-400 mt-0.5 leading-snug">
-                          {item.description}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="text-right pl-2">
-                      <span className="font-bold text-amber-400 text-sm block">
-                        {item.price}
-                      </span>
-                    </div>
-                  </div>
-                </div>
+                  {cat.title}
+                </button>
               );
             })}
           </div>
-        </section>
 
-        {/* Cafe Operating Info */}
-        <section className="bg-neutral-900/40 p-4 rounded-xl border border-neutral-800/80 text-xs space-y-2.5 text-neutral-400">
-          <div className="flex justify-between items-center pb-2 border-b border-neutral-800/50">
-            <span className="flex items-center gap-1.5 text-neutral-300">
-              <span>📍</span> Address:
-            </span>
-            <span className="text-neutral-200 font-medium">High Street, Bognor Regis</span>
+          {/* Category Title & Subtitle */}
+          <div className="px-1 pt-1">
+            <h2 className="text-base font-extrabold text-neutral-900 tracking-tight">{currentCategoryData.title}</h2>
+            <p className="text-[11px] text-neutral-500 font-medium">{currentCategoryData.subtitle}</p>
           </div>
-          <div className="flex justify-between items-center pb-2 border-b border-neutral-800/50">
-            <span className="flex items-center gap-1.5 text-neutral-300">
-              <span>🕒</span> Opening Hours:
-            </span>
-            <span className="text-neutral-200 font-medium">Mon - Sun: 7:30am - 5:00pm</span>
-          </div>
-          <div className="flex justify-between items-center">
-            <span className="flex items-center gap-1.5 text-neutral-300">
-              <span>🌱</span> Dietaries:
-            </span>
-            <span className="text-neutral-200 font-medium">Vegan & Gluten-Free Available</span>
-          </div>
-        </section>
 
-      </main>
+          {/* Menu Items Cards */}
+          <div className="space-y-3 pb-24">
+            {currentCategoryData.items.map((item) => (
+              <div
+                key={item.id}
+                className="group bg-white border border-neutral-200/90 rounded-2xl p-3 flex items-center gap-3.5 shadow-sm hover:shadow-md hover:border-neutral-300 transition-all duration-200"
+              >
+                {/* Item Image */}
+                <div className="relative w-18 h-18 rounded-xl overflow-hidden bg-neutral-100 flex-shrink-0">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
 
-      {/* 3. BOTTOM FIXED REVIEW BUTTON */}
-      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-neutral-950/95 backdrop-blur-md p-3 border-t border-neutral-800/80 z-40">
-        <a
-          href={googleReviewUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 w-full bg-amber-500 hover:bg-amber-400 text-neutral-950 font-extrabold py-3 px-4 rounded-xl shadow-lg shadow-amber-500/10 text-xs uppercase tracking-wider transition duration-150 active:scale-[0.98]"
-        >
-          <svg
-            className="w-4 h-4 fill-current"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
+                {/* Item Details */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between gap-1 mb-0.5">
+                    <h3 className="text-xs font-bold text-neutral-900 truncate">{item.name}</h3>
+                    {item.badge && (
+                      <span className="text-[9px] font-bold bg-neutral-900 text-white px-2 py-0.5 rounded-full flex-shrink-0">
+                        {item.badge}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-[11px] text-neutral-500 line-clamp-2 mb-2 leading-relaxed font-normal">
+                    {item.description}
+                  </p>
+                  <div className="text-xs font-black text-neutral-900">
+                    {item.price}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </main>
+
+        {/* BOTTOM FIXED FOOTER */}
+        <footer className="bg-black/95 backdrop-blur-md text-white py-3.5 px-4 flex-shrink-0 border-t border-neutral-800 absolute bottom-0 left-0 right-0 z-20">
+          <a
+            href="https://search.google.com/local/writereview?placeid=YOUR_GOOGLE_PLACE_ID"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full bg-white text-black hover:bg-neutral-100 font-bold py-2.5 px-4 rounded-xl text-[11px] uppercase tracking-wider flex items-center justify-center gap-2 transition-transform active:scale-95 shadow-lg"
           >
-            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-          </svg>
-          <span>Leave a 5-Star Google Review ⭐⭐⭐⭐⭐</span>
-        </a>
-      </div>
+            <svg className="w-3.5 h-3.5 text-amber-500 fill-current" viewBox="0 0 24 24">
+              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+            </svg>
+            Leave a Google Review
+          </a>
+        </footer>
 
+      </div>
     </div>
   );
 }
