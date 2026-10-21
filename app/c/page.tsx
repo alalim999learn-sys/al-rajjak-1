@@ -1,7 +1,7 @@
-
-
-
 /////////C:\Users\Shanon\al-rajjak-1\app\c\page.tsx
+
+
+
 
 
 
@@ -31,7 +31,7 @@ const CAFE_MENU_DATA: Category[] = [
   {
     id: 'hot-drinks',
     title: 'Hot Drinks',
-    subtitle: 'Artisan specialty coffee and warming brews.',
+    subtitle: '',
     items: [
       {
         id: 'flat-white',
@@ -75,7 +75,7 @@ const CAFE_MENU_DATA: Category[] = [
   {
     id: 'bakery',
     title: 'Bakery & Pastries',
-    subtitle: 'Freshly baked goods and sweet treats daily.',
+    subtitle: '',
     items: [
       {
         id: 'butter-croissant',
@@ -111,7 +111,7 @@ const CAFE_MENU_DATA: Category[] = [
   {
     id: 'breakfast-lunch',
     title: 'Breakfast & Lunch',
-    subtitle: 'Hearty toasties, paninis, and light bites.',
+    subtitle: '',
     items: [
       {
         id: 'avocado-toast',
@@ -141,7 +141,7 @@ const CAFE_MENU_DATA: Category[] = [
   {
     id: 'cold-drinks',
     title: 'Cold Drinks',
-    subtitle: 'Refreshing iced coffees and fresh juices.',
+    subtitle: '',
     items: [
       {
         id: 'iced-latte',
@@ -173,64 +173,93 @@ export default function CafeMenuPage() {
   const [activeCategory, setActiveCategory] = useState<string>('hot-drinks');
   const currentCategoryData = CAFE_MENU_DATA.find((cat) => cat.id === activeCategory) || CAFE_MENU_DATA[0];
 
+  const handleCategoryClick = (catId: string) => {
+    setActiveCategory(catId);
+  };
+
   return (
-    <div className="min-h-screen bg-amber-950/20 flex justify-center items-center p-0 sm:py-6 antialiased selection:bg-amber-400 selection:text-amber-950">
-      
-      {/* MOBILE APP CONTAINER */}
-      <div className="w-full h-dvh sm:h-[860px] sm:max-w-[420px] bg-amber-50/30 text-amber-950 flex flex-col sm:rounded-[36px] sm:border-[6px] sm:border-amber-900/30 shadow-2xl overflow-hidden relative">
-        
-        {/* NAVBAR - Warm Coffee & Cream Theme */}
-        <header className="bg-amber-900 text-amber-50 px-4 py-3.5 flex-shrink-0 z-30 sticky top-0 shadow-sm border-b border-amber-800">
-          <div className="flex items-center justify-between">
-            
-            {/* Left: Animated Logo & Cafe Name */}
-            <div className="flex items-center gap-2.5 group">
-              <div className="w-9 h-9 rounded-xl bg-amber-100 text-amber-950 border border-amber-300 flex items-center justify-center font-black text-xs tracking-tighter shadow-sm flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
-                B&B
-              </div>
-              <div className="min-w-0">
-                <h1 className="text-sm font-black tracking-widest uppercase text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-amber-200 to-amber-300 animate-pulse transition-all duration-300 leading-none truncate">
-                  Bean & Brew
-                </h1>
-                <p className="text-[10px] text-amber-200/80 font-medium mt-1 tracking-tight truncate">
-                  Artisan Coffee & Bakery
-                </p>
-              </div>
-            </div>
+    <div className="w-full h-dvh bg-stone-50 text-stone-900 grid grid-rows-[auto_1fr_auto] antialiased selection:bg-amber-400 selection:text-stone-950 overflow-hidden relative">
 
-            {/* Right: Real UK Phone Number Button */}
-            <a
-              href="tel:+442079460922"
-              className="relative group bg-amber-800 hover:bg-amber-700 text-amber-100 border border-amber-700/80 px-3 py-1.5 rounded-full text-[11px] font-semibold tracking-tight transition-all duration-300 flex items-center gap-1.5 active:scale-95 shadow-sm flex-shrink-0"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
-              </span>
-              <svg className="w-3.5 h-3.5 text-amber-300 group-hover:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-              </svg>
-              <span className="font-mono text-[10px] tracking-wider text-amber-100">020 7946 0922</span>
-            </a>
+      {/* CSS Styles for smooth animated text gradients */}
+      <style jsx>{`
+        @keyframes colorShift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .animated-shop-name {
+          background: linear-gradient(270deg, #00f2fe, #4facfe, #00ff87, #ff007f, #00f2fe);
+          background-size: 400% 400%;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: colorShift 5s ease infinite;
+        }
+        .animated-review-text {
+          background: linear-gradient(270deg, #ffd700, #ff4500, #00ffff, #ff1493, #ffd700);
+          background-size: 400% 400%;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: colorShift 5s ease infinite;
+        }
+      `}</style>
 
-          </div>
-        </header>
+      {/* ROW 1: LOCKED TOP SECTION (Header + Category Grid - Never Overlapped) */}
+      <div className="w-full bg-stone-50 shadow-md z-30 flex-shrink-0">
 
-        {/* STICKY 2x2 CATEGORY GRID (Zero Gap & Warm Food-Friendly 3-Term Colors) */}
-        <div className="sticky top-[57px] z-20 bg-amber-100/60 border-b border-amber-200">
-          <div className="grid grid-cols-2 gap-0">
+        {/* NAVBAR */}
+        <header className="bg-[#3e2723] text-stone-100 px-4 py-3.5 border-b border-[#4e342e] w-full">
+  <div className="flex items-center justify-between w-full">
+
+    {/* Left: Transparent Logo & Cafe Name */}
+    <div className="flex items-center gap-2.5 group">
+      <div className="w-9 h-9 rounded-xl bg-transparent border border-amber-500/30 flex items-center justify-center text-amber-400 text-base shadow-sm flex-shrink-0">
+        ☕
+      </div>
+      <div className="min-w-0">
+        <h1 className="text-sm font-black tracking-widest uppercase animated-shop-name leading-none truncate">
+          Bean & Brew
+        </h1>
+        <p className="text-[10px] text-amber-200/70 font-medium mt-1 tracking-tight truncate">
+          Artisan Coffee & Bakery
+        </p>
+      </div>
+    </div>
+
+    {/* Right: Real UK Phone Number Button */}
+    <a
+      href="tel:+442079460922"
+      className="relative group bg-[#2d1b18] hover:bg-[#231513] text-amber-100 border border-amber-900/40 px-3 py-1.5 rounded-full text-[11px] font-semibold tracking-tight transition-all duration-300 flex items-center gap-1.5 active:scale-95 shadow-xs flex-shrink-0 cursor-pointer"
+    >
+      <span className="relative flex h-2 w-2">
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+        <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+      </span>
+      <svg className="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+      </svg>
+      <span className="font-mono text-[10px] tracking-wider text-amber-100">020 7946 0922</span>
+    </a>
+
+  </div>
+</header>
+
+        {/* CATEGORY GRID WITH WORKING MOBILE TAP EVENTS */}
+        <div className="bg-stone-200 border-b border-stone-300 w-full">
+          <div className="grid grid-cols-2 gap-0 w-full">
             {CAFE_MENU_DATA.map((cat, idx) => {
               const isActive = cat.id === activeCategory;
               return (
                 <button
                   key={cat.id}
-                  onClick={() => setActiveCategory(cat.id)}
-                  className={`w-full py-3 px-2 text-xs font-bold tracking-wide transition-all duration-200 text-center truncate rounded-none ${
-                    idx % 2 === 0 ? 'border-r border-amber-200/60' : ''
-                  } ${idx < 2 ? 'border-b border-amber-200/60' : ''} ${
+                  type="button"
+                  onClick={() => handleCategoryClick(cat.id)}
+                  style={{ WebkitTapHighlightColor: 'transparent' }}
+                  className={`w-full py-3 px-2 text-xs font-bold tracking-wide transition-all duration-150 text-center truncate rounded-none cursor-pointer select-none ${
+                    idx % 2 === 0 ? 'border-r border-stone-300' : ''
+                  } ${idx < 2 ? 'border-b border-stone-300' : ''} ${
                     isActive
-                      ? 'bg-amber-600 text-white font-black shadow-inner'
-                      : 'bg-amber-50/80 text-amber-900 hover:bg-amber-100 hover:text-amber-950'
+                      ? 'bg-[#3e2723] text-amber-100 font-black shadow-inner'
+                      : 'bg-stone-100 text-stone-700 hover:bg-stone-200 hover:text-stone-900'
                   }`}
                 >
                   {cat.title}
@@ -240,80 +269,74 @@ export default function CafeMenuPage() {
           </div>
         </div>
 
-        {/* MIDDLE SCROLLABLE CONTENT */}
-        <main className="flex-1 overflow-y-auto bg-white px-3 pt-3 pb-28 space-y-3 scrollbar-none">
-          
-          {/* CATEGORY HEADER */}
-          <div className="px-0.5 pt-0.5">
-            <h2 className="text-base font-extrabold text-amber-950 tracking-tight">
-              {currentCategoryData.title}
-            </h2>
-            <p className="text-[11px] text-amber-800/70 font-normal leading-normal">
-              {currentCategoryData.subtitle}
-            </p>
-          </div>
+      </div>
 
-          {/* MENU ITEMS CARDS */}
-          <div className="space-y-3">
-            {currentCategoryData.items.map((item) => (
-              <div
-                key={item.id}
-                className="group bg-white border border-amber-200/60 hover:border-amber-300 rounded-2xl flex items-stretch h-28 shadow-xs hover:shadow-md transition-all duration-200 overflow-hidden active:scale-[0.99]"
-              >
-                {/* Full-Height Image Attached to Top, Bottom & Left Edge */}
-                <div className="relative w-28 h-full bg-amber-50 flex-shrink-0 overflow-hidden">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-full h-full object-cover rounded-l-2xl group-hover:scale-105 transition-transform duration-300"
-                  />
+      {/* ROW 2: INDEPENDENT SCROLLABLE CONTENT (Never crashes with category buttons) */}
+      <main className="w-full overflow-y-auto bg-stone-50 px-3 py-3 space-y-3 z-10">
+
+        {/* MENU ITEMS CARDS */}
+        <div className="space-y-3">
+          {currentCategoryData.items.map((item) => (
+            <div
+              key={item.id}
+              className="group bg-white border border-stone-200 hover:border-amber-400 rounded-2xl flex items-stretch h-32 shadow-xs hover:shadow-md transition-all duration-200 overflow-hidden active:scale-[0.99]"
+            >
+              {/* Full-Height Image */}
+              <div className="relative w-28 h-full bg-stone-100 flex-shrink-0 overflow-hidden">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-full h-full object-cover rounded-l-2xl group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+
+              {/* Item Details */}
+              <div className="flex-1 min-w-0 p-3 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between gap-1 mb-1">
+                    <h3 className="text-xs sm:text-sm font-extrabold text-stone-900 truncate tracking-tight">
+                      {item.name}
+                    </h3>
+                    {item.badge && (
+                      <span className="text-[9px] font-extrabold uppercase tracking-wider bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-md flex-shrink-0">
+                        {item.badge}
+                      </span>
+                    )}
+                  </div>
+
+                  <p className="text-[12px] text-stone-600 line-clamp-2 leading-relaxed font-normal">
+                    {item.description}
+                  </p>
                 </div>
 
-                {/* Item Details */}
-                <div className="flex-1 min-w-0 p-3 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center justify-between gap-1 mb-1">
-                      <h3 className="text-xs font-bold text-amber-950 truncate tracking-tight">
-                        {item.name}
-                      </h3>
-                      {item.badge && (
-                        <span className="text-[9px] font-extrabold uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-200 px-2 py-0.5 rounded-md flex-shrink-0">
-                          {item.badge}
-                        </span>
-                      )}
-                    </div>
-
-                    <p className="text-[11px] text-amber-900/70 line-clamp-2 leading-relaxed font-normal">
-                      {item.description}
-                    </p>
-                  </div>
-
-                  <div className="text-sm font-black text-amber-950 tracking-tight">
-                    {item.price}
-                  </div>
+                <div className="text-sm font-black text-stone-900 tracking-tight">
+                  {item.price}
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
+        </div>
 
-        </main>
+      </main>
 
-        {/* BOTTOM FIXED FOOTER */}
-        <footer className="bg-amber-900 text-amber-50 p-3.5 absolute bottom-0 left-0 right-0 z-30 border-t border-amber-800">
-          <a
-            href="https://search.google.com/local/writereview?placeid=YOUR_GOOGLE_PLACE_ID"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full bg-amber-500 hover:bg-amber-400 text-amber-950 font-extrabold py-3 px-4 rounded-xl text-[11px] uppercase tracking-wider flex items-center justify-center gap-2 transition-all active:scale-[0.98] shadow-md"
-          >
-            <svg className="w-4 h-4 text-amber-950 fill-current" viewBox="0 0 24 24">
-              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-            </svg>
-            Leave a Google Review
-          </a>
-        </footer>
+      {/* ROW 3: FIXED BOTTOM FOOTER */}
+      <footer className="w-full bg-stone-950 text-stone-100 p-3.5 z-30 border-t border-stone-800 shadow-xl flex-shrink-0">
+        <a
+          href="https://search.google.com/local/writereview?placeid=YOUR_GOOGLE_PLACE_ID"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full bg-white hover:bg-stone-100 text-stone-950 font-extrabold py-3 px-4 rounded-xl text-[11px] uppercase tracking-wider flex items-center justify-center gap-2 transition-all active:scale-[0.98] shadow-md cursor-pointer"
+        >
+          <svg className="w-4 h-4 text-rose-600 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <span className="font-black text-xs tracking-wider animated-review-text">
+            📍 Leave a Google Review
+          </span>
+        </a>
+      </footer>
 
-      </div>
     </div>
   );
 }
