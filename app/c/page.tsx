@@ -217,10 +217,10 @@ export default function CafeMenuPage() {
       </div>
       <div className="min-w-0">
         <h1 className="text-sm font-black tracking-widest uppercase animated-shop-name leading-none truncate">
-          Bean & Brew
+         Astral Café
         </h1>
         <p className="text-[10px] text-amber-200/70 font-medium mt-1 tracking-tight truncate">
-          Artisan Coffee & Bakery
+          8 Regency St, SW1P 2EB
         </p>
       </div>
     </div>
@@ -237,7 +237,7 @@ export default function CafeMenuPage() {
       <svg className="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
       </svg>
-      <span className="font-mono text-[10px] tracking-wider text-amber-100">020 7946 0922</span>
+      <span className="font-mono text-[10px] tracking-wider text-amber-100">+442079319116</span>
     </a>
 
   </div>
@@ -322,7 +322,7 @@ export default function CafeMenuPage() {
       {/* ROW 3: FIXED BOTTOM FOOTER */}
       <footer className="w-full bg-stone-950 text-stone-100 p-3.5 z-30 border-t border-stone-800 shadow-xl flex-shrink-0">
         <a
-          href="https://search.google.com/local/writereview?placeid=YOUR_GOOGLE_PLACE_ID"
+          href="https://search.google.com/local/writereview?placeid=ChIJsxvXmt0EdkgRhuFj9XuiBk0"
           target="_blank"
           rel="noopener noreferrer"
           className="w-full bg-white hover:bg-stone-100 text-stone-950 font-extrabold py-3 px-4 rounded-xl text-[11px] uppercase tracking-wider flex items-center justify-center gap-2 transition-all active:scale-[0.98] shadow-md cursor-pointer"

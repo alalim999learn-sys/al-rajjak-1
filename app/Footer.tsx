@@ -25,7 +25,8 @@ export default function Footer() {
     '/ireland/cafe',
     '/ireland/barber',
     '/admin/watches', 
-    
+    '/spanish/b',
+    '/spanish/c',
     '/agent', 
     '/barber',
     '/b',

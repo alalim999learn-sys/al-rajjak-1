@@ -163,10 +163,10 @@ export default function BarberMenuPage() {
               <div className="min-w-0">
                 {/* Fast Colorful Animated Shop Name */}
                 <h1 className="text-sm font-black tracking-widest uppercase animated-gradient-text leading-none truncate drop-shadow-sm">
-                  The Barbers
+                 Barber King
                 </h1>
                 <p className="text-[10px] text-neutral-400 font-medium mt-1 tracking-tight truncate">
-                  Grooming Studio
+                  74 Baker St, W1U 6TB
                 </p>
               </div>
             </div>
@@ -183,7 +183,7 @@ export default function BarberMenuPage() {
               <svg className="w-3.5 h-3.5 text-amber-400 group-hover:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
-              <span className="font-mono text-[10px] tracking-wider text-neutral-200">020 7946 0921</span>
+              <span className="font-mono text-[10px] tracking-wider text-neutral-200">+44 20 3302 5250</span>
             </a>
 
           </div>
@@ -266,18 +266,18 @@ export default function BarberMenuPage() {
 
         {/* BOTTOM FIXED FOOTER - FIXED BOTTOM 0 */}
         <footer className="bg-neutral-950/95 backdrop-blur-md border-t border-neutral-800 p-3.5 fixed bottom-0 left-0 right-0 z-30 shadow-lg">
-          <a
-            href="https://search.google.com/local/writereview?placeid=YOUR_GOOGLE_PLACE_ID"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full bg-neutral-900 hover:bg-neutral-800 border-2 border-white text-white font-extrabold py-3 px-4 rounded-xl text-[11px] uppercase tracking-wider flex items-center justify-center gap-2 transition-all active:scale-[0.98] shadow-lg cursor-pointer"
-          >
-            <span className="text-base flex-shrink-0">📍</span>
-            <span className="animated-gradient-text font-black text-xs tracking-wider">
-              Leave a Google Review
-            </span>
-          </a>
-        </footer>
+  <a
+    href="https://search.google.com/local/writereview?placeid=ChIJ7UCbfbMbdkgR7HR4gf6GWKk"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="w-full bg-neutral-900 hover:bg-neutral-800 border-2 border-white text-white font-extrabold py-3 px-4 rounded-xl text-[11px] uppercase tracking-wider flex items-center justify-center gap-2 transition-all active:scale-[0.98] shadow-lg cursor-pointer"
+  >
+    <span className="text-base flex-shrink-0">📍</span>
+    <span className="animated-gradient-text font-black text-xs tracking-wider">
+      Leave a Google Review
+    </span>
+  </a>
+</footer>
 
       </div>
     </div>

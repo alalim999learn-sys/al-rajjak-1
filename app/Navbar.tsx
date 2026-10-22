@@ -32,6 +32,8 @@ export default function Navbar() {
     '/ireland/cafe',
     '/ireland/barber',
     '/yt-one',
+    '/spanish/b',
+    '/spanish/c',
     '/b',
     '/c'
 
