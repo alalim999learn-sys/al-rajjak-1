@@ -145,14 +145,24 @@ interface CartItem {
   quantity: number;
 }
 
+interface OrderHistoryItem {
+  orderId: string;
+  time: string;
+  items: CartItem[];
+  totalAmount: number;
+}
+
 export default function BarberMenuPage() {
   const [activeCategory, setActiveCategory] = useState<string>('haircuts');
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
   const [isStripeModalOpen, setIsStripeModalOpen] = useState<boolean>(false);
+  const [showHistory, setShowHistory] = useState<boolean>(false);
   
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [paymentSuccess, setPaymentSuccess] = useState<boolean>(false);
+
+  const [orderHistory, setOrderHistory] = useState<OrderHistoryItem[]>([]);
 
   const currentCategoryData = MENU_DATA.find((cat) => cat.id === activeCategory) || MENU_DATA[0];
 
@@ -185,12 +195,31 @@ export default function BarberMenuPage() {
 
   const handleStripePayment = (e: React.FormEvent) => {
     e.preventDefault();
+    if (cart.length === 0) return;
+
     setIsProcessing(true);
+    setIsCartOpen(false);
+
+    const currentCartCopy = [...cart];
+    const currentTotal = totalPrice;
+
     setTimeout(() => {
+      const newOrder: OrderHistoryItem = {
+        orderId: `BK-${Math.floor(1000 + Math.random() * 9000)}`,
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        items: currentCartCopy,
+        totalAmount: currentTotal
+      };
+
+      setOrderHistory((prev) => [newOrder, ...prev]);
+      setCart([]); // পেমেন্ট শেষে কার্ট খালি করা হচ্ছে
+
       setIsProcessing(false);
       setPaymentSuccess(true);
     }, 2000);
   };
+
+  const totalRevenue = orderHistory.reduce((sum, order) => sum + order.totalAmount, 0);
 
   return (
     <div className="min-h-screen w-full bg-neutral-950 flex flex-col antialiased selection:bg-neutral-900 selection:text-white m-0 p-0">
@@ -231,7 +260,14 @@ export default function BarberMenuPage() {
             </div>
 
             <div className="flex items-center gap-2">
-              {totalItemsCount > 0 && (
+              <button
+                onClick={() => setShowHistory(!showHistory)}
+                className="bg-amber-400 hover:bg-amber-300 text-neutral-950 px-3.5 py-1.5 rounded-full text-xs font-black transition-all cursor-pointer flex items-center gap-1.5 shadow-md active:scale-95"
+              >
+                {showHistory ? '← Back to Menu' : '📊 Owner Dashboard'}
+              </button>
+
+              {totalItemsCount > 0 && !showHistory && (
                 <button
                   onClick={() => setIsCartOpen(true)}
                   className="bg-amber-400 hover:bg-amber-300 text-neutral-950 px-3 py-1.5 rounded-full text-xs font-black flex items-center gap-1.5 shadow-md transition-all active:scale-95 cursor-pointer"
@@ -242,126 +278,174 @@ export default function BarberMenuPage() {
                   </span>
                 </button>
               )}
-
-              <a
-                href="tel:+442079460921"
-                className="group bg-neutral-900 hover:bg-neutral-800 text-white border border-neutral-700/90 px-3 py-1.5 rounded-full text-[11px] font-semibold tracking-tight transition-all duration-300 flex items-center gap-1.5 active:scale-95 shadow-sm flex-shrink-0 cursor-pointer"
-              >
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
-                </span>
-                <span className="font-mono text-[10px] tracking-wider text-neutral-200">Call Shop</span>
-              </a>
             </div>
 
           </div>
         </header>
 
-        {/* CATEGORY TABS */}
-        <div className="w-full bg-neutral-100 border-b border-neutral-200/90 z-20 fixed top-[65px] left-0 right-0">
-          <div className="flex w-full">
-            {MENU_DATA.map((cat) => {
-              const isActive = cat.id === activeCategory;
-              return (
-                <button
-                  key={cat.id}
-                  onClick={() => setActiveCategory(cat.id)}
-                  className={`flex-1 h-12 px-1 text-center text-xs font-bold tracking-wide transition-all duration-200 relative cursor-pointer select-none flex items-center justify-center ${
-                    isActive
-                      ? 'bg-neutral-900 text-white shadow-inner'
-                      : 'text-neutral-700 hover:text-neutral-900 bg-neutral-100 hover:bg-neutral-200/70'
-                  }`}
-                >
-                  <span className={`transition-all duration-200 truncate ${isActive ? 'animated-gradient-text font-black' : 'text-neutral-700 font-semibold'}`}>
-                    {cat.title}
-                  </span>
-                  {isActive && (
-                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-400 via-rose-500 to-cyan-400 animate-pulse"></div>
-                  )}
-                </button>
-              );
-            })}
+        {/* CATEGORY TABS (Hidden when Owner Dashboard is open) */}
+        {!showHistory && (
+          <div className="w-full bg-neutral-100 border-b border-neutral-200/90 z-20 fixed top-[65px] left-0 right-0">
+            <div className="flex w-full">
+              {MENU_DATA.map((cat) => {
+                const isActive = cat.id === activeCategory;
+                return (
+                  <button
+                    key={cat.id}
+                    onClick={() => setActiveCategory(cat.id)}
+                    className={`flex-1 h-12 px-1 text-center text-xs font-bold tracking-wide transition-all duration-200 relative cursor-pointer select-none flex items-center justify-center ${
+                      isActive
+                        ? 'bg-neutral-900 text-white shadow-inner'
+                        : 'text-neutral-700 hover:text-neutral-900 bg-neutral-100 hover:bg-neutral-200/70'
+                    }`}
+                  >
+                    <span className={`transition-all duration-200 truncate ${isActive ? 'animated-gradient-text font-black' : 'text-neutral-700 font-semibold'}`}>
+                      {cat.title}
+                    </span>
+                    {isActive && (
+                      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-400 via-rose-500 to-cyan-400 animate-pulse"></div>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* MAIN CONTENT & SERVICES LIST */}
-        <main className="flex-1 overflow-y-auto bg-white px-4 pt-[130px] pb-32 space-y-4">
-          <div className="space-y-3.5">
-            {currentCategoryData.services.map((service) => {
-              const cartItem = cart.find((c) => c.id === service.id);
-              const qty = cartItem ? cartItem.quantity : 0;
+        {/* MAIN VIEW: OWNER DASHBOARD OR SERVICES LIST */}
+        {showHistory ? (
+          <main className="w-full overflow-y-auto bg-neutral-50 px-4 pt-[85px] pb-32 space-y-4 z-10">
+            
+            <button
+              onClick={() => setShowHistory(false)}
+              className="w-full bg-neutral-950 hover:bg-neutral-900 text-amber-400 py-3 rounded-2xl text-xs font-black flex items-center justify-center gap-2 shadow-md cursor-pointer transition-all active:scale-95"
+            >
+              <span>← Return to Menu & Take Booking</span>
+            </button>
 
-              return (
-                <div
-                  key={service.id}
-                  className="group bg-white border border-neutral-200/90 hover:border-neutral-300 rounded-2xl flex items-stretch h-28 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden"
-                >
-                  <div className="relative w-28 h-full bg-neutral-100 flex-shrink-0 overflow-hidden">
-                    <img
-                      src={service.image}
-                      alt={service.name}
-                      className="w-full h-full object-cover rounded-l-2xl group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="bg-white border border-neutral-200 p-4 rounded-3xl shadow-sm flex flex-col justify-between">
+                <span className="text-[10px] uppercase font-extrabold tracking-wider text-amber-600">Total Revenue Today</span>
+                <h3 className="text-2xl font-black text-neutral-900 mt-2">£{totalRevenue.toFixed(2)}</h3>
+                <p className="text-[10px] text-neutral-500 mt-1">Live POS Stream</p>
+              </div>
 
-                  <div className="flex-1 min-w-0 p-3 flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-center justify-between gap-1 mb-1">
-                        <h3 className="text-xs font-bold text-neutral-950 truncate tracking-tight">
-                          {service.name}
-                        </h3>
-                        {service.badge && (
-                          <span className="text-[9px] font-extrabold uppercase tracking-wider bg-amber-50 text-amber-700 border border-amber-200/80 px-2 py-0.5 rounded-md flex-shrink-0">
-                            {service.badge}
-                          </span>
-                        )}
+              <div className="bg-white border border-neutral-200 p-4 rounded-3xl shadow-sm flex flex-col justify-between">
+                <span className="text-[10px] uppercase font-extrabold tracking-wider text-emerald-600">Completed Bookings</span>
+                <h3 className="text-2xl font-black text-neutral-900 mt-2">{orderHistory.length}</h3>
+                <p className="text-[10px] text-neutral-500 mt-1">Stripe Verified</p>
+              </div>
+            </div>
+
+            <div className="space-y-3 pt-2">
+              <div className="flex justify-between items-center px-1">
+                <h3 className="text-xs font-black uppercase tracking-wider text-neutral-600">Live Orders Stream</h3>
+                <span className="text-[10px] bg-emerald-100 text-emerald-700 border border-emerald-300 px-2 py-0.5 rounded-full font-extrabold">● Real-time Sync</span>
+              </div>
+
+              {orderHistory.length === 0 ? (
+                <div className="bg-white border border-neutral-200 p-8 rounded-3xl text-center space-y-2 shadow-xs">
+                  <span className="text-2xl">✂️</span>
+                  <p className="text-xs font-bold text-neutral-800">No bookings placed yet</p>
+                  <p className="text-[11px] text-neutral-500">Go to menu and place a test booking to see live updates instantly on this dashboard.</p>
+                </div>
+              ) : (
+                orderHistory.map((order) => (
+                  <div key={order.orderId} className="bg-white border border-neutral-200 p-4 rounded-2xl shadow-xs flex justify-between items-center transition-all hover:border-amber-400">
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-black text-neutral-900">{order.orderId}</span>
+                        <span className="text-[9px] bg-emerald-100 text-emerald-700 border border-emerald-300 px-2 py-0.5 rounded-md font-extrabold">Paid (Stripe)</span>
                       </div>
-                      <p className="text-[11px] text-neutral-800 line-clamp-2 leading-relaxed font-medium">
-                        {service.description}
+                      <p className="text-xs font-bold text-neutral-700">
+                        {order.items.map(i => `${i.quantity}x ${i.name}`).join(', ')}
                       </p>
+                      <span className="text-[10px] text-neutral-400 font-mono">🕒 {order.time}</span>
+                    </div>
+                    <span className="text-base font-black text-neutral-900 font-mono">£{order.totalAmount.toFixed(2)}</span>
+                  </div>
+                ))
+              )}
+            </div>
+          </main>
+        ) : (
+          <main className="flex-1 overflow-y-auto bg-white px-4 pt-[130px] pb-32 space-y-4">
+            <div className="space-y-3.5">
+              {currentCategoryData.services.map((service) => {
+                const cartItem = cart.find((c) => c.id === service.id);
+                const qty = cartItem ? cartItem.quantity : 0;
+
+                return (
+                  <div
+                    key={service.id}
+                    className="group bg-white border border-neutral-200/90 hover:border-neutral-300 rounded-2xl flex items-stretch h-28 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden"
+                  >
+                    <div className="relative w-28 h-full bg-neutral-100 flex-shrink-0 overflow-hidden">
+                      <img
+                        src={service.image}
+                        alt={service.name}
+                        className="w-full h-full object-cover rounded-l-2xl group-hover:scale-105 transition-transform duration-300"
+                      />
                     </div>
 
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-black text-neutral-950 tracking-tight">
-                        {service.price}
-                      </span>
+                    <div className="flex-1 min-w-0 p-3 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between gap-1 mb-1">
+                          <h3 className="text-xs font-bold text-neutral-950 truncate tracking-tight">
+                            {service.name}
+                          </h3>
+                          {service.badge && (
+                            <span className="text-[9px] font-extrabold uppercase tracking-wider bg-amber-50 text-amber-700 border border-amber-200/80 px-2 py-0.5 rounded-md flex-shrink-0">
+                              {service.badge}
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-[11px] text-neutral-800 line-clamp-2 leading-relaxed font-medium">
+                          {service.description}
+                        </p>
+                      </div>
 
-                      {qty === 0 ? (
-                        <button
-                          onClick={() => addToCart(service)}
-                          className="bg-neutral-950 hover:bg-neutral-800 text-amber-400 px-3 py-1 rounded-xl text-xs font-extrabold active:scale-95 cursor-pointer"
-                        >
-                          + Select
-                        </button>
-                      ) : (
-                        <div className="flex items-center gap-2 bg-neutral-100 border border-neutral-300 rounded-xl px-2 py-1">
-                          <button
-                            onClick={() => decreaseQuantity(service.id)}
-                            className="w-5 h-5 bg-white border border-neutral-300 text-neutral-800 font-bold rounded-md flex items-center justify-center active:scale-90 cursor-pointer text-xs"
-                          >
-                            -
-                          </button>
-                          <span className="text-xs font-extrabold text-neutral-900 w-3 text-center">{qty}</span>
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-black text-neutral-950 tracking-tight">
+                          {service.price}
+                        </span>
+
+                        {qty === 0 ? (
                           <button
                             onClick={() => addToCart(service)}
-                            className="w-5 h-5 bg-neutral-950 text-amber-400 font-bold rounded-md flex items-center justify-center active:scale-90 cursor-pointer text-xs"
+                            className="bg-neutral-950 hover:bg-neutral-800 text-amber-400 px-3 py-1 rounded-xl text-xs font-extrabold active:scale-95 cursor-pointer"
                           >
-                            +
+                            + Select
                           </button>
-                        </div>
-                      )}
+                        ) : (
+                          <div className="flex items-center gap-2 bg-neutral-100 border border-neutral-300 rounded-xl px-2 py-1">
+                            <button
+                              onClick={() => decreaseQuantity(service.id)}
+                              className="w-5 h-5 bg-white border border-neutral-300 text-neutral-800 font-bold rounded-md flex items-center justify-center active:scale-90 cursor-pointer text-xs"
+                            >
+                              -
+                            </button>
+                            <span className="text-xs font-extrabold text-neutral-900 w-3 text-center">{qty}</span>
+                            <button
+                              onClick={() => addToCart(service)}
+                              className="w-5 h-5 bg-neutral-950 text-amber-400 font-bold rounded-md flex items-center justify-center active:scale-90 cursor-pointer text-xs"
+                            >
+                              +
+                            </button>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
-        </main>
+                );
+              })}
+            </div>
+          </main>
+        )}
 
         {/* FOOTER & CHECKOUT BAR */}
         <footer className="bg-neutral-950/95 backdrop-blur-md border-t border-neutral-800 p-3.5 fixed bottom-0 left-0 right-0 z-30 shadow-lg space-y-2">
-          {cart.length > 0 && (
+          {cart.length > 0 && !showHistory && (
             <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-3 flex items-center justify-between">
               <div>
                 <p className="text-[10px] uppercase tracking-wider text-amber-400 font-bold">
@@ -468,9 +552,9 @@ export default function BarberMenuPage() {
           paymentSuccess={paymentSuccess}
           onPaymentSubmit={handleStripePayment}
           onSuccessClose={() => {
-            setCart([]);
             setPaymentSuccess(false);
             setIsStripeModalOpen(false);
+            setShowHistory(true);
           }}
           shopName="Barber King"
         />

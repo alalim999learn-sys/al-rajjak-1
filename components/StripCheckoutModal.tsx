@@ -9,7 +9,7 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface CartItem {
   id: string;
@@ -28,7 +28,7 @@ interface StripeCheckoutModalProps {
   paymentSuccess: boolean;
   onPaymentSubmit: (e: React.FormEvent) => void;
   onSuccessClose: () => void;
-  shopName?: string; // 👈 ডাইনামিক শপ নেম প্রপস
+  shopName?: string;
 }
 
 export default function StripeCheckoutModal({
@@ -40,11 +40,19 @@ export default function StripeCheckoutModal({
   paymentSuccess,
   onPaymentSubmit,
   onSuccessClose,
-  shopName = 'Astral Café', // ডিফল্ট ক্যাফে নাম দেওয়া হলো
+  shopName = 'Astral Café',
 }: StripeCheckoutModalProps) {
   const [cardNumber, setCardNumber] = useState('');
   const [expiry, setExpiry] = useState('');
   const [cvc, setCvc] = useState('');
+
+  useEffect(() => {
+    if (!isOpen || paymentSuccess) {
+      setCardNumber('');
+      setExpiry('');
+      setCvc('');
+    }
+  }, [isOpen, paymentSuccess]);
 
   if (!isOpen) return null;
 
@@ -148,7 +156,7 @@ export default function StripeCheckoutModal({
               <div className="flex-grow border-t border-slate-200"></div>
             </div>
 
-            <form onSubmit={onPaymentSubmit} className="space-y-3">
+            <form onSubmit={onPaymentSubmit} className="space-y-3" autoComplete="off">
               <div>
                 <label className="block text-[11px] font-bold text-slate-600 mb-1">Card Information</label>
                 <input 
@@ -158,6 +166,8 @@ export default function StripeCheckoutModal({
                   placeholder="4242 4242 4242 4242" 
                   maxLength={19}
                   required
+                  autoComplete="off"
+                  name="fake-card-field-1"
                   className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 text-xs text-slate-900 focus:outline-indigo-600 tracking-wider font-mono"
                 />
               </div>
@@ -172,30 +182,34 @@ export default function StripeCheckoutModal({
                     placeholder="MM / YY" 
                     maxLength={5}
                     required
+                    autoComplete="off"
+                    name="fake-expiry-field-1"
                     className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 text-xs text-slate-900 focus:outline-indigo-600 tracking-wider font-mono"
                   />
                 </div>
                 <div>
                   <label className="block text-[11px] font-bold text-slate-600 mb-1">CVC</label>
                   <input 
-                    type="text" 
+                    type="password" 
                     value={cvc}
                     onChange={handleCvcChange}
                     placeholder="CVC" 
                     maxLength={4}
                     required
+                    autoComplete="new-password"
+                    name="fake-cvc-field-1"
                     className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 text-xs text-slate-900 focus:outline-indigo-600 tracking-wider font-mono"
                   />
                 </div>
               </div>
 
               <button
-  type="submit"
-  disabled={isProcessing}
-  className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-black py-3.5 rounded-xl text-xs uppercase tracking-wider shadow-lg transition-all active:scale-95 cursor-pointer disabled:opacity-50 mt-4"
->
-  {isProcessing ? 'Processing Secure Payment...' : `Pay £${totalPrice.toFixed(2)} Now`}
-</button>
+                type="submit"
+                disabled={isProcessing}
+                className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-black py-3.5 rounded-xl text-xs uppercase tracking-wider shadow-lg transition-all active:scale-95 cursor-pointer disabled:opacity-50 mt-4"
+              >
+                {isProcessing ? 'Processing Secure Payment...' : `Pay £${totalPrice.toFixed(2)} Now`}
+              </button>
             </form>
           </div>
         )}
